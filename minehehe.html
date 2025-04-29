@@ -1,374 +1,716 @@
-<!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TekCube</title>
-    <style>
-        body {
-            margin: 0;
-            display: flex;
-            background-color: #1a1a1a;
-            font-family: 'Arial', sans-serif;
-            color: #fff;
-        }
-        canvas {
-            display: block;
-            background-color: #333;
-            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
-        }
-        #sidebar {
-            width: 260px;
-            background-color: #252525;
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 3px 0px 18px rgba(0, 0, 0, 0.6);
-        }
-        .block-button {
-            width: 80px;
-            height: 80px;
-            margin: 18px 0;
-            border: none;
-            cursor: pointer;
-            border-radius: 15px;
-            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
-            opacity: 0.9;
-        }
-        .block-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
-            opacity: 1;
-        }
-        .block-button:active {
-            transform: scale(0.95);
-            opacity: 0.8;
-        }
-        #brick-block {
-            background-image: url('img/brick-texture.jpeg');
-            background-size: cover;
-            background-position: center;
-        }
-        #wood-block {
-            background-image: url('img/wood-texture.jpeg');
-            background-size: cover;
-            background-position: center;
-        }
-        #platform-size {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-        #platform-size label {
-            margin: 10px 0;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        #platform-size input {
-            width: 100px;
-            padding: 10px;
-            font-size: 14px;
-            border-radius: 6px;
-            border: 1px solid #444;
-            background-color: #555;
-            color: #fff;
-            margin-bottom: 20px;
-        }
-        #resize-platform {
-            padding: 15px 30px;
-            background-color: #FF9A00;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 10px;
-            transition: background-color 0.3s, transform 0.2s;
-            width: 100%;
-        }
-        #resize-platform:hover {
-            background-color: #e78700;
-            transform: scale(1.05);
-        }
-        #resize-platform:active {
-            background-color: #d67600;
-        }
-        #manual {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            background-color: rgb(255, 255, 255);
-            color: #000000;
-            padding: 20px;
-            width: 320px;
-            height: 300px;
-            overflow-y: auto;
-            border-radius: 12px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
-            display: none;
-        }
-        #manual h3 {
-            margin: 0;
-            font-size: 20px;
-            color: #FF9A00;
-            margin-bottom: 10px;
-        }
-        #manual ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        #manual ul li {
-            margin: 12px 0;
-            font-size: 14px;
-        }
-        #manual-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: #FF9A00;
-            color: white;
-            border: none;
-            padding: 12px 18px;
-            cursor: pointer;
-            border-radius: 10px;
-            font-size: 14px;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        #manual-button:hover {
-            background-color: #e78700;
-            transform: scale(1.05);
-        }
-        #manual-button:active {
-            background-color: #d67600;
-        }
-        #watermark {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            opacity: 0.3;
-            pointer-events: none;
-        }
-    </style>
-</head>
-<body>
-    <div id="sidebar">
-        
-        <button id="brick-block" class="block-button" data-color="#ff0000"></button>
-        <button id="wood-block" class="block-button" data-color="#0000ff"></button>
-        <button class="block-button" style="background-color: green;" data-color="#00ff00"></button>
-        <button class="block-button" style="background-color: yellow;" data-color="#ffff00"></button>
-        <button class="block-button" style="background-color: purple;" data-color="#800080"></button>
-        <div id="platform-size">
-            <label for="platform-width">Largura:</label>
-            <input type="number" id="platform-width" value="20" min="1" max="100">
-            <label for="platform-depth">Profundidade:</label>
-            <input type="number" id="platform-depth" value="20" min="1" max="100">
-            <button id="resize-platform">Redimensionar Plataforma</button>
-        </div>
-        
-    </div>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   TekCube
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+   body,
+    html {
+      margin: 0;
+      height: 100%;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      font-family: 'Poppins', sans-serif;
+      color: #f0f0f0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+    }
+    #manual {
+      scrollbar-width: thin;
+      scrollbar-color: #ff9a00 #1f2937;
+    }
+    #manual::-webkit-scrollbar {
+      width: 8px;
+    }
+    #manual::-webkit-scrollbar-track {
+      background: #1f2937;
+      border-radius: 8px;
+    }
+    #manual::-webkit-scrollbar-thumb {
+      background-color: #ff9a00;
+      border-radius: 8px;
+      border: 2px solid #1f2937;
+    }
+    canvas {
+      display: block;
+      box-shadow: 0 0 40px rgba(255, 154, 0, 0.6);
+      border-radius: 20px;
+      background-color: #111827;
+      cursor: crosshair;
+      max-width: 100vw;
+      max-height: 100vh;
+      touch-action: none;
+    }
+    .block-button {
+      box-shadow: 0 8px 20px rgba(255, 154, 0, 0.4);
+      transition: all 0.3s ease;
+      border-radius: 16px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .block-button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, #ff9a00, #ff6a00);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 16px;
+      z-index: 0;
+    }
+    .block-button:hover::before {
+      opacity: 0.3;
+    }
+    .block-button:focus-visible {
+      outline: none;
+      border-color: #ff9a00;
+      box-shadow: 0 0 12px #ff9a00;
+    }
+    .block-button img {
+      border-radius: 16px;
+      position: relative;
+      z-index: 1;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+    #manual-button {
+      background: linear-gradient(45deg, #ff9a00, #ff6a00);
+      box-shadow: 0 6px 15px rgba(255, 154, 0, 0.6);
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.6rem 1.8rem;
+      transition: all 0.3s ease;
+      user-select: none;
+      border: none;
+      cursor: pointer;
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 60;
+      color: #1f2937;
+      text-shadow: 0 0 3px rgba(255, 154, 0, 0.7);
+    }
+    #manual-button:hover {
+      filter: brightness(1.1);
+      transform: scale(1.05);
+    }
+    #manual-button:active {
+      filter: brightness(0.9);
+      transform: scale(0.95);
+    }
+    #manual {
+      position: fixed;
+      top: 4.5rem;
+      right: 1.5rem;
+      background: #1f2937;
+      color: #fbbf24;
+      padding: 1.5rem 2rem;
+      width: 320px;
+      max-height: 320px;
+      overflow-y: auto;
+      border-radius: 20px;
+      box-shadow: 0 0 30px #ff9a00cc;
+      font-weight: 500;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      z-index: 55;
+      display: none;
+      user-select: text;
+    }
+    #manual h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffb347;
+      text-align: center;
+      text-shadow: 0 0 6px #ff9a00cc;
+    }
+    #manual ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    #manual ul li {
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    #manual ul li i {
+      color: #ff9a00;
+      min-width: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+      filter: drop-shadow(0 0 2px #ff9a00cc);
+    }
+    #sidebar {
+      background: #111827cc;
+      backdrop-filter: saturate(180%) blur(12px);
+      border-radius: 24px;
+      padding: 2rem 2rem 2rem 2rem;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.6rem;
+      box-shadow: 0 0 40px #ff9a00cc;
+      user-select: none;
+      z-index: 10;
+      position: fixed;
+      left: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    #platform-size label {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #fbbf24;
+      margin-bottom: 0.4rem;
+      user-select: text;
+      display: block;
+    }
+    #platform-size input {
+      width: 100%;
+      padding: 0.5rem 0.8rem;
+      font-size: 1rem;
+      border-radius: 12px;
+      border: 2px solid transparent;
+      background: #374151;
+      color: #fbbf24;
+      font-weight: 600;
+      text-align: center;
+      transition: border-color 0.3s ease;
+      user-select: text;
+    }
+    #platform-size input:focus {
+      outline: none;
+      border-color: #ff9a00;
+      box-shadow: 0 0 8px #ff9a00cc;
+      background: #4b5563;
+    }
+    #resize-platform {
+      margin-top: 1.2rem;
+      background: linear-gradient(45deg, #ff9a00, #ff6a00);
+      box-shadow: 0 8px 20px rgba(255, 154, 0, 0.7);
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.75rem 0;
+      color: #1f2937;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+      width: 100%;
+      text-shadow: 0 0 4px #ff9a00cc;
+    }
+    #resize-platform:hover {
+      filter: brightness(1.15);
+      transform: scale(1.05);
+    }
+    #resize-platform:active {
+      filter: brightness(0.85);
+      transform: scale(0.95);
+    }
+    #options {
+      width: 100%;
+      margin-top: 1rem;
+      background: #1f2937cc;
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 0 20px #ff9a00cc;
+      user-select: none;
+    }
+    #options h4 {
+      color: #ffb347;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      text-align: center;
+      text-shadow: 0 0 5px #ff9a00cc;
+      font-size: 1.2rem;
+    }
+    #options label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      color: #fbbf24;
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 0.6rem;
+      font-size: 0.95rem;
+    }
+    #options input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #ff9a00;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    #watermark {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      opacity: 0.15;
+      pointer-events: none;
+      user-select: none;
+      filter: drop-shadow(0 0 3px #ff9a00cc);
+      width: 140px;
+      height: auto;
+      z-index: 5;
+    }
+    @media (max-width: 768px) {
+      #sidebar {
+        position: fixed;
+        top: auto;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 95vw;
+        max-height: 180px;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        padding: 1rem 1rem 1rem 1rem;
+        gap: 1rem;
+        overflow-x: auto;
+        border-radius: 20px;
+        box-shadow: 0 0 30px #ff9a00cc;
+        z-index: 60;
+      }
+      #platform-size {
+        width: 140px;
+        margin-top: 0;
+        flex-grow: 0;
+      }
+      #platform-size label,
+      #platform-size input {
+        font-size: 0.85rem;
+      }
+      #resize-platform {
+        font-size: 0.9rem;
+        padding: 0.5rem 0;
+        width: 140px;
+      }
+      #options {
+        display: none;
+      }
+      #manual {
+        width: 90vw;
+        max-height: 280px;
+        top: auto;
+        bottom: 5rem;
+        right: 50%;
+        transform: translateX(50%);
+        border-radius: 16px;
+        padding: 1rem 1.5rem;
+        font-size: 0.9rem;
+      }
+      #manual-button {
+        top: 1rem;
+        right: 1rem;
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+      }
+      canvas {
+        border-radius: 16px;
+        box-shadow: 0 0 30px rgba(255, 154, 0, 0.5);
+      }
+    }
+  </style>
+ </head>
+ <body>
+  <aside aria-label="Seleção de blocos e configurações" id="sidebar" role="complementary" tabindex="0">
+   <button aria-label="Selecionar bloco vermelho com textura de tijolo" class="block-button" data-color="#ff0000" id="brick-block" title="Bloco Tijolo Vermelho" type="button">
+    <img alt="Bloco quadrado vermelho com textura de tijolo rústico detalhado" height="72" loading="lazy" src="https://storage.googleapis.com/a1aa/image/398195db-2d41-4e94-abaa-dce07304f091.jpg" width="72"/>
+   </button>
+   <button aria-label="Selecionar bloco azul com textura de madeira" class="block-button" data-color="#0000ff" id="wood-block" title="Bloco Madeira Azul" type="button">
+    <img alt="Bloco quadrado azul com textura de madeira natural detalhada" height="72" loading="lazy" src="https://storage.googleapis.com/a1aa/image/2843128b-afb0-4d7a-ad5f-4cb15872af2d.jpg" width="72"/>
+   </button>
+   <button aria-label="Selecionar bloco verde sólido" class="block-button bg-green-600" data-color="#00ff00" title="Bloco Verde" type="button">
+   </button>
+   <button aria-label="Selecionar bloco amarelo sólido" class="block-button bg-yellow-400" data-color="#ffff00" title="Bloco Amarelo" type="button">
+   </button>
+   <button aria-label="Selecionar bloco roxo sólido" class="block-button bg-purple-700" data-color="#800080" title="Bloco Roxo" type="button">
+   </button>
+   <div class="w-full mt-2" id="platform-size">
+    <label for="platform-width">
+     Largura:
+    </label>
+    <input aria-describedby="platform-width-desc" id="platform-width" inputmode="numeric" max="100" min="1" type="number" value="20"/>
+    <span class="sr-only" id="platform-width-desc">
+     Valor entre 1 e 100
+    </span>
+    <label class="mt-3" for="platform-depth">
+     Profundidade:
+    </label>
+    <input aria-describedby="platform-depth-desc" id="platform-depth" inputmode="numeric" max="100" min="1" type="number" value="20"/>
+    <span class="sr-only" id="platform-depth-desc">
+     Valor entre 1 e 100
+    </span>
+    <button aria-label="Redimensionar plataforma" id="resize-platform" type="button">
+     Redimensionar Plataforma
+    </button>
+   </div>
+   <div aria-label="Opções adicionais" id="options">
+    <h4>
+     Opções
+    </h4>
+    <label for="toggle-remove">
+     <input id="toggle-remove" type="checkbox"/>
+     Modo Remover Blocos (F)
+    </label>
+    <label for="toggle-shadow">
+     <input checked="" id="toggle-shadow" type="checkbox"/>
+     Mostrar Sombra
+    </label>
+    <label for="toggle-grid">
+     <input checked="" id="toggle-grid" type="checkbox"/>
+     Mostrar Grade
+    </label>
+    <label for="toggle-damping">
+     <input checked="" id="toggle-damping" type="checkbox"/>
+     Suavizar Câmera
+    </label>
+   </div>
+  </aside>
+  <main aria-label="Área 3D da plataforma" class="flex-1 flex justify-center items-center p-6" role="main">
+   <canvas aria-label="Visualização 3D da plataforma TekCube" id="three-canvas" tabindex="0">
+   </canvas>
+  </main>
+  <section aria-label="Manual de Controle" aria-live="polite" id="manual" role="region">
+   <h3>
+    Manual de Controle
+   </h3>
+   <ul>
+    <li>
+     <i class="fas fa-mouse-pointer">
+     </i>
+     Clique em uma cor para selecioná-la.
+    </li>
+    <li>
+     <i class="fas fa-cube">
+     </i>
+     Clique na plataforma para adicionar blocos exatamente onde o mouse está.
+    </li>
+    <li>
+     <i class="fas fa-arrows-alt">
+     </i>
+     Arraste o mouse para mover a câmera.
+    </li>
+    <li>
+     <i class="fas fa-search-plus">
+     </i>
+     Use o scroll para aproximar e afastar a câmera.
+    </li>
+    <li>
+     <i class="fas fa-redo">
+     </i>
+     Pressione 'R' para redefinir o tamanho da plataforma.
+    </li>
+    <li>
+     <i class="fas fa-toggle-on">
+     </i>
+     Pressione 'F' para alternar entre adicionar e remover blocos.
+    </li>
+    <li>
+     <i class="fas fa-eye">
+     </i>
+     Use as opções para mostrar/ocultar sombra, grade e suavizar câmera.
+    </li>
+   </ul>
+  </section>
+  <button aria-controls="manual" aria-expanded="false" aria-label="Mostrar ou esconder manual de controle" id="manual-button" type="button">
+   Manual
+  </button>
+  <img alt="Logotipo TekCube em marca d'água semi-transparente" aria-hidden="true" height="40" id="watermark" src="https://storage.googleapis.com/a1aa/image/71fb5c00-983e-49e6-a8a1-f6d7bb4a38ca.jpg" width="140"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js">
+  </script>
+  <script>
+   const canvas = document.getElementById('three-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x111827, 1);
 
-    <!-- Manual de Controle -->
-    <div id="manual">
-        <h3>Manual de Controle</h3>
-        <ul>
-            <li>Clique em uma cor para selecioná-la.</li>
-            <li>Clique na plataforma para adicionar blocos.</li>
-            <li>Arraste o mouse para mover a câmera.</li>
-            <li>Use o scroll para aproximar e afastar a câmera.</li>
-            <li>Pressione 'R' para redefinir o tamanho da plataforma.</li>
-            <li>Pressione 'F' para alternar entre adicionar e remover blocos.</li>
-        </ul>
-    </div>
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.screenSpacePanning = false;
+    controls.maxPolarAngle = Math.PI / 2;
 
-    <button id="manual-button"> Manual</button>
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(0, 1, 1).normalize();
+    scene.add(light);
 
-    <!-- Watermark Image -->
-    <img id="watermark" src="img/latsflaubranco-removebg-preview.png" alt="Watermark">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
-    <script>
-              const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+    let platform;
+    function createPlatform(width, depth) {
+      if (platform) scene.remove(platform);
+      const platformGeometry = new THREE.PlaneGeometry(width, depth);
+      const platformMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
+      platform = new THREE.Mesh(platformGeometry, platformMaterial);
+      platform.rotation.x = -Math.PI / 2;
+      platform.position.y = -0.5;
+      scene.add(platform);
+    }
 
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        controls.screenSpacePanning = false;
-        controls.maxPolarAngle = Math.PI / 2;
+    let platformWidth = 20;
+    let platformDepth = 20;
+    createPlatform(platformWidth, platformDepth);
 
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-        light.position.set(0, 1, 1).normalize();
-        scene.add(light);
+    let gridHelper;
+    function createGridHelper(width, depth) {
+      if (gridHelper) scene.remove(gridHelper);
+      gridHelper = new THREE.GridHelper(width, depth, 0x000000, 0x000000);
+      gridHelper.material.opacity = 0.15;
+      gridHelper.material.transparent = true;
+      scene.add(gridHelper);
+    }
 
-        let platform;
-        function createPlatform(width, depth) {
-            if (platform) scene.remove(platform);
-            const platformGeometry = new THREE.PlaneGeometry(width, depth);
-            const platformMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
-            platform = new THREE.Mesh(platformGeometry, platformMaterial);
-            platform.rotation.x = -Math.PI / 2;
-            platform.position.y = -0.5;
-            scene.add(platform);
+    createGridHelper(platformWidth, platformDepth);
+
+    const shadowMaterialAdd = new THREE.MeshBasicMaterial({
+      color: 0x000000,
+      opacity: 0.5,
+      transparent: true,
+    });
+    const shadowMaterialRemove = new THREE.MeshBasicMaterial({
+      color: 0xff0000,
+      opacity: 0,
+      transparent: true,
+    });
+    const shadowGeometry = new THREE.PlaneGeometry(1, 1);
+    const shadowMeshAdd = new THREE.Mesh(shadowGeometry, shadowMaterialAdd);
+    const shadowMeshRemove = new THREE.Mesh(shadowGeometry, shadowMaterialRemove);
+    shadowMeshAdd.rotation.x = -Math.PI / 2;
+    shadowMeshRemove.rotation.x = -Math.PI / 2;
+    scene.add(shadowMeshAdd);
+    scene.add(shadowMeshRemove);
+
+    let removingBlocks = false;
+    let shadowVisible = true;
+    let gridVisible = true;
+
+    function updateShadow(x, z) {
+      shadowMeshAdd.position.set(x, 0.01, z);
+      shadowMeshRemove.position.set(x, 0.01, z);
+      shadowMeshAdd.visible = shadowVisible && !removingBlocks;
+      shadowMeshRemove.visible = shadowVisible && removingBlocks;
+    }
+
+    camera.position.set(10, 10, 10);
+    controls.update();
+
+    let blockColor = 0xff0000;
+
+    function createBlock(x, y, z, color) {
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const material = new THREE.MeshPhongMaterial({ color });
+      const block = new THREE.Mesh(geometry, material);
+      block.position.set(x, y, z);
+      scene.add(block);
+      return block;
+    }
+
+    let blocks = [];
+
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    // Track last intersect point for placing blocks exactly where mouse is
+    let lastIntersectPoint = null;
+
+    function onMouseMove(event) {
+      const rect = renderer.domElement.getBoundingClientRect();
+      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+
+      const intersects = raycaster.intersectObjects([platform, ...blocks]);
+      if (intersects.length > 0) {
+        const intersect = intersects[0];
+        lastIntersectPoint = intersect.point.clone();
+        updateShadow(
+          Math.round(intersect.point.x),
+          Math.round(intersect.point.z)
+        );
+      } else {
+        lastIntersectPoint = null;
+        shadowMeshAdd.visible = false;
+        shadowMeshRemove.visible = false;
+      }
+    }
+
+    function onClick(event) {
+      if (!lastIntersectPoint) return;
+
+      const x = Math.round(lastIntersectPoint.x);
+      const z = Math.round(lastIntersectPoint.z);
+
+      if (removingBlocks) {
+        const blocksAtPosition = blocks.filter(
+          (block) =>
+            Math.abs(block.position.x - x) < 0.1 &&
+            Math.abs(block.position.z - z) < 0.1
+        );
+        if (blocksAtPosition.length > 0) {
+          const highestBlock = blocksAtPosition.reduce((prev, curr) =>
+            prev.position.y > curr.position.y ? prev : curr
+          );
+          scene.remove(highestBlock);
+          blocks = blocks.filter((block) => block !== highestBlock);
         }
+      } else {
+        let highestY = -0.5; // Inicializa como a altura da plataforma
+        blocks.forEach((block) => {
+          if (
+            Math.abs(block.position.x - x) < 0.5 &&
+            Math.abs(block.position.z - z) < 0.5
+          ) {
+            if (block.position.y > highestY) {
+              highestY = block.position.y;
+            }
+          }
+        });
 
-        let platformWidth = 20;
-        let platformDepth = 20;
+        const y = highestY + 1; // Altura do novo bloco empilhado
+        const block = createBlock(x, y, z, blockColor);
+        blocks.push(block);
+      }
+    }
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('click', onClick);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Keyboard shortcuts
+    window.addEventListener('keydown', (event) => {
+      if (event.key.toLowerCase() === 'f') {
+        removingBlocks = !removingBlocks;
+        shadowMaterialAdd.opacity = removingBlocks ? 0 : shadowVisible ? 0.5 : 0;
+        shadowMaterialRemove.opacity = removingBlocks ? (shadowVisible ? 0.5 : 0) : 0;
+        document.getElementById('toggle-remove').checked = removingBlocks;
+      }
+      if (event.key.toLowerCase() === 'r') {
+        platformWidth = 20;
+        platformDepth = 20;
+        document.getElementById('platform-width').value = platformWidth;
+        document.getElementById('platform-depth').value = platformDepth;
         createPlatform(platformWidth, platformDepth);
-
-        let gridHelper;
-        function createGridHelper(width, depth) {
-            if (gridHelper) scene.remove(gridHelper);
-            gridHelper = new THREE.GridHelper(width, depth, 0x000000, 0x000000);
-            scene.add(gridHelper);
-        }
-
         createGridHelper(platformWidth, platformDepth);
+      }
+    });
 
-        const shadowMaterialAdd = new THREE.MeshBasicMaterial({ color: 0x000000, opacity: 0.5, transparent: true });
-        const shadowMaterialRemove = new THREE.MeshBasicMaterial({ color: 0xff0000, opacity: 0.5, transparent: true });
-        const shadowGeometry = new THREE.PlaneGeometry(1, 1);
-        const shadowMeshAdd = new THREE.Mesh(shadowGeometry, shadowMaterialAdd);
-        const shadowMeshRemove = new THREE.Mesh(shadowGeometry, shadowMaterialRemove);
-        shadowMeshAdd.rotation.x = -Math.PI / 2;
-        shadowMeshRemove.rotation.x = -Math.PI / 2;
-        scene.add(shadowMeshAdd);
-        scene.add(shadowMeshRemove);
+    document.getElementById('resize-platform').addEventListener('click', () => {
+      const widthInput = document.getElementById('platform-width');
+      const depthInput = document.getElementById('platform-depth');
+      let newWidth = parseInt(widthInput.value);
+      let newDepth = parseInt(depthInput.value);
+      if (isNaN(newWidth) || newWidth < 1) newWidth = 1;
+      if (isNaN(newDepth) || newDepth < 1) newDepth = 1;
+      if (newWidth > 100) newWidth = 100;
+      if (newDepth > 100) newDepth = 100;
+      platformWidth = newWidth;
+      platformDepth = newDepth;
+      createPlatform(platformWidth, platformDepth);
+      createGridHelper(platformWidth, platformDepth);
+    });
 
-        let shadowVisible = true;
-        let removingBlocks = false;
+    const blockButtons = document.querySelectorAll('.block-button');
+    blockButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        blockColor = button.getAttribute('data-color');
+        shadowMaterialAdd.color.set(blockColor);
+        // Highlight selected button
+        blockButtons.forEach((btn) => btn.classList.remove('ring-4', 'ring-orange-400'));
+        button.classList.add('ring-4', 'ring-orange-400');
+      });
+    });
+    // Initialize first selected block highlight
+    document.getElementById('brick-block').classList.add('ring-4', 'ring-orange-400');
 
-        function updateShadow(x, z) {
-            shadowMeshAdd.position.set(x + 0.5, 0.01, z + 0.5);
-            shadowMeshRemove.position.set(x + 0.5, 0.01, z + 0.5);
-            shadowMeshAdd.visible = shadowVisible && !removingBlocks;
-            shadowMeshRemove.visible = shadowVisible && removingBlocks;
-        }
+    // Manual toggle
+    const manualButton = document.getElementById('manual-button');
+    const manual = document.getElementById('manual');
+    manualButton.addEventListener('click', () => {
+      if (manual.style.display === 'block') {
+        manual.style.display = 'none';
+        manualButton.setAttribute('aria-expanded', 'false');
+      } else {
+        manual.style.display = 'block';
+        manualButton.setAttribute('aria-expanded', 'true');
+      }
+    });
 
-        
+    // Options toggles
+    const toggleRemove = document.getElementById('toggle-remove');
+    const toggleShadow = document.getElementById('toggle-shadow');
+    const toggleGrid = document.getElementById('toggle-grid');
+    const toggleDamping = document.getElementById('toggle-damping');
 
-        camera.position.set(10, 10, 10);
-        controls.update();
+    toggleRemove.addEventListener('change', () => {
+      removingBlocks = toggleRemove.checked;
+      shadowMaterialAdd.opacity = removingBlocks ? 0 : shadowVisible ? 0.5 : 0;
+      shadowMaterialRemove.opacity = removingBlocks ? (shadowVisible ? 0.5 : 0) : 0;
+    });
 
-        let blockColor = 0xff0000;
+    toggleShadow.addEventListener('change', () => {
+      shadowVisible = toggleShadow.checked;
+      shadowMeshAdd.visible = shadowVisible && !removingBlocks;
+      shadowMeshRemove.visible = shadowVisible && removingBlocks;
+    });
 
-        function createBlock(x, y, z, color) {
-            const geometry = new THREE.BoxGeometry(1, 1, 1);
-            const material = new THREE.MeshPhongMaterial({ color });
-            const block = new THREE.Mesh(geometry, material);
-            block.position.set(x, y, z);
-            scene.add(block);
-            return block;
-        }
+    toggleGrid.addEventListener('change', () => {
+      gridVisible = toggleGrid.checked;
+      if (gridHelper) gridHelper.visible = gridVisible;
+    });
 
-        let blocks = [];
+    toggleDamping.addEventListener('change', () => {
+      controls.enableDamping = toggleDamping.checked;
+    });
 
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
-
-        function onMouseMove(event) {
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-            raycaster.setFromCamera(mouse, camera);
-
-            const intersects = raycaster.intersectObjects([platform, ...blocks]);
-            if (intersects.length > 0) {
-                const intersect = intersects[0];
-                const x = Math.floor(intersect.point.x);
-                const z = Math.floor(intersect.point.z);
-                updateShadow(x, z);
-            }
-        }
-
-        function onClick(event) {
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-            raycaster.setFromCamera(mouse, camera);
-
-            const intersects = raycaster.intersectObjects([platform, ...blocks]);
-            if (intersects.length > 0) {
-                const intersect = intersects[0];
-                const x = Math.floor(intersect.point.x);
-                const z = Math.floor(intersect.point.z);
-
-                if (removingBlocks) {
-                    const blocksAtPosition = blocks.filter(block => Math.abs(block.position.x - (x + 0.5)) < 0.1 && Math.abs(block.position.z - (z + 0.5)) < 0.1);
-                    if (blocksAtPosition.length > 0) {
-                        const highestBlock = blocksAtPosition.reduce((prev, curr) => prev.position.y > curr.position.y ? prev : curr);
-                        scene.remove(highestBlock);
-                        blocks = blocks.filter(block => block !== highestBlock);
-                    }
-                } else {
-                    let highestY = -0.5; // Inicializa como a altura da plataforma
-                    blocks.forEach(block => {
-                        if (Math.abs(block.position.x - (x + 0.5)) < 0.5 && Math.abs(block.position.z - (z + 0.5)) < 0.5) {
-                            if (block.position.y > highestY) {
-                                highestY = block.position.y;
-                            }
-                        }
-                    });
-
-                    const y = highestY + 1; // Altura do novo bloco empilhado
-                    const block = createBlock(x + 0.5, y, z + 0.5, blockColor);
-                    blocks.push(block);
-                }
-            }
-        }
-
-        window.addEventListener('mousemove', onMouseMove);
-        window.addEventListener('click', onClick);
-
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update();
-            renderer.render(scene, camera);
-        }
-        animate();
-
-     window.addEventListener('keydown', (event) => {
-            if (event.key === 'f') {
-                removingBlocks = !removingBlocks;
-                shadowMaterialAdd.opacity = removingBlocks ? 0 : 0.5;
-                shadowMaterialRemove.opacity = removingBlocks ? 0.5 : 0;
-            }
-        });
-
-        window.addEventListener('keydown', (event) => {
-            if (event.key === 'r') {
-                platformWidth = 20;
-                platformDepth = 20;
-                createPlatform(platformWidth, platformDepth);
-                createGridHelper(platformWidth, platformDepth);
-            }
-        });
-
-        document.getElementById('resize-platform').addEventListener('click', () => {
-            platformWidth = document.getElementById('platform-width').value;
-            platformDepth = document.getElementById('platform-depth').value;
-            createPlatform(platformWidth, platformDepth);
-            createGridHelper(platformWidth, platformDepth);
-        });
-
-        const blockButtons = document.querySelectorAll('.block-button');
-        blockButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                blockColor = button.getAttribute('data-color');
-                shadowMaterialAdd.color.set(blockColor);
-            });
-        });
-
-        document.getElementById('manual-button').addEventListener('click', () => {
-            const manual = document.getElementById('manual');
-            manual.style.display = manual.style.display === 'none' ? 'block' : 'none';
-        });
-    </script>
-</body>
+    // Responsive resize
+    window.addEventListener('resize', () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+  </script>
+ </body>
 </html>
