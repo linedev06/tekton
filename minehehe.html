@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TekCube</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            background-color: #1a1a1a;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+        }
+        canvas {
+            display: block;
+            background-color: #333;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+        #sidebar {
+            width: 260px;
+            background-color: #252525;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 3px 0px 18px rgba(0, 0, 0, 0.6);
+        }
+        .block-button {
+            width: 80px;
+            height: 80px;
+            margin: 18px 0;
+            border: none;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+            opacity: 0.9;
+        }
+        .block-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8);
+            opacity: 1;
+        }
+        .block-button:active {
+            transform: scale(0.95);
+            opacity: 0.8;
+        }
+        #brick-block {
+            background-image: url('img/brick-texture.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+        #wood-block {
+            background-image: url('img/wood-texture.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+        #platform-size {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        #platform-size label {
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        #platform-size input {
+            width: 100px;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background-color: #555;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        #resize-platform {
+            padding: 15px 30px;
+            background-color: #FF9A00;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+        }
+        #resize-platform:hover {
+            background-color: #e78700;
+            transform: scale(1.05);
+        }
+        #resize-platform:active {
+            background-color: #d67600;
+        }
+        #manual {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background-color: rgb(255, 255, 255);
+            color: #000000;
+            padding: 20px;
+            width: 320px;
+            height: 300px;
+            overflow-y: auto;
+            border-radius: 12px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
+            display: none;
+        }
+        #manual h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #FF9A00;
+            margin-bottom: 10px;
+        }
+        #manual ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        #manual ul li {
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        #manual-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #FF9A00;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        #manual-button:hover {
+            background-color: #e78700;
+            transform: scale(1.05);
+        }
+        #manual-button:active {
+            background-color: #d67600;
+        }
+        #watermark {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        
+        <button id="brick-block" class="block-button" data-color="#ff0000"></button>
+        <button id="wood-block" class="block-button" data-color="#0000ff"></button>
+        <button class="block-button" style="background-color: green;" data-color="#00ff00"></button>
+        <button class="block-button" style="background-color: yellow;" data-color="#ffff00"></button>
+        <button class="block-button" style="background-color: purple;" data-color="#800080"></button>
+        <div id="platform-size">
+            <label for="platform-width">Largura:</label>
+            <input type="number" id="platform-width" value="20" min="1" max="100">
+            <label for="platform-depth">Profundidade:</label>
+            <input type="number" id="platform-depth" value="20" min="1" max="100">
+            <button id="resize-platform">Redimensionar Plataforma</button>
+        </div>
+        
+    </div>
+
+    <!-- Manual de Controle -->
+    <div id="manual">
+        <h3>Manual de Controle</h3>
+        <ul>
+            <li>Clique em uma cor para selecioná-la.</li>
+            <li>Clique na plataforma para adicionar blocos.</li>
+            <li>Arraste o mouse para mover a câmera.</li>
+            <li>Use o scroll para aproximar e afastar a câmera.</li>
+            <li>Pressione 'R' para redefinir o tamanho da plataforma.</li>
+            <li>Pressione 'F' para alternar entre adicionar e remover blocos.</li>
+        </ul>
+    </div>
+
+    <button id="manual-button"> Manual</button>
+
+    <!-- Watermark Image -->
+    <img id="watermark" src="img/latsflaubranco-removebg-preview.png" alt="Watermark">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
+    <script>
+              const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.screenSpacePanning = false;
+        controls.maxPolarAngle = Math.PI / 2;
+
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(0, 1, 1).normalize();
+        scene.add(light);
+
+        let platform;
+        function createPlatform(width, depth) {
+            if (platform) scene.remove(platform);
+            const platformGeometry = new THREE.PlaneGeometry(width, depth);
+            const platformMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
+            platform = new THREE.Mesh(platformGeometry, platformMaterial);
+            platform.rotation.x = -Math.PI / 2;
+            platform.position.y = -0.5;
+            scene.add(platform);
+        }
+
+        let platformWidth = 20;
+        let platformDepth = 20;
+        createPlatform(platformWidth, platformDepth);
+
+        let gridHelper;
+        function createGridHelper(width, depth) {
+            if (gridHelper) scene.remove(gridHelper);
+            gridHelper = new THREE.GridHelper(width, depth, 0x000000, 0x000000);
+            scene.add(gridHelper);
+        }
+
+        createGridHelper(platformWidth, platformDepth);
+
+        const shadowMaterialAdd = new THREE.MeshBasicMaterial({ color: 0x000000, opacity: 0.5, transparent: true });
+        const shadowMaterialRemove = new THREE.MeshBasicMaterial({ color: 0xff0000, opacity: 0.5, transparent: true });
+        const shadowGeometry = new THREE.PlaneGeometry(1, 1);
+        const shadowMeshAdd = new THREE.Mesh(shadowGeometry, shadowMaterialAdd);
+        const shadowMeshRemove = new THREE.Mesh(shadowGeometry, shadowMaterialRemove);
+        shadowMeshAdd.rotation.x = -Math.PI / 2;
+        shadowMeshRemove.rotation.x = -Math.PI / 2;
+        scene.add(shadowMeshAdd);
+        scene.add(shadowMeshRemove);
+
+        let shadowVisible = true;
+        let removingBlocks = false;
+
+        function updateShadow(x, z) {
+            shadowMeshAdd.position.set(x + 0.5, 0.01, z + 0.5);
+            shadowMeshRemove.position.set(x + 0.5, 0.01, z + 0.5);
+            shadowMeshAdd.visible = shadowVisible && !removingBlocks;
+            shadowMeshRemove.visible = shadowVisible && removingBlocks;
+        }
+
+        
+
+        camera.position.set(10, 10, 10);
+        controls.update();
+
+        let blockColor = 0xff0000;
+
+        function createBlock(x, y, z, color) {
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const material = new THREE.MeshPhongMaterial({ color });
+            const block = new THREE.Mesh(geometry, material);
+            block.position.set(x, y, z);
+            scene.add(block);
+            return block;
+        }
+
+        let blocks = [];
+
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        function onMouseMove(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+
+            const intersects = raycaster.intersectObjects([platform, ...blocks]);
+            if (intersects.length > 0) {
+                const intersect = intersects[0];
+                const x = Math.floor(intersect.point.x);
+                const z = Math.floor(intersect.point.z);
+                updateShadow(x, z);
+            }
+        }
+
+        function onClick(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+
+            const intersects = raycaster.intersectObjects([platform, ...blocks]);
+            if (intersects.length > 0) {
+                const intersect = intersects[0];
+                const x = Math.floor(intersect.point.x);
+                const z = Math.floor(intersect.point.z);
+
+                if (removingBlocks) {
+                    const blocksAtPosition = blocks.filter(block => Math.abs(block.position.x - (x + 0.5)) < 0.1 && Math.abs(block.position.z - (z + 0.5)) < 0.1);
+                    if (blocksAtPosition.length > 0) {
+                        const highestBlock = blocksAtPosition.reduce((prev, curr) => prev.position.y > curr.position.y ? prev : curr);
+                        scene.remove(highestBlock);
+                        blocks = blocks.filter(block => block !== highestBlock);
+                    }
+                } else {
+                    let highestY = -0.5; // Inicializa como a altura da plataforma
+                    blocks.forEach(block => {
+                        if (Math.abs(block.position.x - (x + 0.5)) < 0.5 && Math.abs(block.position.z - (z + 0.5)) < 0.5) {
+                            if (block.position.y > highestY) {
+                                highestY = block.position.y;
+                            }
+                        }
+                    });
+
+                    const y = highestY + 1; // Altura do novo bloco empilhado
+                    const block = createBlock(x + 0.5, y, z + 0.5, blockColor);
+                    blocks.push(block);
+                }
+            }
+        }
+
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('click', onClick);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+     window.addEventListener('keydown', (event) => {
+            if (event.key === 'f') {
+                removingBlocks = !removingBlocks;
+                shadowMaterialAdd.opacity = removingBlocks ? 0 : 0.5;
+                shadowMaterialRemove.opacity = removingBlocks ? 0.5 : 0;
+            }
+        });
+
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'r') {
+                platformWidth = 20;
+                platformDepth = 20;
+                createPlatform(platformWidth, platformDepth);
+                createGridHelper(platformWidth, platformDepth);
+            }
+        });
+
+        document.getElementById('resize-platform').addEventListener('click', () => {
+            platformWidth = document.getElementById('platform-width').value;
+            platformDepth = document.getElementById('platform-depth').value;
+            createPlatform(platformWidth, platformDepth);
+            createGridHelper(platformWidth, platformDepth);
+        });
+
+        const blockButtons = document.querySelectorAll('.block-button');
+        blockButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                blockColor = button.getAttribute('data-color');
+                shadowMaterialAdd.color.set(blockColor);
+            });
+        });
+
+        document.getElementById('manual-button').addEventListener('click', () => {
+            const manual = document.getElementById('manual');
+            manual.style.display = manual.style.display === 'none' ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,950 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Arquitetos - Gestão de Clientes e Projetos
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Inter', sans-serif;
+    }
+   .text-custom {
+     color: #ff9a00;
+   }
+   .bg-custom {
+     background-color: #ff9a00;
+   }
+   .bg-custom-light {
+     background-color: #fff1d6;
+   }
+   .border-custom {
+     border-color: #ff9a00;
+   }
+   .hover-bg-custom:hover {
+     background-color: #e68a00;
+   }
+   .hover-text-custom:hover {
+     color: #e68a00;
+   }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col">
+  <main class="container mx-auto px-4 py-8 flex-grow flex flex-col gap-10">
+   <!-- Início -->
+   <section class="text-center max-w-3xl mx-auto" id="inicio">
+    <h1 class="text-4xl font-extrabold text-custom mb-4">
+     Bem-vindo ao sistema de gestão de clientes e projetos
+    </h1>
+    <p class="text-gray-700 text-lg">
+     Cadastre seus clientes e projetos, acompanhe prazos, orçamentos e status de forma simples e eficiente.
+    </p>
+    <img alt="Imagem ilustrativa de arquitetura moderna com plantas e projetos em mesa de escritório" class="mx-auto mt-8 rounded-lg shadow-lg" height="300" src="https://storage.googleapis.com/a1aa/image/af780c43-016d-4f37-799e-44970bcd7bea.jpg" width="600"/>
+   </section>
+
+   <!-- Funcionalidades TekTõn como botões -->
+   <section class="max-w-5xl mx-auto bg-white rounded-lg shadow p-8 border border-custom-light">
+    <h2 class="text-3xl font-bold text-custom mb-8 text-center flex justify-center items-center gap-3">
+     <i class="fas fa-cogs"></i>
+     Funcionalidades TekTõn
+    </h2>
+    <div class="flex flex-col sm:flex-row justify-center gap-8 flex-wrap">
+     <!-- TekCube -->
+     <a href="cube.html"><button aria-label="TekCube - Software de construção em 3D" class="flex flex-col items-center text-center p-6 border border-custom-light rounded-lg shadow-sm hover:shadow-md transition cursor-pointer bg-white focus:outline-none focus:ring-4 focus:ring-custom w-full sm:w-auto max-w-xs" type="button" id="btnTekCube">
+      <div class="bg-custom text-white rounded-full p-5 mb-4 shadow-lg">
+       <i class="fas fa-cube fa-2x"></i>
+      </div>
+      <span class="text-xl font-semibold text-custom mb-1">
+       TekCube
+      </span>
+      <p class="text-gray-700 max-w-xs">
+       Software de construção em 3D desenvolvido especialmente para os arquitetos da TekTõn, permitindo modelagem precisa e visualização avançada dos projetos.
+      </p>
+     </button></a>
+     <!-- NavTek -->
+     <button aria-label="NavTek - Navegação e geolocalização" class="flex flex-col items-center text-center p-6 border border-custom-light rounded-lg shadow-sm hover:shadow-md transition cursor-pointer bg-white focus:outline-none focus:ring-4 focus:ring-custom w-full sm:w-auto max-w-xs" type="button" id="btnNavTek">
+      <div class="bg-custom text-white rounded-full p-5 mb-4 shadow-lg">
+       <i class="fas fa-map-marked-alt fa-2x"></i>
+      </div>
+      <span class="text-xl font-semibold text-custom mb-1">
+       NavTek
+      </span>
+      <p class="text-gray-700 max-w-xs">
+       Sistema integrado de navegação e geolocalização para arquitetos, engenheiros e membros da equipe, facilitando o acompanhamento e coordenação dos trabalhos em campo.
+      </p>
+     </button>
+     <!-- Realidade Aumentada -->
+     <button aria-label="Realidade Aumentada - Visualizações imersivas" class="flex flex-col items-center text-center p-6 border border-custom-light rounded-lg shadow-sm hover:shadow-md transition cursor-pointer bg-white focus:outline-none focus:ring-4 focus:ring-custom w-full sm:w-auto max-w-xs" type="button" id="btnRealidadeAumentada">
+      <div class="bg-custom text-white rounded-full p-5 mb-4 shadow-lg">
+       <i class="fas fa-vr-cardboard fa-2x"></i>
+      </div>
+      <span class="text-xl font-semibold text-custom mb-1">
+       Realidade Aumentada
+      </span>
+      <p class="text-gray-700 max-w-xs">
+       Interface inovadora para visualizações em Realidade Aumentada, proporcionando uma experiência imersiva e interativa para análise e apresentação dos projetos arquitetônicos.
+      </p>
+     </button>
+     <!-- TkText -->
+     <a href="text.html"><button aria-label="TkText - Ferramenta online de criação e gerenciamento de documentos" class="flex flex-col items-center text-center p-6 border border-custom-light rounded-lg shadow-sm hover:shadow-md transition cursor-pointer bg-white focus:outline-none focus:ring-4 focus:ring-custom w-full sm:w-auto max-w-xs" type="button" id="btnTkText">
+      <div class="bg-custom text-white rounded-full p-5 mb-4 shadow-lg">
+       <i class="fas fa-file-alt fa-2x"></i>
+      </div>
+      <span class="text-xl font-semibold text-custom mb-1">
+       TkText
+      </span>
+      <p class="text-gray-700 max-w-xs">
+       Ferramenta online para criação e gerenciamento de documentos, facilitando a organização e o controle dos arquivos da equipe.
+      </p>
+     </button></a>
+    </div>
+   </section>
+
+   <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+    <!-- Formulário de Clientes -->
+    <section class="bg-white rounded-lg shadow p-6 border border-custom-light" id="clientes">
+     <h2 class="text-2xl font-semibold text-custom mb-4 flex items-center gap-2">
+      <i class="fas fa-user-plus">
+      </i>
+      Cadastro de Cliente
+     </h2>
+     <form class="flex flex-col gap-4" id="formCliente" novalidate="">
+      <div>
+       <label class="block font-medium text-gray-700 mb-1" for="nomeCliente">
+        Nome do Cliente
+        <span class="text-red-500">
+         *
+        </span>
+       </label>
+       <input autocomplete="off" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-custom" id="nomeCliente" name="nomeCliente" placeholder="Digite o nome completo" required="" type="text"/>
+       <p class="text-red-600 text-sm mt-1 hidden" id="erroNomeCliente">
+        Por favor, insira o nome do cliente.
+       </p>
+      </div>
+      <div>
+       <label class="block font-medium text-gray-700 mb-1" for="emailCliente">
+        Email do Cliente
+        <span class="text-red-500">
+         *
+        </span>
+       </label>
+       <input autocomplete="off" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-custom" id="emailCliente" name="emailCliente" placeholder="exemplo@dominio.com" required="" type="email"/>
+       <p class="text-red-600 text-sm mt-1 hidden" id="erroEmailCliente">
+        Por favor, insira um email válido.
+       </p>
+      </div>
+      <button class="mt-2 bg-custom hover-bg-custom text-white font-semibold rounded-md px-4 py-2 transition focus:outline-none focus:ring-2 focus:ring-custom flex items-center justify-center gap-2" type="submit">
+       <i class="fas fa-plus">
+       </i>
+       Adicionar Cliente
+      </button>
+     </form>
+     <p class="mt-3 text-green-600 font-medium hidden" id="feedbackCliente">
+     </p>
+    </section>
+    <!-- Formulário de Projetos -->
+    <section class="bg-white rounded-lg shadow p-6 border border-custom-light" id="projetos">
+     <h2 class="text-2xl font-semibold text-custom mb-4 flex items-center gap-2">
+      <i class="fas fa-project-diagram">
+      </i>
+      Cadastro de Projeto
+     </h2>
+     <form class="flex flex-col gap-4" id="formProjeto" novalidate="">
+      <div>
+       <label class="block font-medium text-gray-700 mb-1" for="clienteProjeto">
+        Cliente
+        <span class="text-red-500">
+         *
+        </span>
+       </label>
+       <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-custom" id="clienteProjeto" name="clienteProjeto" required="">
+        <option disabled="" selected="" value="">
+         Selecione um cliente
+        </option>
+       </select>
+       <p class="text-red-600 text-sm mt-1 hidden" id="erroClienteProjeto">
+        Por favor, selecione um cliente.
+       </p>
+      </div>
+      <div>
+       <label class="block font-medium text-gray-700 mb-1" for="nomeProjeto">
+        Nome do Projeto
+        <span class="text-red-500">
+         *
+        </span>
+       </label>
+       <input autocomplete="off" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-custom" id="nomeProjeto" name="nomeProjeto" placeholder="Nome do projeto" required="" type="text"/>
+       <p class="text-red-600 text-sm mt-1 hidden" id="erroNomeProjeto">
+        Por favor, insira o nome do projeto.
+       </p>
+      </div>
+      <div>
+       <label class="block font-medium text-gray-700 mb-1" for="prazoProjeto">
+        Prazo
+        <span class="text-red-500">
+         *
+        </span>
+       </label>
+       <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-custom" id="prazoProjeto" name="prazoProjeto" required="" type="date"/>
+       <p class="text-red-600 text-sm mt-1 hidden" id="erroPrazoProjeto">
+        Por favor, insira uma data válida.
+       </p>
+      </div>
+      <div>
+       <label class="block font-medium text-gray-700 mb-1" for="orcamentoProjeto">
+        Orçamento (R$)
+        <span class="text-red-500">
+         *
+        </span>
+       </label>
+       <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-custom" id="orcamentoProjeto" min="0" name="orcamentoProjeto" placeholder="Ex: 15000" required="" step="0.01" type="number"/>
+       <p class="text-red-600 text-sm mt-1 hidden" id="erroOrcamentoProjeto">
+        Por favor, insira um orçamento válido.
+       </p>
+      </div>
+      <div>
+       <label class="block font-medium text-gray-700 mb-1" for="statusProjeto">
+        Status do Projeto
+        <span class="text-red-500">
+         *
+        </span>
+       </label>
+       <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-custom" id="statusProjeto" name="statusProjeto" required="">
+        <option disabled="" selected="" value="">
+         Selecione o status
+        </option>
+        <option value="ativo">
+         Ativo
+        </option>
+        <option value="concluido">
+         Concluído
+        </option>
+        <option value="atrasado">
+         Em Atraso
+        </option>
+       </select>
+       <p class="text-red-600 text-sm mt-1 hidden" id="erroStatusProjeto">
+        Por favor, selecione o status do projeto.
+       </p>
+      </div>
+      <button class="mt-2 bg-custom hover-bg-custom text-white font-semibold rounded-md px-4 py-2 transition focus:outline-none focus:ring-2 focus:ring-custom flex items-center justify-center gap-2" type="submit">
+       <i class="fas fa-plus">
+       </i>
+       Adicionar Projeto
+      </button>
+     </form>
+     <p class="mt-3 text-green-600 font-medium hidden" id="feedbackProjeto">
+     </p>
+    </section>
+   </div>
+   <!-- Busca e Filtros -->
+   <section class="bg-white rounded-lg shadow p-6 max-w-4xl mx-auto border border-custom-light">
+    <h2 class="text-2xl font-semibold text-custom mb-4 flex items-center gap-2">
+     <i class="fas fa-search">
+     </i>
+     Buscar e Filtrar Projetos
+    </h2>
+    <form class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end" id="formBusca">
+     <div>
+      <label class="block font-medium text-gray-700 mb-1" for="buscaCliente">
+       Buscar por Cliente
+      </label>
+      <input autocomplete="off" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-custom" id="buscaCliente" name="buscaCliente" placeholder="Nome do cliente" type="text"/>
+     </div>
+     <div>
+      <label class="block font-medium text-gray-700 mb-1" for="buscaProjeto">
+       Buscar por Projeto
+      </label>
+      <input autocomplete="off" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-custom" id="buscaProjeto" name="buscaProjeto" placeholder="Nome do projeto" type="text"/>
+     </div>
+     <div>
+      <label class="block font-medium text-gray-700 mb-1" for="filtroStatus">
+       Filtrar por Status
+      </label>
+      <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-custom" id="filtroStatus" name="filtroStatus">
+       <option value="">
+        Todos
+       </option>
+       <option value="ativo">
+        Ativo
+       </option>
+       <option value="concluido">
+        Concluído
+       </option>
+       <option value="atrasado">
+        Em Atraso
+       </option>
+      </select>
+     </div>
+     <div class="sm:col-span-3 flex justify-end gap-3">
+      <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-md px-4 py-2 transition focus:outline-none focus:ring-2 focus:ring-gray-500 flex items-center gap-2" id="btnLimparFiltros" type="button">
+       <i class="fas fa-times-circle">
+       </i>
+       Limpar Filtros
+      </button>
+      <button class="bg-custom hover-bg-custom text-white font-semibold rounded-md px-4 py-2 transition focus:outline-none focus:ring-2 focus:ring-custom flex items-center gap-2" type="submit">
+       <i class="fas fa-filter">
+       </i>
+       Aplicar Filtros
+      </button>
+     </div>
+    </form>
+   </section>
+   <!-- Listagem de Clientes -->
+   <section class="max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-custom mb-6 flex items-center gap-3" id="tituloClientes">
+     <i class="fas fa-users">
+     </i>
+     Clientes Cadastrados
+    </h2>
+    <div class="overflow-x-auto" id="listaClientes">
+     <table class="min-w-full bg-white rounded-lg shadow divide-y divide-gray-200 border border-custom-light">
+      <thead class="bg-custom-light">
+       <tr>
+        <th class="px-6 py-3 text-left text-xs font-semibold text-custom uppercase tracking-wider">
+         Nome
+        </th>
+        <th class="px-6 py-3 text-left text-xs font-semibold text-custom uppercase tracking-wider">
+         Email
+        </th>
+        <th class="px-6 py-3 text-center text-xs font-semibold text-custom uppercase tracking-wider">
+         Ações
+        </th>
+       </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100" id="tbodyClientes">
+      </tbody>
+     </table>
+    </div>
+    <p class="text-center text-gray-500 mt-4 hidden" id="msgSemClientes">
+     Nenhum cliente cadastrado ainda.
+    </p>
+   </section>
+   <!-- Listagem de Projetos -->
+   <section class="max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-custom mb-6 flex items-center gap-3" id="tituloProjetos">
+     <i class="fas fa-clipboard-list">
+     </i>
+     Projetos
+    </h2>
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-4" id="filtrosOrdenacao">
+     <div class="flex items-center gap-2">
+      <label class="font-medium text-gray-700" for="ordenarPor">
+       Ordenar por:
+      </label>
+      <select class="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-custom" id="ordenarPor">
+       <option value="prazo-asc">
+        Prazo (mais próximo)
+       </option>
+       <option value="prazo-desc">
+        Prazo (mais distante)
+       </option>
+       <option value="orcamento-asc">
+        Orçamento (menor)
+       </option>
+       <option value="orcamento-desc">
+        Orçamento (maior)
+       </option>
+      </select>
+     </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="listaProjetos">
+    </div>
+    <p class="text-center text-gray-500 mt-4 hidden" id="msgSemProjetos">
+     Nenhum projeto encontrado para os filtros aplicados.
+    </p>
+   </section>
+  </main>
+  <footer class="bg-white border-t border-gray-200 py-6 mt-12">
+   <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+    © 2024 Arquitetos. Todos os direitos reservados.
+   </div>
+  </footer>
+  <script>
+   // Utilidades
+    function validarEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(String(email).toLowerCase());
+    }
+
+    function formatarData(dataISO) {
+      const d = new Date(dataISO);
+      return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    }
+
+    function formatarMoeda(valor) {
+      return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    // LocalStorage keys
+    const LS_CLIENTES = 'arquitetos_clientes';
+    const LS_PROJETOS = 'arquitetos_projetos';
+
+    // Estado
+    let clientes = [];
+    let projetos = [];
+
+    // Elementos
+    const formCliente = document.getElementById('formCliente');
+    const nomeClienteInput = document.getElementById('nomeCliente');
+    const emailClienteInput = document.getElementById('emailCliente');
+    const erroNomeCliente = document.getElementById('erroNomeCliente');
+    const erroEmailCliente = document.getElementById('erroEmailCliente');
+    const feedbackCliente = document.getElementById('feedbackCliente');
+
+    const formProjeto = document.getElementById('formProjeto');
+    const clienteProjetoSelect = document.getElementById('clienteProjeto');
+    const nomeProjetoInput = document.getElementById('nomeProjeto');
+    const prazoProjetoInput = document.getElementById('prazoProjeto');
+    const orcamentoProjetoInput = document.getElementById('orcamentoProjeto');
+    const statusProjetoSelect = document.getElementById('statusProjeto');
+    const erroClienteProjeto = document.getElementById('erroClienteProjeto');
+    const erroNomeProjeto = document.getElementById('erroNomeProjeto');
+    const erroPrazoProjeto = document.getElementById('erroPrazoProjeto');
+    const erroOrcamentoProjeto = document.getElementById('erroOrcamentoProjeto');
+    const erroStatusProjeto = document.getElementById('erroStatusProjeto');
+    const feedbackProjeto = document.getElementById('feedbackProjeto');
+
+    const tbodyClientes = document.getElementById('tbodyClientes');
+    const msgSemClientes = document.getElementById('msgSemClientes');
+
+    const listaProjetos = document.getElementById('listaProjetos');
+    const msgSemProjetos = document.getElementById('msgSemProjetos');
+
+    const buscaClienteInput = document.getElementById('buscaCliente');
+    const buscaProjetoInput = document.getElementById('buscaProjeto');
+    const filtroStatusSelect = document.getElementById('filtroStatus');
+    const btnLimparFiltros = document.getElementById('btnLimparFiltros');
+    const formBusca = document.getElementById('formBusca');
+    const ordenarPorSelect = document.getElementById('ordenarPor');
+
+    // Funções para salvar e carregar do localStorage
+    function salvarLocalStorage() {
+      localStorage.setItem(LS_CLIENTES, JSON.stringify(clientes));
+      localStorage.setItem(LS_PROJETOS, JSON.stringify(projetos));
+    }
+
+    function carregarLocalStorage() {
+      const clientesLS = localStorage.getItem(LS_CLIENTES);
+      const projetosLS = localStorage.getItem(LS_PROJETOS);
+      clientes = clientesLS ? JSON.parse(clientesLS) : [];
+      projetos = projetosLS ? JSON.parse(projetosLS) : [];
+    }
+
+    // Atualiza o select de clientes no formulário de projeto
+    function atualizarSelectClientes() {
+      clienteProjetoSelect.innerHTML = '<option value="" disabled selected>Selecione um cliente</option>';
+      clientes.forEach((cliente) => {
+        const option = document.createElement('option');
+        option.value = cliente.id;
+        option.textContent = cliente.nome;
+        clienteProjetoSelect.appendChild(option);
+      });
+    }
+
+    // Renderiza a lista de clientes na tabela
+    function renderizarClientes() {
+      tbodyClientes.innerHTML = '';
+      if (clientes.length === 0) {
+        msgSemClientes.classList.remove('hidden');
+        return;
+      }
+      msgSemClientes.classList.add('hidden');
+
+      clientes.forEach((cliente) => {
+        const tr = document.createElement('tr');
+        tr.classList.add('hover:bg-custom-light', 'transition');
+
+        const tdNome = document.createElement('td');
+        tdNome.className = 'px-6 py-4 whitespace-nowrap text-gray-800 font-medium';
+        tdNome.textContent = cliente.nome;
+
+        const tdEmail = document.createElement('td');
+        tdEmail.className = 'px-6 py-4 whitespace-nowrap text-gray-600';
+        tdEmail.textContent = cliente.email;
+
+        const tdAcoes = document.createElement('td');
+        tdAcoes.className = 'px-6 py-4 whitespace-nowrap text-center space-x-2';
+
+        // Botão Editar
+        const btnEditar = document.createElement('button');
+        btnEditar.className = 'text-custom hover-text-custom focus:outline-none';
+        btnEditar.title = 'Editar Cliente';
+        btnEditar.innerHTML = '<i class="fas fa-edit"></i>';
+        btnEditar.addEventListener('click', () => editarCliente(cliente.id));
+
+        // Botão Excluir
+        const btnExcluir = document.createElement('button');
+        btnExcluir.className = 'text-red-600 hover:text-red-900 focus:outline-none';
+        btnExcluir.title = 'Excluir Cliente';
+        btnExcluir.innerHTML = '<i class="fas fa-trash-alt"></i>';
+        btnExcluir.addEventListener('click', () => excluirCliente(cliente.id));
+
+        // Botão Listar Projetos
+        const btnListarProjetos = document.createElement('button');
+        btnListarProjetos.className = 'text-green-600 hover:text-green-900 focus:outline-none';
+        btnListarProjetos.title = 'Listar Projetos do Cliente';
+        btnListarProjetos.innerHTML = '<i class="fas fa-folder-open"></i>';
+        btnListarProjetos.addEventListener('click', () => listarProjetosCliente(cliente.id));
+
+        tdAcoes.appendChild(btnListarProjetos);
+        tdAcoes.appendChild(btnEditar);
+        tdAcoes.appendChild(btnExcluir);
+
+        tr.appendChild(tdNome);
+        tr.appendChild(tdEmail);
+        tr.appendChild(tdAcoes);
+
+        tbodyClientes.appendChild(tr);
+      });
+    }
+
+    // Renderiza os projetos em cards agrupados por cliente
+    function renderizarProjetos(filtrados = null) {
+      const lista = filtrados || projetos;
+      listaProjetos.innerHTML = '';
+
+      if (lista.length === 0) {
+        msgSemProjetos.classList.remove('hidden');
+        return;
+      }
+      msgSemProjetos.classList.add('hidden');
+
+      // Agrupar projetos por cliente
+      const projetosPorCliente = {};
+      lista.forEach((projeto) => {
+        if (!projetosPorCliente[projeto.clienteId]) {
+          projetosPorCliente[projeto.clienteId] = [];
+        }
+        projetosPorCliente[projeto.clienteId].push(projeto);
+      });
+
+      // Para cada cliente, criar um card com seus projetos
+      Object.entries(projetosPorCliente).forEach(([clienteId, projetosCliente]) => {
+        const cliente = clientes.find((c) => c.id === clienteId);
+        if (!cliente) return;
+
+        // Card do cliente
+        const cardCliente = document.createElement('div');
+        cardCliente.className = 'col-span-1 bg-white rounded-lg shadow p-5 flex flex-col border border-custom-light';
+
+        // Cabeçalho cliente
+        const cabecalho = document.createElement('h3');
+        cabecalho.className = 'text-xl font-semibold text-custom mb-4 flex items-center gap-2';
+        cabecalho.innerHTML = `<i class="fas fa-user"></i> ${cliente.nome}`;
+
+        cardCliente.appendChild(cabecalho);
+
+        // Lista de projetos do cliente
+        projetosCliente.forEach((projeto) => {
+          const cardProjeto = document.createElement('div');
+          cardProjeto.className = 'border border-gray-200 rounded-md p-4 mb-4 hover:shadow-md transition cursor-default';
+
+          // Nome projeto e status
+          const nomeStatus = document.createElement('div');
+          nomeStatus.className = 'flex justify-between items-center mb-2';
+
+          const nomeProjeto = document.createElement('h4');
+          nomeProjeto.className = 'text-lg font-semibold text-gray-800';
+          nomeProjeto.textContent = projeto.nome;
+
+          const statusBadge = document.createElement('span');
+          statusBadge.className = 'text-xs font-semibold px-2 py-1 rounded-full text-white';
+          switch (projeto.status) {
+            case 'ativo':
+              statusBadge.classList.add('bg-green-600');
+              statusBadge.textContent = 'Ativo';
+              break;
+            case 'concluido':
+              statusBadge.classList.add('bg-blue-600');
+              statusBadge.textContent = 'Concluído';
+              break;
+            case 'atrasado':
+              statusBadge.classList.add('bg-red-600');
+              statusBadge.textContent = 'Em Atraso';
+              break;
+            default:
+              statusBadge.classList.add('bg-gray-600');
+              statusBadge.textContent = 'Desconhecido';
+          }
+
+          nomeStatus.appendChild(nomeProjeto);
+          nomeStatus.appendChild(statusBadge);
+
+          // Prazo e orçamento
+          const detalhes = document.createElement('p');
+          detalhes.className = 'text-gray-600 text-sm';
+          detalhes.innerHTML = `<strong>Prazo:</strong> ${formatarData(projeto.prazo)}<br/><strong>Orçamento:</strong> ${formatarMoeda(projeto.orcamento)}`;
+
+          cardProjeto.appendChild(nomeStatus);
+          cardProjeto.appendChild(detalhes);
+
+          cardCliente.appendChild(cardProjeto);
+        });
+
+        listaProjetos.appendChild(cardCliente);
+      });
+    }
+
+    // Feedback visual
+    function mostrarFeedback(elemento, mensagem, sucesso = true) {
+      elemento.textContent = mensagem;
+      elemento.classList.remove('hidden');
+      elemento.classList.toggle('text-green-600', sucesso);
+      elemento.classList.toggle('text-red-600', !sucesso);
+      setTimeout(() => {
+        elemento.classList.add('hidden');
+      }, 3500);
+    }
+
+    // Limpar mensagens de erro
+    function limparErrosCliente() {
+      erroNomeCliente.classList.add('hidden');
+      erroEmailCliente.classList.add('hidden');
+    }
+
+    function limparErrosProjeto() {
+      erroClienteProjeto.classList.add('hidden');
+      erroNomeProjeto.classList.add('hidden');
+      erroPrazoProjeto.classList.add('hidden');
+      erroOrcamentoProjeto.classList.add('hidden');
+      erroStatusProjeto.classList.add('hidden');
+    }
+
+    // Gerar ID único simples
+    function gerarId() {
+      return '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Adicionar cliente
+    formCliente.addEventListener('submit', (e) => {
+      e.preventDefault();
+      limparErrosCliente();
+
+      const nome = nomeClienteInput.value.trim();
+      const email = emailClienteInput.value.trim().toLowerCase();
+
+      let valido = true;
+
+      if (!nome) {
+        erroNomeCliente.classList.remove('hidden');
+        valido = false;
+      }
+      if (!email || !validarEmail(email)) {
+        erroEmailCliente.classList.remove('hidden');
+        valido = false;
+      }
+
+      if (!valido) return;
+
+      // Verificar email duplicado
+      if (clientes.some((c) => c.email === email)) {
+        mostrarFeedback(feedbackCliente, 'Este email já está cadastrado.', false);
+        return;
+      }
+
+      const novoCliente = {
+        id: gerarId(),
+        nome,
+        email,
+      };
+
+      clientes.push(novoCliente);
+      salvarLocalStorage();
+      atualizarSelectClientes();
+      renderizarClientes();
+
+      formCliente.reset();
+      mostrarFeedback(feedbackCliente, 'Cliente adicionado com sucesso!');
+    });
+
+    // Editar cliente
+    function editarCliente(id) {
+      const cliente = clientes.find((c) => c.id === id);
+      if (!cliente) return;
+
+      // Preencher formulário cliente para edição
+      nomeClienteInput.value = cliente.nome;
+      emailClienteInput.value = cliente.email;
+
+      // Alterar botão para salvar edição
+      const botao = formCliente.querySelector('button[type="submit"]');
+      botao.textContent = 'Salvar Alterações';
+      botao.classList.add('bg-yellow-500', 'hover:bg-yellow-600');
+      botao.classList.remove('bg-custom', 'hover-bg-custom');
+
+      // Remover event listener para evitar múltiplos
+      formCliente.removeEventListener('submit', adicionarClienteHandler);
+
+      // Criar handler para salvar edição
+      function salvarEdicao(e) {
+        e.preventDefault();
+        limparErrosCliente();
+
+        const nome = nomeClienteInput.value.trim();
+        const email = emailClienteInput.value.trim().toLowerCase();
+
+        let valido = true;
+
+        if (!nome) {
+          erroNomeCliente.classList.remove('hidden');
+          valido = false;
+        }
+        if (!email || !validarEmail(email)) {
+          erroEmailCliente.classList.remove('hidden');
+          valido = false;
+        }
+
+        if (!valido) return;
+
+        // Verificar email duplicado em outro cliente
+        if (clientes.some((c) => c.email === email && c.id !== id)) {
+          mostrarFeedback(feedbackCliente, 'Este email já está cadastrado em outro cliente.', false);
+          return;
+        }
+
+        cliente.nome = nome;
+        cliente.email = email;
+
+        salvarLocalStorage();
+        atualizarSelectClientes();
+        renderizarClientes();
+
+        formCliente.reset();
+        mostrarFeedback(feedbackCliente, 'Cliente atualizado com sucesso!');
+
+        // Restaurar botão e listener
+        botao.textContent = 'Adicionar Cliente';
+        botao.classList.remove('bg-yellow-500', 'hover:bg-yellow-600');
+        botao.classList.add('bg-custom', 'hover-bg-custom');
+
+        formCliente.removeEventListener('submit', salvarEdicao);
+        formCliente.addEventListener('submit', adicionarClienteHandler);
+      }
+
+      formCliente.addEventListener('submit', salvarEdicao);
+    }
+
+    // Handler original para adicionar cliente (para reuso)
+    function adicionarClienteHandler(e) {
+      e.preventDefault();
+      limparErrosCliente();
+
+      const nome = nomeClienteInput.value.trim();
+      const email = emailClienteInput.value.trim().toLowerCase();
+
+      let valido = true;
+
+      if (!nome) {
+        erroNomeCliente.classList.remove('hidden');
+        valido = false;
+      }
+      if (!email || !validarEmail(email)) {
+        erroEmailCliente.classList.remove('hidden');
+        valido = false;
+      }
+
+      if (!valido) return;
+
+      // Verificar email duplicado
+      if (clientes.some((c) => c.email === email)) {
+        mostrarFeedback(feedbackCliente, 'Este email já está cadastrado.', false);
+        return;
+      }
+
+      const novoCliente = {
+        id: gerarId(),
+        nome,
+        email,
+      };
+
+      clientes.push(novoCliente);
+      salvarLocalStorage();
+      atualizarSelectClientes();
+      renderizarClientes();
+
+      formCliente.reset();
+      mostrarFeedback(feedbackCliente, 'Cliente adicionado com sucesso!');
+    }
+
+    // Excluir cliente
+    function excluirCliente(id) {
+      if (!confirm('Tem certeza que deseja excluir este cliente? Todos os projetos relacionados também serão removidos.')) return;
+
+      clientes = clientes.filter((c) => c.id !== id);
+      projetos = projetos.filter((p) => p.clienteId !== id);
+      salvarLocalStorage();
+      atualizarSelectClientes();
+      renderizarClientes();
+      renderizarProjetos();
+      mostrarFeedback(feedbackCliente, 'Cliente e seus projetos excluídos com sucesso!');
+    }
+
+    // Adicionar projeto
+    formProjeto.addEventListener('submit', (e) => {
+      e.preventDefault();
+      limparErrosProjeto();
+
+      const clienteId = clienteProjetoSelect.value;
+      const nome = nomeProjetoInput.value.trim();
+      const prazo = prazoProjetoInput.value;
+      const orcamento = parseFloat(orcamentoProjetoInput.value);
+      const status = statusProjetoSelect.value;
+
+      let valido = true;
+
+      if (!clienteId) {
+        erroClienteProjeto.classList.remove('hidden');
+        valido = false;
+      }
+      if (!nome) {
+        erroNomeProjeto.classList.remove('hidden');
+        valido = false;
+      }
+      if (!prazo) {
+        erroPrazoProjeto.classList.remove('hidden');
+        valido = false;
+      }
+      if (isNaN(orcamento) || orcamento < 0) {
+        erroOrcamentoProjeto.classList.remove('hidden');
+        valido = false;
+      }
+      if (!status) {
+        erroStatusProjeto.classList.remove('hidden');
+        valido = false;
+      }
+
+      if (!valido) return;
+
+      const novoProjeto = {
+        id: gerarId(),
+        clienteId,
+        nome,
+        prazo,
+        orcamento,
+        status,
+      };
+
+      projetos.push(novoProjeto);
+      salvarLocalStorage();
+      renderizarProjetos();
+      formProjeto.reset();
+      mostrarFeedback(feedbackProjeto, 'Projeto adicionado com sucesso!');
+    });
+
+    // Listar projetos de um cliente (filtra e mostra só os projetos desse cliente)
+    function listarProjetosCliente(clienteId) {
+      const cliente = clientes.find((c) => c.id === clienteId);
+      if (!cliente) return;
+
+      // Scrolla para seção de projetos
+      document.getElementById('tituloProjetos').scrollIntoView({ behavior: 'smooth' });
+
+      // Filtra projetos do cliente
+      const projetosCliente = projetos.filter((p) => p.clienteId === clienteId);
+
+      if (projetosCliente.length === 0) {
+        listaProjetos.innerHTML = `
+          <div class="bg-yellow-100 border border-yellow-300 text-yellow-800 rounded-md p-4 max-w-xl mx-auto text-center">
+            <i class="fas fa-exclamation-triangle mr-2"></i> O cliente <strong>${cliente.nome}</strong> ainda não possui projetos cadastrados.
+          </div>
+        `;
+        msgSemProjetos.classList.add('hidden');
+        return;
+      }
+
+      renderizarProjetos(projetosCliente);
+    }
+
+    // Busca e filtro de projetos
+    formBusca.addEventListener('submit', (e) => {
+      e.preventDefault();
+      aplicarFiltros();
+    });
+
+    btnLimparFiltros.addEventListener('click', () => {
+      buscaClienteInput.value = '';
+      buscaProjetoInput.value = '';
+      filtroStatusSelect.value = '';
+      ordenarPorSelect.value = 'prazo-asc';
+      renderizarProjetos();
+      msgSemProjetos.classList.add('hidden');
+    });
+
+    ordenarPorSelect.addEventListener('change', () => {
+      aplicarFiltros();
+    });
+
+    function aplicarFiltros() {
+      let filtrados = [...projetos];
+
+      const buscaCliente = buscaClienteInput.value.trim().toLowerCase();
+      const buscaProjeto = buscaProjetoInput.value.trim().toLowerCase();
+      const filtroStatus = filtroStatusSelect.value;
+
+      if (buscaCliente) {
+        const clientesFiltrados = clientes.filter((c) => c.nome.toLowerCase().includes(buscaCliente)).map((c) => c.id);
+        filtrados = filtrados.filter((p) => clientesFiltrados.includes(p.clienteId));
+      }
+
+      if (buscaProjeto) {
+        filtrados = filtrados.filter((p) => p.nome.toLowerCase().includes(buscaProjeto));
+      }
+
+      if (filtroStatus) {
+        filtrados = filtrados.filter((p) => p.status === filtroStatus);
+      }
+
+      // Ordenação
+      const ordenarPor = ordenarPorSelect.value;
+      switch (ordenarPor) {
+        case 'prazo-asc':
+          filtrados.sort((a, b) => new Date(a.prazo) - new Date(b.prazo));
+          break;
+        case 'prazo-desc':
+          filtrados.sort((a, b) => new Date(b.prazo) - new Date(a.prazo));
+          break;
+        case 'orcamento-asc':
+          filtrados.sort((a, b) => a.orcamento - b.orcamento);
+          break;
+        case 'orcamento-desc':
+          filtrados.sort((a, b) => b.orcamento - a.orcamento);
+          break;
+      }
+
+      renderizarProjetos(filtrados);
+    }
+
+    // Inicialização
+    function init() {
+      carregarLocalStorage();
+      atualizarSelectClientes();
+      renderizarClientes();
+      renderizarProjetos();
+
+      // Adiciona listener original para adicionar cliente (para edição)
+      formCliente.addEventListener('submit', adicionarClienteHandler);
+
+      // Ações para os botões das funcionalidades
+      document.getElementById('btnTekCube').addEventListener('click', () => {
+        alert('TekCube: Software de construção em 3D dos arquitetos da TekTõn.');
+      });
+      document.getElementById('btnNavTek').addEventListener('click', () => {
+        alert('NavTek: Navegação e geolocalização para arquitetos, engenheiros e equipe.');
+      });
+      document.getElementById('btnRealidadeAumentada').addEventListener('click', () => {
+        alert('Realidade Aumentada: Interface para visualizações imersivas em RA.');
+      });
+      document.getElementById('btnTkText').addEventListener('click', () => {
+        alert('TkText: Ferramenta online para criação e gerenciamento de documentos.');
+      });
+    }
+
+    init();
+  </script>
+ </body>
+</html>

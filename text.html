@@ -1,0 +1,881 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Editor de Texto Online
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   /* Custom scrollbar for editor */
+  .editor::-webkit-scrollbar {
+    width: 8px;
+  }
+  .editor::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 9999px;
+  }
+  .editor::-webkit-scrollbar-thumb {
+    background: #0b1742;
+    border-radius: 9999px;
+  }
+  .editor::-webkit-scrollbar-thumb:hover {
+    background: #ff9a00;
+  }
+
+  /* Watermark styling */
+  .watermark {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    opacity: 0.07;
+    pointer-events: none;
+    user-select: none;
+    z-index: 10;
+    width: 120px;
+    height: auto;
+    filter: drop-shadow(0 0 1px rgba(11, 23, 66, 0.2));
+  }
+
+  /* Page break for printing */
+  @media print {
+    #editor {
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      width: 210mm !important;
+      height: 297mm !important;
+      overflow: visible !important;
+      padding: 20mm !important;
+      page-break-after: always;
+      position: relative;
+    }
+    .watermark {
+      position: fixed !important;
+      bottom: 20mm !important;
+      right: 20mm !important;
+      opacity: 0.07 !important;
+      width: 100px !important;
+      filter: none !important;
+    }
+  }
+
+  /* Toolbar buttons base style */
+  .toolbar-btn {
+    cursor: pointer;
+  }
+
+  /* Mobile toolbar: hide full toolbar, show bottom toolbar */
+  @media (max-width: 640px) {
+    header {
+      flex-wrap: nowrap !important;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+    }
+    header::-webkit-scrollbar {
+      display: none;
+    }
+    /* Hide all toolbar groups except essential on mobile */
+    header > div:not(.mobile-toolbar-group),
+    header > div.mobile-toolbar-group {
+      display: none;
+    }
+    /* Show mobile toolbar container */
+    #mobileToolbar {
+      display: flex !important;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid #ddd;
+      box-shadow: 0 -2px 8px rgb(0 0 0 / 0.1);
+      z-index: 60;
+      padding: 0.25rem 0.5rem;
+      justify-content: space-around;
+      align-items: center;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+    }
+    #mobileToolbar::-webkit-scrollbar {
+      display: none;
+    }
+    #mobileToolbar button {
+      flex-shrink: 0;
+      font-size: 1.25rem;
+      padding: 0.25rem 0.5rem;
+      color: #0b1742;
+      background: transparent;
+      border: none;
+      border-radius: 0.375rem;
+      transition: color 0.3s ease;
+    }
+    #mobileToolbar button:hover,
+    #mobileToolbar button:focus {
+      color: #ff9a00;
+      outline: none;
+      background-color: rgba(255, 154, 0, 0.1);
+    }
+    #mobileToolbar select {
+      flex-shrink: 0;
+      font-size: 1rem;
+      border-radius: 0.375rem;
+      border: 1px solid #ccc;
+      padding: 0.15rem 0.5rem;
+      background: white;
+      color: #0b1742;
+      margin-left: 0.25rem;
+      margin-right: 0.25rem;
+    }
+    /* Hide desktop save button on mobile */
+    #saveBtn {
+      display: none;
+    }
+    /* Adjust editor bottom padding to avoid overlap with mobile toolbar */
+    main {
+      padding-bottom: 4.5rem !important;
+    }
+  }
+  /* Desktop: hide mobile toolbar */
+  #mobileToolbar {
+    display: none;
+  }
+  </style>
+ </head>
+ <body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-500 font-sans relative">
+  <!-- Side Menu Overlay -->
+  <div class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-40" id="sideMenuOverlay">
+  </div>
+  <!-- Side Menu -->
+  <aside class="fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg transform -translate-x-full transition-transform duration-300 z-50 flex flex-col" id="sideMenu">
+   <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+    <h2 class="text-xl font-bold text-blue-900 dark:text-orange-400">
+     Menu
+    </h2>
+    <button aria-label="Fechar menu lateral" class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition-colors" id="closeSideMenuBtn">
+     <i class="fas fa-times fa-lg">
+     </i>
+    </button>
+   </div>
+   <nav class="flex flex-col flex-grow px-6 py-4 space-y-4 text-gray-700 dark:text-gray-300">
+    <button class="flex items-center space-x-3 hover:text-orange-500 transition-colors text-lg font-medium" id="btnBack" type="button">
+     <i class="fas fa-arrow-left">
+     </i>
+     <span>
+      Voltar
+     </span>
+    </button>
+    <button class="flex items-center space-x-3 hover:text-orange-500 transition-colors text-lg font-medium" id="btnSettings" type="button">
+     <i class="fas fa-cog">
+     </i>
+     <span>
+      Configurações
+     </span>
+    </button>
+    <button class="flex items-center space-x-3 hover:text-orange-500 transition-colors text-lg font-medium" id="btnHelp" type="button">
+     <i class="fas fa-question-circle">
+     </i>
+     <span>
+      Ajuda
+     </span>
+    </button>
+    <button class="flex items-center space-x-3 hover:text-orange-500 transition-colors text-lg font-medium mt-auto" id="btnLogout" type="button">
+     <i class="fas fa-sign-out-alt">
+     </i>
+     <span>
+      Sair
+     </span>
+    </button>
+   </nav>
+  </aside>
+  <!-- Settings Modal Overlay -->
+  <div aria-hidden="true" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-50 flex items-center justify-center" id="settingsOverlay">
+   <div aria-labelledby="settingsTitle" aria-modal="true" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-lg w-full mx-4 p-6 overflow-y-auto max-h-[90vh] transition-transform transform scale-95 opacity-0" role="dialog">
+    <header class="flex items-center justify-between mb-4">
+     <h3 class="text-2xl font-bold text-blue-900 dark:text-orange-400" id="settingsTitle">
+      Configurações
+     </h3>
+     <button aria-label="Fechar configurações" class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition-colors" id="closeSettingsBtn">
+      <i class="fas fa-times fa-lg">
+      </i>
+     </button>
+    </header>
+    <form class="space-y-6 text-gray-800 dark:text-gray-200" id="settingsForm">
+     <!-- Tema -->
+     <div>
+      <label class="block font-semibold mb-1" for="themeSelect">
+       Tema
+      </label>
+      <select class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-orange-600 transition" id="themeSelect" name="theme">
+       <option value="light">
+        Claro
+       </option>
+       <option value="dark">
+        Escuro
+       </option>
+      </select>
+     </div>
+     <!-- Fonte -->
+     <div>
+      <label class="block font-semibold mb-1" for="fontSelect">
+       Fonte
+      </label>
+      <select class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-orange-600 transition" id="fontSelect" name="font">
+       <option value="sans-serif">
+        Sans-serif (Padrão)
+       </option>
+       <option value="serif">
+        Serif
+       </option>
+       <option value="monospace">
+        Monospace
+       </option>
+       <option value="'Comic Sans MS', cursive, sans-serif">
+        Comic Sans
+       </option>
+       <option value="'Courier New', monospace">
+        Courier New
+       </option>
+      </select>
+     </div>
+     <!-- Tamanho da Fonte -->
+     <div>
+      <label class="block font-semibold mb-1" for="fontSizeInput">
+       Tamanho da Fonte (px)
+      </label>
+      <input class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-orange-600 transition" id="fontSizeInput" max="48" min="10" name="fontSize" type="number" value="16"/>
+     </div>
+     <!-- Cor de Fundo do Editor -->
+     <div>
+      <label class="block font-semibold mb-1" for="bgColorInput">
+       Cor de Fundo do Editor
+      </label>
+      <input aria-label="Selecionar cor de fundo do editor" class="w-16 h-10 p-0 border-0 cursor-pointer" id="bgColorInput" name="bgColor" type="color" value="#ffffff"/>
+     </div>
+     <!-- Cor do Texto do Editor -->
+     <div>
+      <label class="block font-semibold mb-1" for="textColorInput">
+       Cor do Texto do Editor
+      </label>
+      <input aria-label="Selecionar cor do texto do editor" class="w-16 h-10 p-0 border-0 cursor-pointer" id="textColorInput" name="textColor" type="color" value="#000000"/>
+     </div>
+     <!-- Margens Internas do Editor -->
+     <div>
+      <label class="block font-semibold mb-1" for="paddingInput">
+       Margem Interna do Editor (px)
+      </label>
+      <input class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-orange-600 transition" id="paddingInput" max="100" min="0" name="padding" type="number" value="20"/>
+     </div>
+     <!-- Correção Ortográfica -->
+     <div class="flex items-center space-x-3">
+      <input checked="" class="w-5 h-5 rounded border-gray-300 dark:border-gray-600 text-orange-500 focus:ring-orange-400 dark:focus:ring-orange-600" id="spellcheckInput" name="spellcheck" type="checkbox"/>
+      <label class="font-semibold select-none" for="spellcheckInput">
+       Ativar correção ortográfica
+      </label>
+     </div>
+     <!-- Modo Tela Cheia -->
+     <div class="flex items-center space-x-3">
+      <input class="w-5 h-5 rounded border-gray-300 dark:border-gray-600 text-orange-500 focus:ring-orange-400 dark:focus:ring-orange-600" id="fullscreenInput" name="fullscreen" type="checkbox"/>
+      <label class="font-semibold select-none" for="fullscreenInput">
+       Ativar modo tela cheia
+      </label>
+     </div>
+     <div class="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+      <button class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition" id="cancelSettingsBtn" type="button">
+       Cancelar
+      </button>
+      <button class="px-4 py-2 rounded-md bg-orange-500 text-white font-semibold hover:bg-orange-600 transition" type="submit">
+       Salvar
+      </button>
+     </div>
+    </form>
+   </div>
+  </div>
+  <!-- Help Modal Overlay -->
+  <div aria-hidden="true" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-50 flex items-center justify-center" id="helpOverlay">
+   <div aria-labelledby="helpTitle" aria-modal="true" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-lg w-full mx-4 p-6 overflow-y-auto max-h-[90vh] transition-transform transform scale-95 opacity-0" role="dialog">
+    <header class="flex items-center justify-between mb-4">
+     <h3 class="text-2xl font-bold text-blue-900 dark:text-orange-400" id="helpTitle">
+      Ajuda - Dicas Básicas
+     </h3>
+     <button aria-label="Fechar ajuda" class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition-colors" id="closeHelpBtn">
+      <i class="fas fa-times fa-lg">
+      </i>
+     </button>
+    </header>
+    <section class="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200">
+     <ul class="list-disc list-inside space-y-2">
+      <li>
+       <strong>
+        Negrito, Itálico, Sublinhado e Tachado:
+       </strong>
+       Use os botões na barra de ferramentas para formatar o texto selecionado.
+      </li>
+      <li>
+       <strong>
+        Alinhamento:
+       </strong>
+       Alinhe o texto à esquerda, centro, direita ou justificado com os botões correspondentes.
+      </li>
+      <li>
+       <strong>
+        Listas:
+       </strong>
+       Crie listas ordenadas ou não ordenadas facilmente.
+      </li>
+      <li>
+       <strong>
+        Inserir Links e Imagens:
+       </strong>
+       Clique nos ícones para adicionar links ou imagens via prompt.
+      </li>
+      <li>
+       <strong>
+        Desfazer e Refazer:
+       </strong>
+       Use os botões para desfazer ou refazer ações recentes.
+      </li>
+      <li>
+       <strong>
+        Estilos de Título:
+       </strong>
+       Escolha entre vários estilos de título para organizar seu texto.
+      </li>
+      <li>
+       <strong>
+        Salvar:
+       </strong>
+       Salve seu conteúdo com um nome de arquivo personalizado.
+      </li>
+      <li>
+       <strong>
+        Configurações:
+       </strong>
+       Personalize o tema, fonte, cores, margens e outras opções no menu lateral.
+      </li>
+      <li>
+       <strong>
+        Modo Tela Cheia:
+       </strong>
+       Ative para focar totalmente no seu texto sem distrações.
+      </li>
+     </ul>
+    </section>
+   </div>
+  </div>
+  <!-- Top Toolbar -->
+  <header class="fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 shadow-md z-30 flex items-center px-4 sm:px-6 py-2 space-x-2 sm:space-x-3 border-b border-gray-200 dark:border-gray-700" role="toolbar" aria-label="Barra de ferramentas principal">
+   <button aria-label="Abrir menu lateral" class="text-blue-900 dark:text-orange-400 hover:text-orange-500 dark:hover:text-orange-600 transition-colors text-xl sm:text-2xl p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-orange-600" id="openSideMenuBtn" type="button">
+    <i class="fas fa-bars">
+    </i>
+   </button>
+   <!-- Desktop toolbar groups -->
+   <div class="flex items-center space-x-1 sm:space-x-2">
+    <button aria-label="Negrito" class="toolbar-btn" data-command="bold" title="Negrito (Ctrl+B)" type="button">
+     <i class="fas fa-bold">
+     </i>
+    </button>
+    <button aria-label="Itálico" class="toolbar-btn" data-command="italic" title="Itálico (Ctrl+I)" type="button">
+     <i class="fas fa-italic">
+     </i>
+    </button>
+    <button aria-label="Sublinhado" class="toolbar-btn" data-command="underline" title="Sublinhado (Ctrl+U)" type="button">
+     <i class="fas fa-underline">
+     </i>
+    </button>
+    <button aria-label="Tachado" class="toolbar-btn" data-command="strikeThrough" title="Tachado" type="button">
+     <i class="fas fa-strikethrough">
+     </i>
+    </button>
+   </div>
+   <div class="flex items-center space-x-1 sm:space-x-2 border-l border-gray-300 dark:border-gray-700 pl-2 sm:pl-3">
+    <button aria-label="Alinhar à esquerda" class="toolbar-btn" data-command="justifyLeft" title="Alinhar à esquerda" type="button">
+     <i class="fas fa-align-left">
+     </i>
+    </button>
+    <button aria-label="Alinhar ao centro" class="toolbar-btn" data-command="justifyCenter" title="Alinhar ao centro" type="button">
+     <i class="fas fa-align-center">
+     </i>
+    </button>
+    <button aria-label="Alinhar à direita" class="toolbar-btn" data-command="justifyRight" title="Alinhar à direita" type="button">
+     <i class="fas fa-align-right">
+     </i>
+    </button>
+    <button aria-label="Justificar" class="toolbar-btn" data-command="justifyFull" title="Justificar" type="button">
+     <i class="fas fa-align-justify">
+     </i>
+    </button>
+   </div>
+   <div class="flex items-center space-x-1 sm:space-x-2 border-l border-gray-300 dark:border-gray-700 pl-2 sm:pl-3">
+    <button aria-label="Lista não ordenada" class="toolbar-btn" data-command="insertUnorderedList" title="Lista não ordenada" type="button">
+     <i class="fas fa-list-ul">
+     </i>
+    </button>
+    <button aria-label="Lista ordenada" class="toolbar-btn" data-command="insertOrderedList" title="Lista ordenada" type="button">
+     <i class="fas fa-list-ol">
+     </i>
+    </button>
+   </div>
+   <div class="flex items-center space-x-1 sm:space-x-2 border-l border-gray-300 dark:border-gray-700 pl-2 sm:pl-3">
+    <button aria-label="Inserir link" class="toolbar-btn" id="insertLinkBtn" title="Inserir link" type="button">
+     <i class="fas fa-link">
+     </i>
+    </button>
+    <button aria-label="Inserir imagem" class="toolbar-btn" id="insertImageBtn" title="Inserir imagem" type="button">
+     <i class="fas fa-image">
+     </i>
+    </button>
+   </div>
+   <div class="flex items-center space-x-1 sm:space-x-2 border-l border-gray-300 dark:border-gray-700 pl-2 sm:pl-3">
+    <label class="sr-only" for="textColorPicker">
+     Cor do texto
+    </label>
+    <input aria-label="Selecionar cor do texto" class="w-7 h-7 p-0 border-0 cursor-pointer rounded" id="textColorPicker" title="Cor do texto" type="color" value="#000000"/>
+    <label class="sr-only" for="bgColorPicker">
+     Cor de fundo do texto
+    </label>
+    <input aria-label="Selecionar cor de fundo do texto" class="w-7 h-7 p-0 border-0 cursor-pointer rounded" id="bgColorPicker" title="Cor de fundo do texto" type="color" value="#ffffff"/>
+   </div>
+   <div class="flex items-center space-x-1 sm:space-x-2 border-l border-gray-300 dark:border-gray-700 pl-2 sm:pl-3">
+    <button aria-label="Desfazer" class="toolbar-btn" data-command="undo" title="Desfazer (Ctrl+Z)" type="button">
+     <i class="fas fa-undo">
+     </i>
+    </button>
+    <button aria-label="Refazer" class="toolbar-btn" data-command="redo" title="Refazer (Ctrl+Y)" type="button">
+     <i class="fas fa-redo">
+     </i>
+    </button>
+   </div>
+   <div class="flex items-center space-x-1 sm:space-x-2 border-l border-gray-300 dark:border-gray-700 pl-2 sm:pl-3">
+    <button aria-label="Subscrito" class="toolbar-btn" data-command="subscript" title="Subscrito" type="button">
+     <i class="fas fa-subscript">
+     </i>
+    </button>
+    <button aria-label="Sobrescrito" class="toolbar-btn" data-command="superscript" title="Sobrescrito" type="button">
+     <i class="fas fa-superscript">
+     </i>
+    </button>
+   </div>
+   <div class="flex items-center space-x-1 sm:space-x-2 border-l border-gray-300 dark:border-gray-700 pl-2 sm:pl-3">
+    <button aria-label="Remover formatação" class="toolbar-btn" data-command="removeFormat" title="Remover formatação" type="button">
+     <i class="fas fa-eraser">
+     </i>
+    </button>
+   </div>
+   <div class="flex items-center space-x-1 sm:space-x-2 border-l border-gray-300 dark:border-gray-700 pl-2 sm:pl-3">
+    <select aria-label="Estilos de título" class="rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-2 py-1 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-orange-600 transition" id="headingSelect" title="Estilos de título">
+     <option selected="" value="p">
+      Parágrafo
+     </option>
+     <option value="h1">
+      Título 1
+     </option>
+     <option value="h2">
+      Título 2
+     </option>
+     <option value="h3">
+      Título 3
+     </option>
+     <option value="h4">
+      Título 4
+     </option>
+     <option value="h5">
+      Título 5
+     </option>
+     <option value="h6">
+      Título 6
+     </option>
+    </select>
+   </div>
+   <button aria-label="Salvar conteúdo" class="ml-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold px-3 py-1 rounded-md transition focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-orange-600" id="saveBtn" title="Salvar conteúdo" type="button">
+    <i class="fas fa-save mr-1">
+    </i>
+    Salvar
+   </button>
+   <!-- Mobile Toolbar -->
+   <div aria-label="Barra de ferramentas móvel" id="mobileToolbar" role="toolbar" tabindex="0">
+    <button aria-label="Negrito" data-command="bold" title="Negrito (Ctrl+B)" type="button">
+     <i class="fas fa-bold">
+     </i>
+    </button>
+    <button aria-label="Itálico" data-command="italic" title="Itálico (Ctrl+I)" type="button">
+     <i class="fas fa-italic">
+     </i>
+    </button>
+    <button aria-label="Sublinhado" data-command="underline" title="Sublinhado (Ctrl+U)" type="button">
+     <i class="fas fa-underline">
+     </i>
+    </button>
+    <button aria-label="Lista não ordenada" data-command="insertUnorderedList" title="Lista não ordenada" type="button">
+     <i class="fas fa-list-ul">
+     </i>
+    </button>
+    <button aria-label="Lista ordenada" data-command="insertOrderedList" title="Lista ordenada" type="button">
+     <i class="fas fa-list-ol">
+     </i>
+    </button>
+    <button aria-label="Inserir link" id="insertLinkBtnMobile" title="Inserir link" type="button">
+     <i class="fas fa-link">
+     </i>
+    </button>
+    <button aria-label="Inserir imagem" id="insertImageBtnMobile" title="Inserir imagem" type="button">
+     <i class="fas fa-image">
+     </i>
+    </button>
+    <button aria-label="Desfazer" data-command="undo" title="Desfazer (Ctrl+Z)" type="button">
+     <i class="fas fa-undo">
+     </i>
+    </button>
+    <button aria-label="Refazer" data-command="redo" title="Refazer (Ctrl+Y)" type="button">
+     <i class="fas fa-redo">
+     </i>
+    </button>
+   </div>
+  </header>
+  <!-- Main Content -->
+  <main class="pt-16 pb-8 flex justify-center min-h-screen relative">
+   <div aria-label="Área de edição de texto" aria-multiline="true" class="editor bg-white dark:bg-gray-700 rounded-lg shadow-lg w-full max-w-[794px] h-[1123px] p-5 sm:p-8 overflow-y-auto leading-relaxed text-base sm:text-lg focus:outline-none focus:ring-4 focus:ring-orange-400 dark:focus:ring-orange-600 transition-colors duration-300 relative" contenteditable="true" id="editor" role="textbox" spellcheck="true" style="resize: vertical;">
+    <h1>
+     Bem-vindo ao Editor de Texto Online
+    </h1>
+    <p>
+     Comece a digitar seu texto aqui...
+    </p>
+   </div>
+   <img alt="Logo estilizada da marca d'água com texto 'Logo Marca d'Água' em azul escuro sobre fundo transparente" aria-hidden="true" class="watermark select-none pointer-events-none" height="80" src="latsflaubranco-removebg-preview.png" width="240"/>
+  </main>
+  <script>
+   // Toolbar buttons style and behavior
+  const toolbarButtons = document.querySelectorAll(".toolbar-btn");
+  toolbarButtons.forEach((btn) => {
+    btn.classList.add(
+      "text-blue-900",
+      "dark:text-orange-400",
+      "hover:text-orange-500",
+      "dark:hover:text-orange-600",
+      "transition-colors",
+      "px-2",
+      "py-1",
+      "rounded-md",
+      "focus:outline-none",
+      "focus:ring-2",
+      "focus:ring-orange-400",
+      "dark:focus:ring-orange-600",
+      "text-lg",
+      "sm:text-xl"
+    );
+  });
+
+  const editor = document.getElementById("editor");
+
+  // Execute command helper
+  function execCommand(command, value = null) {
+    document.execCommand(command, false, value);
+    editor.focus();
+  }
+
+  // Toolbar buttons click desktop
+  toolbarButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const command = btn.dataset.command;
+      if (!command) return;
+      if (command === "removeFormat") {
+        execCommand("removeFormat");
+        execCommand("unlink");
+      } else {
+        execCommand(command);
+      }
+    });
+  });
+
+  // Heading select change
+  const headingSelect = document.getElementById("headingSelect");
+  headingSelect.addEventListener("change", () => {
+    const value = headingSelect.value;
+    if (value === "p") {
+      execCommand("formatBlock", "p");
+    } else {
+      execCommand("formatBlock", value);
+    }
+  });
+
+  // Insert Link desktop
+  const insertLinkBtn = document.getElementById("insertLinkBtn");
+  insertLinkBtn.addEventListener("click", () => {
+    let url = prompt("Digite o URL do link (ex: https://exemplo.com):", "https://");
+    if (url) {
+      if (!url.match(/^https?:\/\//i)) {
+        url = "https://" + url;
+      }
+      execCommand("createLink", url);
+    }
+  });
+
+  // Insert Image desktop
+  const insertImageBtn = document.getElementById("insertImageBtn");
+  insertImageBtn.addEventListener("click", () => {
+    let url = prompt("Digite o URL da imagem (ex: https://exemplo.com/imagem.jpg):", "https://");
+    if (url) {
+      execCommand("insertImage", url);
+    }
+  });
+
+  // Text color picker
+  const textColorPicker = document.getElementById("textColorPicker");
+  textColorPicker.addEventListener("input", () => {
+    execCommand("foreColor", textColorPicker.value);
+  });
+
+  // Background color picker
+  const bgColorPicker = document.getElementById("bgColorPicker");
+  bgColorPicker.addEventListener("input", () => {
+    execCommand("hiliteColor", bgColorPicker.value);
+  });
+
+  // Save content
+  const saveBtn = document.getElementById("saveBtn");
+  saveBtn.addEventListener("click", () => {
+    let filename = prompt("Digite o nome do arquivo para salvar:", "documento.txt");
+    if (!filename) return;
+    if (!filename.includes(".")) {
+      filename += ".txt";
+    }
+    // Save as plain text with line breaks
+    const text = editor.innerText;
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+
+  // Side menu open/close
+  const sideMenu = document.getElementById("sideMenu");
+  const sideMenuOverlay = document.getElementById("sideMenuOverlay");
+  const openSideMenuBtn = document.getElementById("openSideMenuBtn");
+  const closeSideMenuBtn = document.getElementById("closeSideMenuBtn");
+
+  function openSideMenu() {
+    sideMenu.classList.remove("-translate-x-full");
+    sideMenuOverlay.classList.remove("opacity-0", "pointer-events-none");
+    sideMenuOverlay.classList.add("opacity-100", "pointer-events-auto");
+  }
+  function closeSideMenu() {
+    sideMenu.classList.add("-translate-x-full");
+    sideMenuOverlay.classList.add("opacity-0", "pointer-events-none");
+    sideMenuOverlay.classList.remove("opacity-100", "pointer-events-auto");
+  }
+
+  openSideMenuBtn.addEventListener("click", openSideMenu);
+  closeSideMenuBtn.addEventListener("click", closeSideMenu);
+  sideMenuOverlay.addEventListener("click", () => {
+    closeSideMenu();
+    closeSettings();
+    closeHelp();
+  });
+
+  // Side menu buttons
+  document.getElementById("btnBack").addEventListener("click", () => {
+    alert("Voltando para a página anterior...");
+    // Simulate back navigation
+    window.history.back();
+  });
+
+  // Settings modal
+  const settingsOverlay = document.getElementById("settingsOverlay");
+  const btnSettings = document.getElementById("btnSettings");
+  const closeSettingsBtn = document.getElementById("closeSettingsBtn");
+  const cancelSettingsBtn = document.getElementById("cancelSettingsBtn");
+  const settingsForm = document.getElementById("settingsForm");
+
+  function openSettings() {
+    settingsOverlay.classList.remove("opacity-0", "pointer-events-none");
+    settingsOverlay.classList.add("opacity-100", "pointer-events-auto");
+    setTimeout(() => {
+      settingsOverlay.querySelector("div[role='dialog']").classList.remove("scale-95", "opacity-0");
+      settingsOverlay.querySelector("div[role='dialog']").classList.add("scale-100", "opacity-100");
+    }, 10);
+  }
+  function closeSettings() {
+    const dialog = settingsOverlay.querySelector("div[role='dialog']");
+    dialog.classList.add("scale-95", "opacity-0");
+    dialog.classList.remove("scale-100", "opacity-100");
+    setTimeout(() => {
+      settingsOverlay.classList.add("opacity-0", "pointer-events-none");
+      settingsOverlay.classList.remove("opacity-100", "pointer-events-auto");
+    }, 200);
+  }
+
+  btnSettings.addEventListener("click", () => {
+    closeSideMenu();
+    openSettings();
+  });
+  closeSettingsBtn.addEventListener("click", closeSettings);
+  cancelSettingsBtn.addEventListener("click", closeSettings);
+  settingsOverlay.addEventListener("click", (e) => {
+    if (e.target === settingsOverlay) closeSettings();
+  });
+
+  // Help modal
+  const helpOverlay = document.getElementById("helpOverlay");
+  const btnHelp = document.getElementById("btnHelp");
+  const closeHelpBtn = document.getElementById("closeHelpBtn");
+
+  function openHelp() {
+    helpOverlay.classList.remove("opacity-0", "pointer-events-none");
+    helpOverlay.classList.add("opacity-100", "pointer-events-auto");
+    setTimeout(() => {
+      helpOverlay.querySelector("div[role='dialog']").classList.remove("scale-95", "opacity-0");
+      helpOverlay.querySelector("div[role='dialog']").classList.add("scale-100", "opacity-100");
+    }, 10);
+  }
+  function closeHelp() {
+    const dialog = helpOverlay.querySelector("div[role='dialog']");
+    dialog.classList.add("scale-95", "opacity-0");
+    dialog.classList.remove("scale-100", "opacity-100");
+    setTimeout(() => {
+      helpOverlay.classList.add("opacity-0", "pointer-events-none");
+      helpOverlay.classList.remove("opacity-100", "pointer-events-auto");
+    }, 200);
+  }
+
+  btnHelp.addEventListener("click", () => {
+    closeSideMenu();
+    openHelp();
+  });
+  closeHelpBtn.addEventListener("click", closeHelp);
+  helpOverlay.addEventListener("click", (e) => {
+    if (e.target === helpOverlay) closeHelp();
+  });
+
+  // Logout button
+  document.getElementById("btnLogout").addEventListener("click", () => {
+    if (confirm("Deseja realmente sair?")) {
+      alert("Logout realizado.");
+      // Simulate logout - redirect or clear session
+      window.location.href = "/";
+    }
+  });
+
+  // Settings form submit
+  settingsForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData(settingsForm);
+    const theme = formData.get("theme");
+    const font = formData.get("font");
+    const fontSize = formData.get("fontSize");
+    const bgColor = formData.get("bgColor");
+    const textColor = formData.get("textColor");
+    const padding = formData.get("padding");
+    const spellcheck = formData.get("spellcheck") === "on";
+    const fullscreen = formData.get("fullscreen") === "on";
+
+    // Theme
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    // Font family
+    editor.style.fontFamily = font;
+
+    // Font size
+    editor.style.fontSize = fontSize + "px";
+
+    // Background color editor
+    editor.style.backgroundColor = bgColor;
+
+    // Text color editor
+    editor.style.color = textColor;
+
+    // Padding editor
+    editor.style.padding = padding + "px";
+
+    // Spellcheck
+    editor.spellcheck = spellcheck;
+
+    // Fullscreen mode
+    if (fullscreen) {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.();
+      }
+    } else {
+      if (document.fullscreenElement) {
+        document.exitFullscreen?.();
+      }
+    }
+
+    closeSettings();
+  });
+
+  // Keyboard shortcuts for bold, italic, underline, undo, redo
+  document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey || e.metaKey) {
+      switch (e.key.toLowerCase()) {
+        case "b":
+          e.preventDefault();
+          execCommand("bold");
+          break;
+        case "i":
+          e.preventDefault();
+          execCommand("italic");
+          break;
+        case "u":
+          e.preventDefault();
+          execCommand("underline");
+          break;
+        case "z":
+          e.preventDefault();
+          execCommand("undo");
+          break;
+        case "y":
+          e.preventDefault();
+          execCommand("redo");
+          break;
+      }
+    }
+  });
+
+  // Initialize colors pickers with execCommand on load
+  window.addEventListener("load", () => {
+    // Set initial colors for execCommand
+    textColorPicker.dispatchEvent(new Event("input"));
+    bgColorPicker.dispatchEvent(new Event("input"));
+  });
+
+  // Mobile toolbar buttons
+  const mobileToolbar = document.getElementById("mobileToolbar");
+  mobileToolbar.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.id;
+      if (id === "insertLinkBtnMobile") {
+        let url = prompt("Digite o URL do link (ex: https://exemplo.com):", "https://");
+        if (url) {
+          if (!url.match(/^https?:\/\//i)) {
+            url = "https://" + url;
+          }
+          execCommand("createLink", url);
+        }
+        return;
+      }
+      if (id === "insertImageBtnMobile") {
+        let url = prompt("Digite o URL da imagem (ex: https://exemplo.com/imagem.jpg):", "https://");
+        if (url) {
+          execCommand("insertImage", url);
+        }
+        return;
+      }
+      const command = btn.dataset.command;
+      if (!command) return;
+      execCommand(command);
+    });
+  });
+  </script>
+ </body>
+</html>
