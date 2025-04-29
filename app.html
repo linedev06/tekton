@@ -473,6 +473,115 @@
       user-select: none;
       font-family: 'Montserrat', sans-serif;
     }
+    /* New section: Security & Support */
+    .security-support {
+      margin-top: 48px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fff7e6;
+      border-radius: 16px;
+      padding: 24px 32px;
+      box-shadow: 0 8px 20px rgba(255, 154, 0, 0.3);
+      color: #92400e;
+      font-family: 'Montserrat', sans-serif;
+      user-select: none;
+    }
+    .security-support h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #ff9a00;
+    }
+    .security-support ul {
+      list-style: none;
+      padding-left: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+    .security-support li {
+      background: #fff3cd;
+      border-radius: 12px;
+      padding: 12px 20px;
+      box-shadow: 0 4px 12px rgba(255, 154, 0, 0.2);
+      flex: 1 1 140px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #b45309;
+      user-select: none;
+    }
+    .security-support li i {
+      font-size: 1.5rem;
+      color: #ff9a00;
+      flex-shrink: 0;
+    }
+    /* New section: FAQ Accordion */
+    .faq-section {
+      margin-top: 60px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: 'Montserrat', sans-serif;
+      user-select: none;
+    }
+    .faq-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ff9a00;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .faq-item {
+      background: #fff7cc;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(255, 154, 0, 0.25);
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+    .faq-item:focus-within {
+      border-color: #ff9a00;
+      outline: none;
+    }
+    .faq-question {
+      cursor: pointer;
+      padding: 16px 24px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #b45309;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .faq-question i {
+      transition: transform 0.3s ease;
+      color: #ff9a00;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .faq-item[aria-expanded="true"] .faq-question i {
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 24px;
+      font-size: 0.95rem;
+      color: #92400e;
+      line-height: 1.4;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+    .faq-item[aria-expanded="true"] .faq-answer {
+      max-height: 200px;
+      padding: 12px 24px 20px 24px;
+    }
   </style>
  </head>
  <body>
@@ -483,50 +592,41 @@
      <h1 class="text-5xl font-extrabold text-[#ff9a00] leading-tight mb-1">
       Baixe o App Tektõn
      </h1>
-     <div aria-hidden="true" class="underline-gradient">
-     </div>
+     <div aria-hidden="true" class="underline-gradient"></div>
      <p class="text-gray-700 text-lg max-w-lg mb-6">
       Tenha acesso aos seus projetos arquitetônicos, acompanhe o andamento, e conecte-se com a equipe Tektõn diretamente do seu celular. Simples, rápido e profissional.
      </p>
      <div aria-label="Principais funcionalidades do app" class="features-list">
       <div class="feature-item slide-up" style="animation-delay: 0.3s;">
-       <i aria-hidden="true" class="fas fa-project-diagram">
-       </i>
+       <i aria-hidden="true" class="fas fa-project-diagram"></i>
        <span>Acompanhe seus projetos em tempo real</span>
       </div>
       <div class="feature-item slide-up" style="animation-delay: 0.5s;">
-       <i aria-hidden="true" class="fas fa-comments">
-       </i>
+       <i aria-hidden="true" class="fas fa-comments"></i>
        <span>Comunicação direta com arquitetos</span>
       </div>
       <div class="feature-item slide-up" style="animation-delay: 0.7s;">
-       <i aria-hidden="true" class="fas fa-file-upload">
-       </i>
+       <i aria-hidden="true" class="fas fa-file-upload"></i>
        <span>Envie documentos e fotos facilmente</span>
       </div>
       <div class="feature-item slide-up" style="animation-delay: 0.9s;">
-       <i aria-hidden="true" class="fas fa-bell">
-       </i>
+       <i aria-hidden="true" class="fas fa-bell"></i>
        <span>Receba notificações importantes</span>
       </div>
       <div class="feature-item slide-up" style="animation-delay: 1.1s;">
-       <i aria-hidden="true" class="fas fa-shield-alt">
-       </i>
+       <i aria-hidden="true" class="fas fa-shield-alt"></i>
        <span>Segurança e privacidade garantidas</span>
       </div>
       <div class="feature-item slide-up" style="animation-delay: 1.3s;">
-       <i aria-hidden="true" class="fas fa-cogs">
-       </i>
+       <i aria-hidden="true" class="fas fa-cogs"></i>
        <span>Configurações personalizáveis</span>
       </div>
       <div class="feature-item slide-up" style="animation-delay: 1.5s;">
-       <i aria-hidden="true" class="fas fa-chart-line">
-       </i>
+       <i aria-hidden="true" class="fas fa-chart-line"></i>
        <span>Relatórios detalhados de progresso</span>
       </div>
       <div class="feature-item slide-up" style="animation-delay: 1.7s;">
-       <i aria-hidden="true" class="fas fa-calendar-check">
-       </i>
+       <i aria-hidden="true" class="fas fa-calendar-check"></i>
        <span>Agenda integrada para reuniões e prazos</span>
       </div>
      </div>
@@ -535,56 +635,81 @@
      </div>
      <div class="download-buttons mt-6 slide-up" style="animation-delay: 1.9s;">
       <a aria-label="Baixar na App Store" class="download-btn" href="#" role="button" tabindex="0">
-       <i aria-hidden="true" class="fab fa-apple">
-       </i>
+       <i aria-hidden="true" class="fab fa-apple"></i>
        App Store
       </a>
       <a aria-label="Baixar no Google Play" class="download-btn" href="#" role="button" tabindex="0">
-       <i aria-hidden="true" class="fab fa-google-play">
-       </i>
+       <i aria-hidden="true" class="fab fa-google-play"></i>
        Google Play
       </a>
      </div>
      <a aria-label="Voltar para a página inicial" class="back-button slide-up" href="index.html" style="animation-delay: 2.1s;">
-      <i aria-hidden="true" class="fas fa-arrow-left">
-      </i>
+      <i aria-hidden="true" class="fas fa-arrow-left"></i>
       Voltar para Início
      </a>
      <section aria-label="Depoimentos de usuários" class="testimonial-section slide-up" style="animation-delay: 2.3s;">
-      <h2>
-       O que nossos usuários dizem
-      </h2>
+      <h2>O que nossos usuários dizem</h2>
       <div class="testimonial-cards">
        <article class="testimonial-card" tabindex="0">
-        <i aria-hidden="true" class="fas fa-user testimonial-icon" title="Ícone de usuário João Silva">
-        </i>
+        <i aria-hidden="true" class="fas fa-user testimonial-icon" title="Ícone de usuário João Silva"></i>
         <p class="testimonial-text">
          "O Tektõn revolucionou a forma como acompanho meus projetos. A comunicação direta com os arquitetos é incrível!"
         </p>
-        <p class="testimonial-author">
-         João Silva
-        </p>
+        <p class="testimonial-author">João Silva</p>
        </article>
        <article class="testimonial-card" tabindex="0">
-        <i aria-hidden="true" class="fas fa-user-tie testimonial-icon" title="Ícone de arquiteta Maria Costa">
-        </i>
+        <i aria-hidden="true" class="fas fa-user-tie testimonial-icon" title="Ícone de arquiteta Maria Costa"></i>
         <p class="testimonial-text">
          "Com o Tektõn, consigo enviar atualizações e documentos rapidamente, mantendo tudo organizado e transparente."
         </p>
-        <p class="testimonial-author">
-         Maria Costa
-        </p>
+        <p class="testimonial-author">Maria Costa</p>
        </article>
        <article class="testimonial-card" tabindex="0">
-        <i aria-hidden="true" class="fas fa-user-cog testimonial-icon" title="Ícone de gerente de projetos Lucas Pereira">
-        </i>
+        <i aria-hidden="true" class="fas fa-user-cog testimonial-icon" title="Ícone de gerente de projetos Lucas Pereira"></i>
         <p class="testimonial-text">
          "A agenda integrada e os relatórios detalhados facilitam muito o gerenciamento das entregas."
         </p>
-        <p class="testimonial-author">
-         Lucas Pereira
-        </p>
+        <p class="testimonial-author">Lucas Pereira</p>
        </article>
+      </div>
+     </section>
+     <section class="security-support slide-up" style="animation-delay: 2.5s;" aria-label="Segurança e Suporte">
+      <h3>Segurança &amp; Suporte</h3>
+      <ul>
+       <li><i class="fas fa-lock" aria-hidden="true"></i> Criptografia de ponta a ponta</li>
+       <li><i class="fas fa-headset" aria-hidden="true"></i> Suporte 24/7 via chat e e-mail</li>
+       <li><i class="fas fa-cloud-upload-alt" aria-hidden="true"></i> Backup automático na nuvem</li>
+       <li><i class="fas fa-user-shield" aria-hidden="true"></i> Controle de acesso personalizado</li>
+      </ul>
+     </section>
+     <section class="faq-section slide-up" style="animation-delay: 2.7s;" aria-label="Perguntas Frequentes">
+      <h2>Perguntas Frequentes</h2>
+      <div class="faq-item" tabindex="0" aria-expanded="false">
+       <button class="faq-question" aria-controls="faq1" aria-expanded="false" id="faq1-btn">
+        Como faço para sincronizar meus projetos?
+        <i class="fas fa-plus" aria-hidden="true"></i>
+       </button>
+       <div class="faq-answer" id="faq1" role="region" aria-labelledby="faq1-btn">
+        Você pode sincronizar seus projetos automaticamente ao conectar o app à sua conta Tekton. Basta fazer login e tudo será atualizado em tempo real.
+       </div>
+      </div>
+      <div class="faq-item" tabindex="0" aria-expanded="false">
+       <button class="faq-question" aria-controls="faq2" aria-expanded="false" id="faq2-btn">
+        O app funciona offline?
+        <i class="fas fa-plus" aria-hidden="true"></i>
+       </button>
+       <div class="faq-answer" id="faq2" role="region" aria-labelledby="faq2-btn">
+        Sim, você pode acessar projetos e chats recentes mesmo sem conexão. As atualizações serão sincronizadas automaticamente quando estiver online.
+       </div>
+      </div>
+      <div class="faq-item" tabindex="0" aria-expanded="false">
+       <button class="faq-question" aria-controls="faq3" aria-expanded="false" id="faq3-btn">
+        Como garantir a segurança dos meus dados?
+        <i class="fas fa-plus" aria-hidden="true"></i>
+       </button>
+       <div class="faq-answer" id="faq3" role="region" aria-labelledby="faq3-btn">
+        O Tektõn utiliza criptografia avançada e políticas rigorosas de privacidade para proteger todas as suas informações.
+       </div>
       </div>
      </section>
     </section>
@@ -615,8 +740,7 @@
         </h3>
         <ul class="space-y-3 mt-3">
          <li class="flex items-center gap-3 bg-gray-800 rounded-md p-3 shadow-md">
-          <i aria-hidden="true" class="fas fa-home text-[#ff9a00] text-2xl flex-shrink-0">
-          </i>
+          <i aria-hidden="true" class="fas fa-home text-[#ff9a00] text-2xl flex-shrink-0"></i>
           <div>
            <p class="font-semibold text-white">
             Casa Moderna
@@ -627,8 +751,7 @@
           </div>
          </li>
          <li class="flex items-center gap-3 bg-gray-800 rounded-md p-3 shadow-md">
-          <i aria-hidden="true" class="fas fa-store text-[#ff9a00] text-2xl flex-shrink-0">
-          </i>
+          <i aria-hidden="true" class="fas fa-store text-[#ff9a00] text-2xl flex-shrink-0"></i>
           <div>
            <p class="font-semibold text-white">
             Loja Urbana
@@ -639,8 +762,7 @@
           </div>
          </li>
          <li class="flex items-center gap-3 bg-gray-800 rounded-md p-3 shadow-md">
-          <i aria-hidden="true" class="fas fa-pencil-ruler text-[#ff9a00] text-2xl flex-shrink-0">
-          </i>
+          <i aria-hidden="true" class="fas fa-pencil-ruler text-[#ff9a00] text-2xl flex-shrink-0"></i>
           <div>
            <p class="font-semibold text-white">
             Apartamento Compacto
@@ -762,14 +884,10 @@
       </div>
      </div>
      <div aria-label="Navegação do conteúdo do aplicativo" class="carousel-nav mt-8" role="tablist">
-      <button aria-controls="tab-projects" aria-label="Projetos" aria-selected="true" class="carousel-dot active" role="tab" tabindex="0">
-      </button>
-      <button aria-controls="tab-chat" aria-label="Chat" aria-selected="false" class="carousel-dot" role="tab" tabindex="-1">
-      </button>
-      <button aria-controls="tab-notifications" aria-label="Notificações" aria-selected="false" class="carousel-dot" role="tab" tabindex="-1">
-      </button>
-      <button aria-controls="tab-calendar" aria-label="Agenda" aria-selected="false" class="carousel-dot" role="tab" tabindex="-1">
-      </button>
+      <button aria-controls="tab-projects" aria-label="Projetos" aria-selected="true" class="carousel-dot active" role="tab" tabindex="0"></button>
+      <button aria-controls="tab-chat" aria-label="Chat" aria-selected="false" class="carousel-dot" role="tab" tabindex="-1"></button>
+      <button aria-controls="tab-notifications" aria-label="Notificações" aria-selected="false" class="carousel-dot" role="tab" tabindex="-1"></button>
+      <button aria-controls="tab-calendar" aria-label="Agenda" aria-selected="false" class="carousel-dot" role="tab" tabindex="-1"></button>
      </div>
     </section>
    </div>
@@ -837,6 +955,25 @@
 
     // Initialize first tab active
     activateTab(0);
+
+    // FAQ accordion toggle
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const btn = item.querySelector('.faq-question');
+      btn.addEventListener('click', () => {
+        const expanded = item.getAttribute('aria-expanded') === 'true';
+        faqItems.forEach(i => i.setAttribute('aria-expanded', 'false'));
+        if (!expanded) {
+          item.setAttribute('aria-expanded', 'true');
+        }
+      });
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
+      });
+    });
   </script>
  </body>
 </html>
