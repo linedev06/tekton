@@ -1,0 +1,489 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Tekton - Projetos Arquitetônicos
+  </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+    font-family: 'Montserrat', sans-serif;
+   }
+   /* Fade-in animation */
+   .fade-in {
+    opacity: 0;
+    animation: fadeInAnim 1.8s ease forwards;
+   }
+   @keyframes fadeInAnim {
+    to {
+     opacity: 1;
+    }
+   }
+   /* Hamburger button styles and animation */
+   #menu-btn {
+    width: 32px;
+    height: 24px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 50;
+   }
+   /* Hide hamburger on md and above */
+   @media (min-width: 768px) {
+    #menu-btn {
+     display: none;
+    }
+   }
+   #menu-btn span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: #ff9a00;
+    border-radius: 2px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+   }
+   #menu-btn.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+   }
+   #menu-btn.open span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(20px);
+   }
+   #menu-btn.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+   }
+   /* Scrollbar hidden for mobile menu */
+   #mobile-menu::-webkit-scrollbar {
+    display: none;
+   }
+   #mobile-menu {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+   }
+   /* Navbar base styles */
+   header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    background-color: transparent;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+   }
+   /* Border line container */
+   .border-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    overflow: hidden;
+    pointer-events: none;
+   }
+   /* The animated line */
+   .border-line span {
+    display: block;
+    height: 3px;
+    width: 0;
+    background-color: #ff9a00;
+    transition: width 0.4s ease;
+   }
+   /* When scrolled, show the line */
+   header.scrolled {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: saturate(180%) blur(10px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+   }
+   header.scrolled .border-line span {
+    width: 100%;
+   }
+   /* Hide mobile menu initially */
+   #mobile-menu {
+    transition: transform 0.3s ease-in-out;
+   }
+   /* Enhanced Baixar App button */
+   .btn-download {
+    @apply relative inline-flex items-center justify-center px-7 py-3 rounded-lg font-semibold text-white transition-all duration-300 ease-in-out shadow-lg overflow-hidden;
+    background: linear-gradient(90deg, #ff9a00 0%, #ffb347 100%);
+    box-shadow: 0 4px 15px rgba(255, 154, 0, 0.6);
+   }
+   .btn-download:hover {
+    background: linear-gradient(90deg, #e08600 0%, #ff9a00 100%);
+    box-shadow: 0 6px 20px rgba(224, 134, 0, 0.8);
+    transform: translateY(-2px);
+   }
+   .btn-download:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 154, 0, 0.6);
+   }
+   .btn-download .icon {
+    margin-left: 0.5rem;
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+   }
+   .btn-download:hover .icon {
+    transform: translateX(5px);
+   }
+  </style>
+ </head>
+ <body class="relative bg-white text-gray-900">
+  <!-- Background image with img tag -->
+  <img alt="Prédio moderno com luzes douradas ao entardecer, céu alaranjado e arquitetura contemporânea, alta resolução" class="fixed inset-0 w-full h-full object-cover z-0" height="1080" src="https://storage.googleapis.com/a1aa/image/ea626eb9-72e3-4550-c0fd-a9a8ea60f481.jpg" width="1920"/>
+  <!-- Overlay to darken background for text readability -->
+  <div class="fixed inset-0 bg-black bg-opacity-70 z-10"></div>
+  <!-- Header with logo and login -->
+  <header>
+    <nav class="container mx-auto flex items-center justify-between py-2 px-6 md:px-0 text-white relative" style="height: 90px;"> 
+        <a class="text-3xl font-extrabold tracking-wide text-[#ff9a00] fade-in" href="#" style="animation-delay: 0.3s; display: flex; align-items: center;">
+          <img src="latsflaubranco-removebg-preview.png" alt="" style="height: 150px; object-fit: contain;">
+        </a>
+        
+        <ul class="hidden md:flex space-x-10 font-semibold text-white items-center">
+          <li><a class="hover:text-[#ff9a00] transition-colors" href="#sobre">Sobre</a></li>
+          <li><a class="hover:text-[#ff9a00] transition-colors" href="#valores">Valores</a></li>
+          <li><a class="hover:text-[#ff9a00] transition-colors" href="#projetos">Projetos</a></li>
+          <li><a class="hover:text-[#ff9a00] transition-colors" href="#contato">Contato</a></li>
+          <li><a class="hover:text-[#ff9a00] transition-colors" href="#area-arquiteto">Login Arquitetos</a></li>
+          <li>
+            <button class="btn-download" type="button" aria-label="Baixar App Tekton">
+              Baixar App <i class="fas fa-download icon"></i>
+            </button>
+          </li>
+        </ul>
+      
+        <button aria-label="Abrir menu" class="focus:outline-none" id="menu-btn" aria-expanded="false" aria-controls="mobile-menu" type="button">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+      
+      <div class="border-line">
+        <span></span>
+       </div>
+       <div class="hidden md:hidden fixed top-16 right-0 w-64 bg-black bg-opacity-90 backdrop-blur-md shadow-lg rounded-l-lg z-30 overflow-y-auto max-h-[calc(100vh-4rem)] transition-transform duration-300 ease-in-out transform translate-x-full" id="mobile-menu" role="menu" aria-label="Menu de navegação móvel">
+        <ul class="flex flex-col space-y-6 p-6 font-semibold text-white">
+         <li>
+          <a class="hover:text-[#ff9a00] transition-colors" href="#sobre" role="menuitem" tabindex="-1">
+           Sobre
+          </a>
+         </li>
+         <li>
+          <a class="hover:text-[#ff9a00] transition-colors" href="#valores" role="menuitem" tabindex="-1">
+           Valores
+          </a>
+         </li>
+         <li>
+          <a class="hover:text-[#ff9a00] transition-colors" href="#projetos" role="menuitem" tabindex="-1">
+           Projetos
+          </a>
+         </li>
+         <li>
+          <a class="hover:text-[#ff9a00] transition-colors" href="#contato" role="menuitem" tabindex="-1">
+           Contato
+          </a>
+         </li>
+         <li>
+          <a class="hover:text-[#ff9a00] transition-colors" href="#area-arquiteto" role="menuitem" tabindex="-1">
+           Login Arquitetos
+          </a>
+         </li>
+         <li>
+          <button class="btn-download w-full text-center" role="menuitem" tabindex="-1" type="button" aria-label="Baixar App Tektõn">
+           Baixar App
+           <i class="fas fa-download icon"></i>
+          </button>
+         </li>
+        </ul>
+       </div>
+      </header>
+      <main class="relative z-20 pt-24">
+       <!-- Hero Section -->
+       <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 md:px-0">
+        <div class="max-w-4xl fade-in" style="animation-delay: 1.2s;">
+         <h1 class="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-6 drop-shadow-lg">
+          Tektõn
+          <br/>
+          Projetos Arquitetônicos Profissionais
+         </h1>
+         <p class="text-white text-lg md:text-xl max-w-3xl mx-auto mb-10 drop-shadow-md">
+          Transformamos suas ideias em projetos arquitetônicos inovadores, funcionais e sustentáveis.
+         </p>
+         <a class="inline-block bg-[#ff9a00] hover:bg-[#e08600] transition-colors text-white font-semibold px-10 py-4 rounded-md shadow-lg drop-shadow-lg" href="#sobre">
+          Conheça a Tektõn
+         </a>
+        </div>
+       </section>
+       <!-- Sobre a empresa -->
+        <div id="sobre" ></div>
+       <section class="bg-white bg-opacity-90 backdrop-blur-md rounded-xl max-w-6xl mx-auto my-20 p-10 md:p-16 shadow-lg fade-in" style="animation-delay: 1.5s;">
+        <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-10 text-center">
+         Sobre a Tektõn
+        </h2>
+        <div class="flex flex-col md:flex-row items-center md:space-x-12">
+         <img alt="Equipe de arquitetos profissionais colaborando em um projeto arquitetônico moderno, ambiente claro e organizado" class="rounded-lg shadow-lg mb-8 md:mb-0 md:w-1/2 object-cover" height="400" src="https://storage.googleapis.com/a1aa/image/294a983b-6197-4b5a-52c0-340d22ec3ac8.jpg" width="600"/>
+         <div class="md:w-1/2 text-gray-800 text-lg leading-relaxed">
+          <p>
+           A Tektõn é uma empresa especializada em projetos arquitetônicos que alia criatividade, técnica e sustentabilidade para entregar soluções personalizadas e de alta qualidade.
+          </p>
+          <p class="mt-6">
+           Com uma equipe experiente e dedicada, transformamos sonhos em realidade, respeitando prazos e orçamentos, sempre com atenção aos detalhes e inovação.
+          </p>
+         </div>
+        </div>
+       </section>
+   <!-- Valores -->
+   <div id="valores"></div>
+   <div></div>
+   <section class="max-w-6xl mx-auto my-20 px-6 md:px-0 fade-in"  style="animation-delay: 1.8s;">
+    <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-12 text-center">
+     Nossos Valores
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center text-white">
+     <div class="space-y-4">
+      <div class="flex justify-center text-[#ff9a00] text-6xl">
+       <i class="fas fa-lightbulb"></i>
+      </div>
+      <h3 class="text-xl font-semibold">
+       Inovação
+      </h3>
+      <p class="max-w-xs mx-auto">
+       Buscamos soluções criativas e modernas para cada projeto, garantindo exclusividade e funcionalidade.
+      </p>
+     </div>
+     <div class="space-y-4">
+      <div class="flex justify-center text-[#ff9a00] text-6xl">
+       <i class="fas fa-leaf"></i>
+      </div>
+      <h3 class="text-xl font-semibold">
+       Sustentabilidade
+      </h3>
+      <p class="max-w-xs mx-auto">
+       Priorizamos práticas e materiais que respeitam o meio ambiente e promovem a eficiência energética.
+      </p>
+     </div>
+     <div class="space-y-4">
+      <div class="flex justify-center text-[#ff9a00] text-6xl">
+       <i class="fas fa-users"></i>
+      </div>
+      <h3 class="text-xl font-semibold">
+       Compromisso
+      </h3>
+      <p class="max-w-xs mx-auto">
+       Valorizamos a transparência, o respeito e o atendimento personalizado para cada cliente.
+      </p>
+     </div>
+    </div>
+   </section>
+   <!-- Tipos de Projetos como botões -->
+   <div id="projetos"></div>
+
+   <div id="projetos"></div>
+
+   <section class="bg-white bg-opacity-90 backdrop-blur-md rounded-xl max-w-6xl mx-auto my-20 p-10 md:p-16 shadow-lg fade-in" style="animation-delay: 2.1s;">
+     <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-12 text-center">
+       Tipos de Projetos
+     </h2>
+   
+     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+       
+       <a href="modelo.html" class="flex flex-col items-center text-center p-8 rounded-xl shadow-md border border-gray-200 hover:border-[#ff9a00] transition-all bg-white h-full cursor-pointer">
+         <div class="text-[#ff9a00] text-6xl mb-6">
+           <i class="fas fa-box-open"></i>
+         </div>
+         <h3 class="text-xl font-semibold mb-2">
+           Modelos Prontos
+         </h3>
+         <p class="text-gray-600 text-sm">
+           Modelos prontos para quem busca agilidade e praticidade.
+         </p>
+       </a>
+   
+       <a href="#" class="flex flex-col items-center text-center p-8 rounded-xl shadow-md border border-gray-200 hover:border-[#ff9a00] transition-all bg-white h-full cursor-pointer">
+         <div class="text-[#ff9a00] text-6xl mb-6">
+           <i class="fas fa-cogs"></i>
+         </div>
+         <h3 class="text-xl font-semibold mb-2">
+           Projeto Básico
+         </h3>
+         <p class="text-gray-600 text-sm">
+           Soluções pré-definidas e acessíveis para quem busca agilidade.
+         </p>
+       </a>
+   
+       <a href="#" class="flex flex-col items-center text-center p-8 rounded-xl shadow-md border border-gray-200 hover:border-[#ff9a00] transition-all bg-white h-full cursor-pointer">
+         <div class="text-[#ff9a00] text-6xl mb-6">
+           <i class="fas fa-sliders-h"></i>
+         </div>
+         <h3 class="text-xl font-semibold mb-2">
+           Projeto Modificado
+         </h3>
+         <p class="text-gray-600 text-sm">
+           Personalização de projetos básicos conforme as necessidades do cliente.
+         </p>
+       </a>
+   
+       <a href="#" class="flex flex-col items-center text-center p-8 rounded-xl shadow-md border border-gray-200 hover:border-[#ff9a00] transition-all bg-white h-full cursor-pointer">
+         <div class="text-[#ff9a00] text-6xl mb-6">
+           <i class="fas fa-pencil-ruler"></i>
+         </div>
+         <h3 class="text-xl font-semibold mb-2">
+           Projeto Personalizado
+         </h3>
+         <p class="text-gray-600 text-sm">
+           Desenvolvimento de projetos completamente novos para atender especificidades exclusivas.
+         </p>
+       </a>
+   
+     </div>
+   </section>
+   
+
+   <!-- Formulário de Contato -->
+   <section class="max-w-3xl mx-auto my-20 bg-white bg-opacity-90 backdrop-blur-md rounded-xl p-10 shadow-lg fade-in" id="contato" style="animation-delay: 2.4s;">
+    <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-10 text-center">
+     Fale Conosco
+    </h2>
+    <form action="#" class="space-y-6 text-gray-800" method="POST">
+     <div>
+      <label class="block font-semibold mb-2" for="nome">
+       Nome
+      </label>
+      <input class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]" id="nome" name="nome" placeholder="Seu nome completo" required="" type="text"/>
+     </div>
+     <div>
+      <label class="block font-semibold mb-2" for="email">
+       E-mail
+      </label>
+      <input class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]" id="email" name="email" placeholder="seuemail@exemplo.com" required="" type="email"/>
+     </div>
+     <div>
+      <label class="block font-semibold mb-2" for="telefone">
+       Telefone
+      </label>
+      <input class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]" id="telefone" name="telefone" placeholder="(00) 00000-0000" type="tel"/>
+     </div>
+     <div>
+      <label class="block font-semibold mb-2" for="mensagem">
+       Mensagem
+      </label>
+      <textarea class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]" id="mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui" required="" rows="5"></textarea>
+     </div>
+     <div class="text-center">
+      <button class="bg-[#ff9a00] hover:bg-[#e08600] transition-colors text-white font-semibold px-10 py-3 rounded-md shadow-md" type="submit">
+       Enviar Mensagem
+      </button>
+     </div>
+    </form>
+   </section>
+   <!-- Área do Arquiteto -->
+   <section class="max-w-3xl mx-auto my-20 bg-white bg-opacity-90 backdrop-blur-md rounded-xl p-10 shadow-lg fade-in" id="area-arquiteto" style="animation-delay: 2.7s;">
+    <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-10 text-center">
+     Área do Arquiteto
+    </h2>
+    <p class="text-center text-gray-700 mb-8 max-w-xl mx-auto">
+     Espaço exclusivo para nossos arquitetos acessarem suas ferramentas, projetos e informações internas. Faça login para continuar.
+    </p>
+    <form action="#" class="space-y-6 text-gray-800 max-w-md mx-auto" method="POST">
+     <div>
+      <label class="block font-semibold mb-2" for="arq-user">
+       Usuário
+      </label>
+      <input class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]" id="arq-user" name="arq-user" placeholder="Seu usuário" required="" type="text"/>
+     </div>
+     <div>
+      <label class="block font-semibold mb-2" for="arq-password">
+       Senha
+      </label>
+      <input class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]" id="arq-password" name="arq-password" placeholder="Sua senha" required="" type="password"/>
+     </div>
+     <div class="text-center">
+      <button class="bg-[#ff9a00] hover:bg-[#e08600] transition-colors text-white font-semibold px-10 py-3 rounded-md shadow-md" type="submit">
+       Entrar
+      </button>
+     </div>
+    </form>
+   </section>
+  </main>
+  <footer class="bg-[#ff9a00] text-white py-6 mt-20">
+   <div class="container mx-auto px-6 md:px-0 max-w-6xl flex flex-col md:flex-row justify-between items-center">
+    <p class="text-sm select-none">
+     © 2024 Tekton. Todos os direitos reservados.
+    </p>
+    <div class="flex space-x-6 mt-4 md:mt-0">
+     <a aria-label="Facebook" class="hover:text-white/80" href="#">
+      <i class="fab fa-facebook-f"></i>
+     </a>
+     <a aria-label="Instagram" class="hover:text-white/80" href="#">
+      <i class="fab fa-instagram"></i>
+     </a>
+     <a aria-label="LinkedIn" class="hover:text-white/80" href="#">
+      <i class="fab fa-linkedin-in"></i>
+     </a>
+    </div>
+   </div>
+  </footer>
+  <script>
+   const menuBtn = document.getElementById('menu-btn');
+   const mobileMenu = document.getElementById('mobile-menu');
+   const header = document.querySelector('header');
+   const borderLine = header.querySelector('.border-line span');
+
+   menuBtn.addEventListener('click', () => {
+     const expanded = menuBtn.getAttribute('aria-expanded') === 'true' || false;
+     menuBtn.setAttribute('aria-expanded', !expanded);
+     menuBtn.classList.toggle('open');
+     if (mobileMenu.classList.contains('hidden')) {
+       mobileMenu.classList.remove('hidden');
+       // Animate slide in
+       requestAnimationFrame(() => {
+         mobileMenu.style.transform = 'translateX(0)';
+       });
+     } else {
+       // Animate slide out
+       mobileMenu.style.transform = 'translateX(100%)';
+       mobileMenu.addEventListener('transitionend', () => {
+         if (mobileMenu.style.transform === 'translateX(100%)') {
+           mobileMenu.classList.add('hidden');
+         }
+       }, { once: true });
+     }
+   });
+
+   // Close mobile menu when clicking a link
+   mobileMenu.querySelectorAll('a, button').forEach(el => {
+     el.addEventListener('click', () => {
+       menuBtn.classList.remove('open');
+       menuBtn.setAttribute('aria-expanded', false);
+       // Animate slide out
+       mobileMenu.style.transform = 'translateX(100%)';
+       mobileMenu.addEventListener('transitionend', () => {
+         if (mobileMenu.style.transform === 'translateX(100%)') {
+           mobileMenu.classList.add('hidden');
+         }
+       }, { once: true });
+     });
+   });
+
+   // Initialize mobile menu transform for smooth animation
+   document.addEventListener('DOMContentLoaded', () => {
+     mobileMenu.style.transform = 'translateX(100%)';
+   });
+
+   // Add border bottom line on scroll with smooth animation
+   window.addEventListener('scroll', () => {
+     if (window.scrollY > 20) {
+       header.classList.add('scrolled');
+     } else {
+       header.classList.remove('scrolled');
+     }
+   });
+  </script>
+ </body>
+</html>

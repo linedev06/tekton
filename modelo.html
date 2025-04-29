@@ -1,0 +1,632 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Modelos Prontos - Tektõn
+  </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Montserrat", sans-serif;
+    }
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      animation: fadeInAnim 1.8s ease forwards;
+    }
+    @keyframes fadeInAnim {
+      to {
+        opacity: 1;
+      }
+    }
+    /* Navbar base styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: saturate(180%) blur(10px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    /* Border line container */
+    .border-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    /* The animated line */
+    .border-line span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: #ff9a00;
+      transition: width 0.4s ease;
+    }
+    /* Hamburger button styles and animation */
+    #menu-btn {
+      width: 32px;
+      height: 24px;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 50;
+      background: transparent;
+      border: none;
+    }
+    /* Hide hamburger on md and above */
+    @media (min-width: 768px) {
+      #menu-btn {
+        display: none;
+      }
+    }
+    #menu-btn span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: #ff9a00;
+      border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: center;
+    }
+    #menu-btn.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    #menu-btn.open span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    #menu-btn.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+    /* Scrollbar hidden for mobile menu */
+    #mobile-menu::-webkit-scrollbar {
+      display: none;
+    }
+    #mobile-menu {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      transition: transform 0.3s ease-in-out;
+    }
+    /* Enhanced Baixar App button */
+    .btn-download {
+      @apply relative inline-flex items-center justify-center px-7 py-3 rounded-lg font-semibold text-white transition-all duration-300 ease-in-out shadow-lg overflow-hidden;
+      background: linear-gradient(90deg, #ff9a00 0%, #ffb347 100%);
+      box-shadow: 0 4px 15px rgba(255, 154, 0, 0.6);
+    }
+    .btn-download:hover {
+      background: linear-gradient(90deg, #e08600 0%, #ff9a00 100%);
+      box-shadow: 0 6px 20px rgba(224, 134, 0, 0.8);
+      transform: translateY(-2px);
+    }
+    .btn-download:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 154, 0, 0.6);
+    }
+    .btn-download .icon {
+      margin-left: 0.5rem;
+      font-size: 1.25rem;
+      transition: transform 0.3s ease;
+    }
+    .btn-download:hover .icon {
+      transform: translateX(5px);
+    }
+    /* Dropdown menu styles */
+    .dropdown:hover > .dropdown-menu {
+      display: block;
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: rgba(0,0,0,0.85);
+      min-width: 200px;
+      border-radius: 0.5rem;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      z-index: 50;
+      padding: 0.5rem 0;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 0.5rem 1.5rem;
+      color: white;
+      font-weight: 600;
+      transition: background-color 0.2s ease;
+    }
+    .dropdown-menu a:hover, .dropdown-menu a:focus {
+      background-color: #ff9a00;
+      color: black;
+      outline: none;
+    }
+    /* Modal styles */
+    .modal-bg {
+      background-color: rgba(0,0,0,0.7);
+      backdrop-filter: saturate(180%) blur(10px);
+    }
+  </style>
+ </head>
+ <body class="relative bg-white text-gray-900">
+  <!-- Header -->
+  <header>
+   <nav class="container mx-auto flex items-center justify-between py-2 px-6 md:px-0 text-white relative" style="height: 90px;">
+    <!-- Logo -->
+    <a aria-label="Voltar para a página inicial da Tektõn" class="flex items-center fade-in" href="index.html" style="animation-delay: 0.3s;">
+     <img alt="Logotipo da Tektõn" src="latsflaubranco-removebg-preview.png" style="height: 150px; object-fit: contain;"/>
+    </a>
+    <!-- Botão de voltar estilizado -->
+    <a aria-label="Voltar" class="flex items-center justify-center w-12 h-12 rounded-full bg-[#ff9a00] hover:bg-white hover:text-[#ff9a00] text-white transition-all shadow-lg" href="index.html">
+     <i class="fas fa-arrow-left text-2xl"></i>
+    </a>
+   </nav>
+   <div class="border-line">
+    <span></span>
+   </div>
+   <div aria-label="Menu de navegação móvel" class="hidden md:hidden fixed top-16 right-0 w-72 bg-black bg-opacity-90 backdrop-blur-md shadow-lg rounded-l-lg z-30 overflow-y-auto max-h-[calc(100vh-4rem)] transition-transform duration-300 ease-in-out transform translate-x-full" id="mobile-menu" role="menu">
+    <ul class="flex flex-col space-y-6 p-6 font-semibold text-white">
+     <li>
+      <button aria-controls="submenu-sobre" aria-expanded="false" aria-haspopup="true" class="w-full flex justify-between items-center hover:text-[#ff9a00] transition-colors focus:outline-none" id="btn-sobre" type="button">
+       Sobre
+       <i class="fas fa-chevron-down"></i>
+      </button>
+      <ul aria-label="Submenu Sobre" class="hidden mt-2 pl-4 border-l border-[#ff9a00]" id="submenu-sobre" role="menu">
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="index.html#sobre" role="menuitem" tabindex="-1">Nossa História</a></li>
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="index.html#valores" role="menuitem" tabindex="-1">Valores & Missão</a></li>
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="index.html#equipe" role="menuitem" tabindex="-1">Equipe</a></li>
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="index.html#sustentabilidade" role="menuitem" tabindex="-1">Sustentabilidade</a></li>
+      </ul>
+     </li>
+     <li>
+      <button aria-controls="submenu-projetos" aria-expanded="false" aria-haspopup="true" class="w-full flex justify-between items-center hover:text-[#ff9a00] transition-colors focus:outline-none" id="btn-projetos" type="button">
+       Projetos
+       <i class="fas fa-chevron-down"></i>
+      </button>
+      <ul aria-label="Submenu Projetos" class="hidden mt-2 pl-4 border-l border-[#ff9a00]" id="submenu-projetos" role="menu">
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="modelos-prontos.html" role="menuitem" tabindex="-1">Modelos Prontos</a></li>
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="projeto-basico.html" role="menuitem" tabindex="-1">Projeto Básico</a></li>
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="projeto-modificado.html" role="menuitem" tabindex="-1">Projeto Modificado</a></li>
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="projeto-personalizado.html" role="menuitem" tabindex="-1">Projeto Personalizado</a></li>
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="portfolio.html" role="menuitem" tabindex="-1">Portfólio Completo</a></li>
+      </ul>
+     </li>
+     <li>
+      <button aria-controls="submenu-servicos" aria-expanded="false" aria-haspopup="true" class="w-full flex justify-between items-center hover:text-[#ff9a00] transition-colors focus:outline-none" id="btn-servicos" type="button">
+       Serviços
+       <i class="fas fa-chevron-down"></i>
+      </button>
+      <ul aria-label="Submenu Serviços" class="hidden mt-2 pl-4 border-l border-[#ff9a00]" id="submenu-servicos" role="menu">
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="consultoria.html" role="menuitem" tabindex="-1">Consultoria Arquitetônica</a></li>
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="reformas.html" role="menuitem" tabindex="-1">Reformas & Ampliações</a></li>
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="legalizacao.html" role="menuitem" tabindex="-1">Legalização de Projetos</a></li>
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="design-interiores.html" role="menuitem" tabindex="-1">Design de Interiores</a></li>
+       <li><a class="block py-1 hover:text-[#ff9a00]" href="paisagismo.html" role="menuitem" tabindex="-1">Paisagismo</a></li>
+      </ul>
+     </li>
+     <li>
+      <a class="hover:text-[#ff9a00] transition-colors" href="index.html#contato" role="menuitem" tabindex="0">
+       Contato
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-[#ff9a00] transition-colors" href="area-arquiteto.html" role="menuitem" tabindex="0">
+       Login Arquitetos
+      </a>
+     </li>
+     <li>
+      <button aria-label="Baixar App Tektõn" class="btn-download w-full text-center" type="button">
+       Baixar App
+       <i class="fas fa-download icon"></i>
+      </button>
+     </li>
+    </ul>
+   </div>
+  </header>
+  <main class="relative z-20 pt-28 pb-20 max-w-7xl mx-auto px-6 md:px-0 fade-in" style="animation-delay: 1.2s;">
+   <h1 class="text-5xl font-extrabold text-[#ff9a00] mb-12 text-center">
+    Modelos Prontos Tektõn
+   </h1>
+   <p class="text-center text-gray-700 max-w-3xl mx-auto mb-16 text-lg md:text-xl leading-relaxed">
+    Explore nossa coleção exclusiva de projetos arquitetônicos e construções já realizados. Estes modelos prontos oferecem soluções profissionais, modernas e acessíveis para você que busca qualidade com o melhor custo-benefício.
+   </p>
+   <section aria-label="Galeria de Modelos Prontos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+    <article tabindex="0" aria-describedby="desc-modelo1" class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer modelo-card" data-id="1">
+     <img alt="Fachada de casa moderna com grandes janelas de vidro, jardim frontal e design minimalista" class="w-full h-48 object-cover" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/f739e1b5-d087-472f-43e8-7806768ee9f2.jpg" width="600"/>
+     <div class="p-5">
+      <h2 class="text-xl font-semibold text-gray-900 mb-2">
+       Casa Moderna 1
+      </h2>
+      <p class="text-gray-700 text-sm mb-4" id="desc-modelo1">
+       Projeto residencial moderno com 3 quartos, 2 banheiros e área gourmet integrada.
+      </p>
+      <p class="text-[#ff9a00] font-bold text-lg">
+       R$ 12.500,00
+      </p>
+     </div>
+    </article>
+    <article tabindex="0" aria-describedby="desc-modelo2" class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer modelo-card" data-id="2">
+     <img alt="Apartamento urbano com varanda, vista para a cidade e decoração contemporânea" class="w-full h-48 object-cover" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/1882049d-4858-4954-8bf4-627fe4da189c.jpg" width="600"/>
+     <div class="p-5">
+      <h2 class="text-xl font-semibold text-gray-900 mb-2">
+       Apartamento Urbano 2
+      </h2>
+      <p class="text-gray-700 text-sm mb-4" id="desc-modelo2">
+       Apartamento compacto com 2 quartos, ideal para jovens profissionais e famílias pequenas.
+      </p>
+      <p class="text-[#ff9a00] font-bold text-lg">
+       R$ 9.800,00
+      </p>
+     </div>
+    </article>
+    <article tabindex="0" aria-describedby="desc-modelo3" class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer modelo-card" data-id="3">
+     <img alt="Casa rústica com fachada em madeira, varanda ampla e jardim com árvores" class="w-full h-48 object-cover" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/fa481ad2-3464-438a-acd4-c04f989d456a.jpg" width="600"/>
+     <div class="p-5">
+      <h2 class="text-xl font-semibold text-gray-900 mb-2">
+       Casa Rústica 3
+      </h2>
+      <p class="text-gray-700 text-sm mb-4" id="desc-modelo3">
+       Projeto com estilo rústico, 4 quartos, lareira e integração com a natureza.
+      </p>
+      <p class="text-[#ff9a00] font-bold text-lg">
+       R$ 14.200,00
+      </p>
+     </div>
+    </article>
+    <article tabindex="0" aria-describedby="desc-modelo4" class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer modelo-card" data-id="4">
+     <img alt="Loft com estilo industrial, paredes de tijolos aparentes e decoração moderna" class="w-full h-48 object-cover" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/f2ac4ca3-a817-42b8-90f4-f1778e361bbd.jpg" width="600"/>
+     <div class="p-5">
+      <h2 class="text-xl font-semibold text-gray-900 mb-2">
+       Loft Industrial 4
+      </h2>
+      <p class="text-gray-700 text-sm mb-4" id="desc-modelo4">
+       Loft compacto com design industrial, pé direito alto e planta aberta.
+      </p>
+      <p class="text-[#ff9a00] font-bold text-lg">
+       R$ 8.900,00
+      </p>
+     </div>
+    </article>
+    <article tabindex="0" aria-describedby="desc-modelo5" class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer modelo-card" data-id="5">
+     <img alt="Casa contemporânea com piscina, fachada branca e grandes janelas" class="w-full h-48 object-cover" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/7878bc41-b2c7-456e-b736-9b39e0328081.jpg" width="600"/>
+     <div class="p-5">
+      <h2 class="text-xl font-semibold text-gray-900 mb-2">
+       Casa Contemporânea 5
+      </h2>
+      <p class="text-gray-700 text-sm mb-4" id="desc-modelo5">
+       Residência com 3 suítes, piscina e área de lazer integrada.
+      </p>
+      <p class="text-[#ff9a00] font-bold text-lg">
+       R$ 15.000,00
+      </p>
+     </div>
+    </article>
+    <article tabindex="0" aria-describedby="desc-modelo6" class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer modelo-card" data-id="6">
+     <img alt="Casa minimalista com fachada branca, linhas retas e jardim frontal" class="w-full h-48 object-cover" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/b498c3d0-d559-4846-9314-f603485ae8cc.jpg" width="600"/>
+     <div class="p-5">
+      <h2 class="text-xl font-semibold text-gray-900 mb-2">
+       Casa Minimalista 6
+      </h2>
+      <p class="text-gray-700 text-sm mb-4" id="desc-modelo6">
+       Projeto clean com 2 quartos, cozinha integrada e design funcional.
+      </p>
+      <p class="text-[#ff9a00] font-bold text-lg">
+       R$ 10.500,00
+      </p>
+     </div>
+    </article>
+    <article tabindex="0" aria-describedby="desc-modelo7" class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer modelo-card" data-id="7">
+     <img alt="Casa clássica com fachada elegante, colunas e jardim bem cuidado" class="w-full h-48 object-cover" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/1d2caf12-ebb4-48c6-c0dd-0593f767509c.jpg" width="600"/>
+     <div class="p-5">
+      <h2 class="text-xl font-semibold text-gray-900 mb-2">
+       Casa Clássica 7
+      </h2>
+      <p class="text-gray-700 text-sm mb-4" id="desc-modelo7">
+       Residência tradicional com 4 quartos, sala de estar ampla e jardim frontal.
+      </p>
+      <p class="text-[#ff9a00] font-bold text-lg">
+       R$ 13.800,00
+      </p>
+     </div>
+    </article>
+    <article tabindex="0" aria-describedby="desc-modelo8" class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer modelo-card" data-id="8">
+     <img alt="Casa sustentável com painéis solares no telhado, jardim vertical e design ecológico" class="w-full h-48 object-cover" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/7de4f96c-c9d6-4b85-a4fe-cad91640c725.jpg" width="600"/>
+     <div class="p-5">
+      <h2 class="text-xl font-semibold text-gray-900 mb-2">
+       Casa Sustentável 8
+      </h2>
+      <p class="text-gray-700 text-sm mb-4" id="desc-modelo8">
+       Projeto ecológico com 3 quartos, uso de materiais sustentáveis e eficiência energética.
+      </p>
+      <p class="text-[#ff9a00] font-bold text-lg">
+       R$ 14.500,00
+      </p>
+     </div>
+    </article>
+   </section>
+   <div class="mt-16 text-center">
+    <a aria-label="Voltar para a seção de projetos da página inicial" class="inline-block bg-[#ff9a00] hover:bg-[#e08600] transition-colors text-white font-semibold px-10 py-4 rounded-md shadow-lg drop-shadow-lg" href="index.html#projetos">
+     Voltar para Projetos
+    </a>
+   </div>
+  </main>
+  <!-- Linha separadora -->
+  <hr class="border-0 h-1 bg-[#ff9a00] my-8 rounded-full"/>
+  <!-- Modal -->
+  <div aria-hidden="true" aria-labelledby="modal-title" aria-modal="true" class="fixed inset-0 z-50 hidden items-center justify-center modal-bg" id="modal" role="dialog">
+   <div class="bg-white rounded-lg max-w-4xl w-full mx-4 md:mx-0 shadow-xl overflow-y-auto max-h-[90vh]">
+    <header class="flex justify-between items-center border-b border-gray-300 p-4">
+     <h3 class="text-2xl font-bold text-gray-900" id="modal-title">Detalhes do Modelo</h3>
+     <button aria-label="Fechar modal" class="text-gray-600 hover:text-gray-900 focus:outline-none" id="modal-close">
+      <i class="fas fa-times text-2xl"></i>
+     </button>
+    </header>
+    <section class="p-6 space-y-6">
+     <h4 class="text-xl font-semibold text-[#ff9a00]" id="modal-name">Nome do Modelo</h4>
+     <p class="text-gray-700" id="modal-description">Descrição detalhada do modelo.</p>
+     <p class="text-[#ff9a00] font-bold text-lg" id="modal-price">Preço</p>
+     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4" id="modal-images">
+      <!-- Imagens serão inseridas aqui -->
+     </div>
+    </section>
+   </div>
+  </div>
+  <!-- Rodapé -->
+  <footer class="bg-gray-900 text-gray-300 py-12 mt-12">
+   <div class="container mx-auto px-6 md:px-0 max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-10">
+    <div>
+     <h5 class="text-xl font-bold text-[#ff9a00] mb-4">Tektõn</h5>
+     <p class="text-gray-400 leading-relaxed">
+      A Tektõn oferece soluções arquitetônicas modernas e sustentáveis, com foco na qualidade, inovação e atendimento personalizado para transformar seus sonhos em realidade.
+     </p>
+    </div>
+    <div>
+     <h5 class="text-xl font-bold text-[#ff9a00] mb-4">Contato</h5>
+     <ul class="space-y-2 text-gray-400">
+      <li><i class="fas fa-map-marker-alt mr-2 text-[#ff9a00]"></i> Rua Exemplo, 123, São Paulo, SP</li>
+      <li><i class="fas fa-phone mr-2 text-[#ff9a00]"></i> +55 (11) 1234-5678</li>
+      <li><i class="fas fa-envelope mr-2 text-[#ff9a00]"></i> contato@tekton.com.br</li>
+     </ul>
+    </div>
+    <div>
+     <h5 class="text-xl font-bold text-[#ff9a00] mb-4">Siga-nos</h5>
+     <div class="flex space-x-6 text-3xl">
+      <a aria-label="Facebook" class="hover:text-[#ff9a00] transition-colors" href="#">
+       <i class="fab fa-facebook-f"></i>
+      </a>
+      <a aria-label="Instagram" class="hover:text-[#ff9a00] transition-colors" href="#">
+       <i class="fab fa-instagram"></i>
+      </a>
+      <a aria-label="LinkedIn" class="hover:text-[#ff9a00] transition-colors" href="#">
+       <i class="fab fa-linkedin-in"></i>
+      </a>
+     </div>
+    </div>
+   </div>
+   <div class="mt-10 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm select-none">
+    © 2024 Tektõn. Todos os direitos reservados.
+   </div>
+  </footer>
+  <script>
+   const menuBtn = document.getElementById("menu-btn");
+   const mobileMenu = document.getElementById("mobile-menu");
+
+   if(menuBtn){
+     menuBtn.addEventListener("click", () => {
+       const expanded = menuBtn.getAttribute("aria-expanded") === "true" || false;
+       menuBtn.setAttribute("aria-expanded", !expanded);
+       menuBtn.classList.toggle("open");
+       if (mobileMenu.classList.contains("hidden")) {
+         mobileMenu.classList.remove("hidden");
+         requestAnimationFrame(() => {
+           mobileMenu.style.transform = "translateX(0)";
+         });
+       } else {
+         mobileMenu.style.transform = "translateX(100%)";
+         mobileMenu.addEventListener(
+           "transitionend",
+           () => {
+             if (mobileMenu.style.transform === "translateX(100%)") {
+               mobileMenu.classList.add("hidden");
+             }
+           },
+           { once: true }
+         );
+       }
+     });
+   }
+
+   if(mobileMenu){
+     mobileMenu.querySelectorAll("a, button").forEach((el) => {
+       el.addEventListener("click", () => {
+         menuBtn.classList.remove("open");
+         menuBtn.setAttribute("aria-expanded", false);
+         mobileMenu.style.transform = "translateX(100%)";
+         mobileMenu.addEventListener(
+           "transitionend",
+           () => {
+             if (mobileMenu.style.transform === "translateX(100%)") {
+               mobileMenu.classList.add("hidden");
+             }
+           },
+           { once: true }
+         );
+       });
+     });
+   }
+
+   document.addEventListener("DOMContentLoaded", () => {
+     if(mobileMenu) mobileMenu.style.transform = "translateX(100%)";
+   });
+
+   // Mobile submenu toggle
+   const submenuButtons = document.querySelectorAll('#mobile-menu button[aria-haspopup="true"]');
+   submenuButtons.forEach(button => {
+     button.addEventListener('click', () => {
+       const expanded = button.getAttribute('aria-expanded') === 'true';
+       button.setAttribute('aria-expanded', !expanded);
+       const submenu = document.getElementById(button.getAttribute('aria-controls'));
+       if (submenu) {
+         if (expanded) {
+           submenu.classList.add('hidden');
+         } else {
+           submenu.classList.remove('hidden');
+         }
+       }
+     });
+   });
+
+   // Modal data for each model
+   const modelosData = {
+     1: {
+       name: "Casa Moderna 1",
+       description: "Projeto residencial moderno com 3 quartos, 2 banheiros, área gourmet integrada, acabamento de alta qualidade e design minimalista que valoriza a iluminação natural.",
+       price: "R$ 12.500,00",
+       images: [
+         {src:"https://placehold.co/600x400?text=Casa+Moderna+1+-+Foto+1", alt:"Foto 1 da Casa Moderna 1 mostrando a fachada com grandes janelas e jardim frontal"},
+         {src:"https://placehold.co/600x400?text=Casa+Moderna+1+-+Foto+2", alt:"Foto 2 da Casa Moderna 1 mostrando a área gourmet integrada com móveis modernos"},
+         {src:"https://placehold.co/600x400?text=Casa+Moderna+1+-+Foto+3", alt:"Foto 3 da Casa Moderna 1 mostrando o interior com sala ampla e decoração minimalista"}
+       ]
+     },
+     2: {
+       name: "Apartamento Urbano 2",
+       description: "Apartamento compacto com 2 quartos, ideal para jovens profissionais e famílias pequenas, com varanda, vista para a cidade e decoração contemporânea.",
+       price: "R$ 9.800,00",
+       images: [
+         {src:"https://placehold.co/600x400?text=Apartamento+Urbano+2+-+Foto+1", alt:"Foto 1 do Apartamento Urbano 2 mostrando a varanda com vista para a cidade"},
+         {src:"https://placehold.co/600x400?text=Apartamento+Urbano+2+-+Foto+2", alt:"Foto 2 do Apartamento Urbano 2 mostrando a sala de estar com decoração contemporânea"},
+         {src:"https://placehold.co/600x400?text=Apartamento+Urbano+2+-+Foto+3", alt:"Foto 3 do Apartamento Urbano 2 mostrando o quarto principal com iluminação natural"}
+       ]
+     },
+     3: {
+       name: "Casa Rústica 3",
+       description: "Projeto com estilo rústico, 4 quartos, lareira, varanda ampla e integração com a natureza, ideal para quem busca conforto e contato com o meio ambiente.",
+       price: "R$ 14.200,00",
+       images: [
+         {src:"https://placehold.co/600x400?text=Casa+Rústica+3+-+Foto+1", alt:"Foto 1 da Casa Rústica 3 mostrando a fachada em madeira e jardim com árvores"},
+         {src:"https://placehold.co/600x400?text=Casa+Rústica+3+-+Foto+2", alt:"Foto 2 da Casa Rústica 3 mostrando a lareira e sala de estar aconchegante"},
+         {src:"https://placehold.co/600x400?text=Casa+Rústica+3+-+Foto+3", alt:"Foto 3 da Casa Rústica 3 mostrando a varanda ampla com vista para o jardim"}
+       ]
+     },
+     4: {
+       name: "Loft Industrial 4",
+       description: "Loft compacto com design industrial, pé direito alto, paredes de tijolos aparentes e planta aberta, perfeito para quem gosta de estilo urbano e moderno.",
+       price: "R$ 8.900,00",
+       images: [
+         {src:"https://placehold.co/600x400?text=Loft+Industrial+4+-+Foto+1", alt:"Foto 1 do Loft Industrial 4 mostrando a fachada com paredes de tijolos aparentes"},
+         {src:"https://placehold.co/600x400?text=Loft+Industrial+4+-+Foto+2", alt:"Foto 2 do Loft Industrial 4 mostrando o interior com decoração moderna e pé direito alto"},
+         {src:"https://placehold.co/600x400?text=Loft+Industrial+4+-+Foto+3", alt:"Foto 3 do Loft Industrial 4 mostrando a planta aberta e área de convivência"}
+       ]
+     },
+     5: {
+       name: "Casa Contemporânea 5",
+       description: "Residência com 3 suítes, piscina, área de lazer integrada e fachada branca com grandes janelas, ideal para famílias que buscam conforto e modernidade.",
+       price: "R$ 15.000,00",
+       images: [
+         {src:"https://placehold.co/600x400?text=Casa+Contemporânea+5+-+Foto+1", alt:"Foto 1 da Casa Contemporânea 5 mostrando a fachada branca com piscina"},
+         {src:"https://placehold.co/600x400?text=Casa+Contemporânea+5+-+Foto+2", alt:"Foto 2 da Casa Contemporânea 5 mostrando a área de lazer integrada"},
+         {src:"https://placehold.co/600x400?text=Casa+Contemporânea+5+-+Foto+3", alt:"Foto 3 da Casa Contemporânea 5 mostrando o interior moderno e espaçoso"}
+       ]
+     },
+     6: {
+       name: "Casa Minimalista 6",
+       description: "Projeto clean com 2 quartos, cozinha integrada, linhas retas, fachada branca e design funcional para otimizar espaços e proporcionar conforto.",
+       price: "R$ 10.500,00",
+       images: [
+         {src:"https://placehold.co/600x400?text=Casa+Minimalista+6+-+Foto+1", alt:"Foto 1 da Casa Minimalista 6 mostrando a fachada branca e linhas retas"},
+         {src:"https://placehold.co/600x400?text=Casa+Minimalista+6+-+Foto+2", alt:"Foto 2 da Casa Minimalista 6 mostrando a cozinha integrada e design funcional"},
+         {src:"https://placehold.co/600x400?text=Casa+Minimalista+6+-+Foto+3", alt:"Foto 3 da Casa Minimalista 6 mostrando o interior clean e iluminado"}
+       ]
+     },
+     7: {
+       name: "Casa Clássica 7",
+       description: "Residência tradicional com 4 quartos, sala de estar ampla, colunas elegantes e jardim frontal bem cuidado, perfeita para quem valoriza o estilo clássico.",
+       price: "R$ 13.800,00",
+       images: [
+         {src:"https://placehold.co/600x400?text=Casa+Clássica+7+-+Foto+1", alt:"Foto 1 da Casa Clássica 7 mostrando a fachada elegante com colunas"},
+         {src:"https://placehold.co/600x400?text=Casa+Clássica+7+-+Foto+2", alt:"Foto 2 da Casa Clássica 7 mostrando a sala de estar ampla"},
+         {src:"https://placehold.co/600x400?text=Casa+Clássica+7+-+Foto+3", alt:"Foto 3 da Casa Clássica 7 mostrando o jardim frontal bem cuidado"}
+       ]
+     },
+     8: {
+       name: "Casa Sustentável 8",
+       description: "Projeto ecológico com 3 quartos, uso de materiais sustentáveis, painéis solares no telhado, jardim vertical e alta eficiência energética.",
+       price: "R$ 14.500,00",
+       images: [
+         {src:"https://placehold.co/600x400?text=Casa+Sustentável+8+-+Foto+1", alt:"Foto 1 da Casa Sustentável 8 mostrando painéis solares no telhado e fachada ecológica"},
+         {src:"https://placehold.co/600x400?text=Casa+Sustentável+8+-+Foto+2", alt:"Foto 2 da Casa Sustentável 8 mostrando o jardim vertical e área externa"},
+         {src:"https://placehold.co/600x400?text=Casa+Sustentável+8+-+Foto+3", alt:"Foto 3 da Casa Sustentável 8 mostrando o interior com design sustentável e iluminação natural"}
+       ]
+     }
+   };
+
+   const modal = document.getElementById('modal');
+   const modalCloseBtn = document.getElementById('modal-close');
+   const modalName = document.getElementById('modal-name');
+   const modalDescription = document.getElementById('modal-description');
+   const modalPrice = document.getElementById('modal-price');
+   const modalImages = document.getElementById('modal-images');
+
+   function openModal(id) {
+     const data = modelosData[id];
+     if (!data) return;
+     modalName.textContent = data.name;
+     modalDescription.textContent = data.description;
+     modalPrice.textContent = data.price;
+     modalImages.innerHTML = '';
+     data.images.forEach(img => {
+       const imgEl = document.createElement('img');
+       imgEl.src = img.src;
+       imgEl.alt = img.alt;
+       imgEl.className = 'w-full h-48 object-cover rounded-lg shadow-md';
+       modalImages.appendChild(imgEl);
+     });
+     modal.classList.remove('hidden');
+     modal.setAttribute('aria-hidden', 'false');
+     document.body.style.overflow = 'hidden';
+   }
+
+   function closeModal() {
+     modal.classList.add('hidden');
+     modal.setAttribute('aria-hidden', 'true');
+     document.body.style.overflow = '';
+   }
+
+   // Open modal on card click or keyboard enter
+   document.querySelectorAll('.modelo-card').forEach(card => {
+     card.addEventListener('click', () => {
+       openModal(card.dataset.id);
+     });
+     card.addEventListener('keydown', e => {
+       if (e.key === 'Enter' || e.key === ' ') {
+         e.preventDefault();
+         openModal(card.dataset.id);
+       }
+     });
+   });
+
+   modalCloseBtn.addEventListener('click', closeModal);
+
+   // Close modal on outside click
+   modal.addEventListener('click', e => {
+     if (e.target === modal) {
+       closeModal();
+     }
+   });
+
+   // Close modal on ESC key
+   document.addEventListener('keydown', e => {
+     if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+       closeModal();
+     }
+   });
+  </script>
+ </body>
+</html>
