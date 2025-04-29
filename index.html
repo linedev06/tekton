@@ -1,4 +1,4 @@
-<html class="scroll-smooth" lang="pt-BR">
+<html class="scroll-smooth" lang="pt-BR" data-theme="dark">
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -130,28 +130,240 @@
    .btn-download:hover .icon {
     transform: translateX(5px);
    }
+
+   /* Light mode overrides */
+   [data-theme="light"] body {
+    color: #1f2937; /* gray-800 */
+    background-color: #f9fafb; /* gray-50 */
+   }
+   [data-theme="light"] header {
+    background-color: rgba(255 255 255 / 0.9);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    backdrop-filter: saturate(180%) blur(10px);
+   }
+   [data-theme="light"] header.scrolled {
+    background-color: rgba(255 255 255 / 0.95);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+   }
+   [data-theme="light"] .border-line span {
+    background-color: #ff9a00;
+   }
+   [data-theme="light"] nav a:hover {
+    color: #e08600;
+   }
+   [data-theme="light"] .btn-download {
+    background: linear-gradient(90deg, #ff9a00 0%, #ffb347 100%);
+    box-shadow: 0 4px 15px rgba(255, 154, 0, 0.6);
+    color: white;
+   }
+   [data-theme="light"] .btn-download:hover {
+    background: linear-gradient(90deg, #e08600 0%, #ff9a00 100%);
+    box-shadow: 0 6px 20px rgba(224, 134, 0, 0.8);
+   }
+   [data-theme="light"] .bg-white {
+    background-color: #ffffff !important;
+   }
+   [data-theme="light"] .text-white {
+    color: #1f2937 !important;
+   }
+   [data-theme="light"] .text-gray-700 {
+    color: #374151 !important;
+   }
+   [data-theme="light"] .text-gray-600 {
+    color: #4b5563 !important;
+   }
+   [data-theme="light"] .bg-black {
+    background-color: rgba(255 255 255 / 0.9) !important;
+   }
+   [data-theme="light"] .bg-opacity-90 {
+    background-color: rgba(255 255 255 / 0.9) !important;
+   }
+   [data-theme="light"] .backdrop-blur-md {
+    backdrop-filter: saturate(180%) blur(10px);
+   }
+   [data-theme="light"] .shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05) !important;
+   }
+   [data-theme="light"] footer {
+    background-color: #ff9a00 !important;
+    color: white !important;
+   }
+   [data-theme="light"] .fixed.inset-0.bg-black.bg-opacity-70 {
+    background-color: transparent !important;
+  }
+
+  /* Floating control button */
+  #control-button {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background-color: #ff9a00;
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 60;
+    box-shadow: 0 4px 15px rgba(255, 154, 0, 0.6);
+    transition: background-color 0.3s ease;
+  }
+  #control-button:hover {
+    background-color: #e08600;
+  }
+  #control-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 154, 0, 0.6);
+  }
+
+  /* Control panel */
+  #control-panel {
+    position: fixed;
+    bottom: 5.5rem;
+    right: 1.5rem;
+    width: 260px;
+    background-color: rgba(0,0,0,0.85);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    color: white;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    z-index: 60;
+    transform-origin: bottom right;
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
+  }
+  #control-panel.open {
+    transform: scale(1);
+    opacity: 1;
+  }
+  #control-panel h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.75rem;
+    color: #ff9a00;
+  }
+  #control-panel button {
+    width: 100%;
+    background-color: #ff9a00;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  #control-panel button:hover {
+    background-color: #e08600;
+  }
+  #control-panel button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 154, 0, 0.6);
+  }
+  #control-panel .toggle-switch {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  #control-panel .toggle-switch label {
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+  }
+  #control-panel .toggle-switch input[type="checkbox"] {
+    width: 40px;
+    height: 20px;
+    -webkit-appearance: none;
+    background-color: #ddd;
+    outline: none;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #control-panel .toggle-switch input[type="checkbox"]:checked {
+    background-color: #ff9a00;
+  }
+  #control-panel .toggle-switch input[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    top: 1px;
+    left: 1px;
+    background-color: white;
+    transition: 0.3s;
+  }
+  #control-panel .toggle-switch input[type="checkbox"]:checked::before {
+    transform: translateX(20px);
+  }
+  /* Light mode control panel overrides */
+  [data-theme="light"] #control-panel {
+    background-color: rgba(255 255 255 / 0.95);
+    color: #1f2937;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+  [data-theme="light"] #control-panel h3 {
+    color: #ff9a00;
+  }
+  [data-theme="light"] #control-panel button {
+    background-color: #ff9a00;
+    color: white;
+  }
+  [data-theme="light"] #control-panel button:hover {
+    background-color: #e08600;
+  }
+  [data-theme="light"] #control-panel .toggle-switch label {
+    color: #1f2937;
+  }
+  [data-theme="light"] #control-panel .toggle-switch input[type="checkbox"] {
+    background-color: #ccc;
+  }
+  [data-theme="light"] #control-panel .toggle-switch input[type="checkbox"]:checked {
+    background-color: #ff9a00;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 400px) {
+    #control-panel {
+      width: 90vw;
+      right: 5%;
+      bottom: 5.5rem;
+    }
+  }
   </style>
  </head>
- <body class="relative bg-white text-gray-900">
+ <body class="relative bg-white text-gray-900" data-theme="dark">
   <!-- Background image with img tag -->
-  <img alt="Prédio moderno com luzes douradas ao entardecer, céu alaranjado e arquitetura contemporânea, alta resolução" class="fixed inset-0 w-full h-full object-cover z-0" height="1080" src="https://storage.googleapis.com/a1aa/image/ea626eb9-72e3-4550-c0fd-a9a8ea60f481.jpg" width="1920"/>
+  <img alt="Prédio moderno com luzes douradas ao entardecer, céu alaranjado e arquitetura contemporânea, alta resolução" class="fixed inset-0 w-full h-full object-cover z-0" height="1080" id="background-image" src="https://storage.googleapis.com/a1aa/image/ea626eb9-72e3-4550-c0fd-a9a8ea60f481.jpg" width="1920"/>
   <!-- Overlay to darken background for text readability -->
-  <div class="fixed inset-0 bg-black bg-opacity-70 z-10"></div>
+  <div class="fixed inset-0 bg-black bg-opacity-70 z-10" id="background-overlay"></div>
   <!-- Header with logo and login -->
   <header>
     <nav class="container mx-auto flex items-center justify-between py-2 px-6 md:px-0 text-white relative" style="height: 90px;"> 
         <a class="text-3xl font-extrabold tracking-wide text-[#ff9a00] fade-in" href="#" style="animation-delay: 0.3s; display: flex; align-items: center;">
-          <img src="latsflaubranco-removebg-preview.png" alt="" style="height: 150px; object-fit: contain;">
+          <img src="latsflaubranco-removebg-preview.png" alt="Logotipo da Tekton em branco com fundo transparente, estilo moderno e minimalista" style="height: 150px; object-fit: contain;">
         </a>
         
         <ul class="hidden md:flex space-x-10 font-semibold text-white items-center">
-          <li><a class="hover:text-[#ff9a00] transition-colors" href="#sobre">Sobre</a></li>
-          <li><a class="hover:text-[#ff9a00] transition-colors" href="#valores">Valores</a></li>
-          <li><a class="hover:text-[#ff9a00] transition-colors" href="#projetos">Projetos</a></li>
-          <li><a class="hover:text-[#ff9a00] transition-colors" href="#contato">Contato</a></li>
-          <li><a class="hover:text-[#ff9a00] transition-colors" href="#area-arquiteto">Login Arquitetos</a></li>
+          <li><a class="hover:text-[#ff9a00] transition-colors" href="#sobre" data-translate="Sobre">Sobre</a></li>
+          <li><a class="hover:text-[#ff9a00] transition-colors" href="#valores" data-translate="Valores">Valores</a></li>
+          <li><a class="hover:text-[#ff9a00] transition-colors" href="#projetos" data-translate="Projetos">Projetos</a></li>
+          <li><a class="hover:text-[#ff9a00] transition-colors" href="#contato" data-translate="Contato">Contato</a></li>
+          <li><a class="hover:text-[#ff9a00] transition-colors" href="#area-arquiteto" data-translate="Login Arquitetos">Login Arquitetos</a></li>
           <li>
-           <a href="app.html"><button class="btn-download" type="button" aria-label="Baixar App Tekton">
+           <a href="app.html"><button class="btn-download" type="button" aria-label="Baixar App Tekton" data-translate="Baixar App">
               Baixar App <i class="fas fa-download icon"></i>
             </button></a> 
           </li>
@@ -170,32 +382,32 @@
        <div class="hidden md:hidden fixed top-16 right-0 w-64 bg-black bg-opacity-90 backdrop-blur-md shadow-lg rounded-l-lg z-30 overflow-y-auto max-h-[calc(100vh-4rem)] transition-transform duration-300 ease-in-out transform translate-x-full" id="mobile-menu" role="menu" aria-label="Menu de navegação móvel">
         <ul class="flex flex-col space-y-6 p-6 font-semibold text-white">
          <li>
-          <a class="hover:text-[#ff9a00] transition-colors" href="#sobre" role="menuitem" tabindex="-1">
+          <a class="hover:text-[#ff9a00] transition-colors" href="#sobre" role="menuitem" tabindex="-1" data-translate="Sobre">
            Sobre
           </a>
          </li>
          <li>
-          <a class="hover:text-[#ff9a00] transition-colors" href="#valores" role="menuitem" tabindex="-1">
+          <a class="hover:text-[#ff9a00] transition-colors" href="#valores" role="menuitem" tabindex="-1" data-translate="Valores">
            Valores
           </a>
          </li>
          <li>
-          <a class="hover:text-[#ff9a00] transition-colors" href="#projetos" role="menuitem" tabindex="-1">
+          <a class="hover:text-[#ff9a00] transition-colors" href="#projetos" role="menuitem" tabindex="-1" data-translate="Projetos">
            Projetos
           </a>
          </li>
          <li>
-          <a class="hover:text-[#ff9a00] transition-colors" href="#contato" role="menuitem" tabindex="-1">
+          <a class="hover:text-[#ff9a00] transition-colors" href="#contato" role="menuitem" tabindex="-1" data-translate="Contato">
            Contato
           </a>
          </li>
          <li>
-          <a class="hover:text-[#ff9a00] transition-colors" href="#area-arquiteto" role="menuitem" tabindex="-1">
+          <a class="hover:text-[#ff9a00] transition-colors" href="#area-arquiteto" role="menuitem" tabindex="-1" data-translate="Login Arquitetos">
            Login Arquitetos
           </a>
          </li>
          <a href="app.html"><li>
-         <button class="btn-download w-full text-center"  role="menuitem" tabindex="-1" type="button" aria-label="Baixar App Tektõn">
+         <button class="btn-download w-full text-center"  role="menuitem" tabindex="-1" type="button" aria-label="Baixar App Tektõn" data-translate="Baixar App">
            Baixar App
            <i class="fas fa-download icon"></i>
           </button>
@@ -207,15 +419,15 @@
        <!-- Hero Section -->
        <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 md:px-0">
         <div class="max-w-4xl fade-in" style="animation-delay: 1.2s;">
-         <h1 class="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-6 drop-shadow-lg">
+         <h1 class="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-6 drop-shadow-lg" data-translate="Tektõn Projetos Arquitetônicos Profissionais">
           Tektõn
           <br/>
           Projetos Arquitetônicos Profissionais
          </h1>
-         <p class="text-white text-lg md:text-xl max-w-3xl mx-auto mb-10 drop-shadow-md">
+         <p class="text-white text-lg md:text-xl max-w-3xl mx-auto mb-10 drop-shadow-md" data-translate="Transformamos suas ideias em projetos arquitetônicos inovadores, funcionais e sustentáveis.">
           Transformamos suas ideias em projetos arquitetônicos inovadores, funcionais e sustentáveis.
          </p>
-         <a class="inline-block bg-[#ff9a00] hover:bg-[#e08600] transition-colors text-white font-semibold px-10 py-4 rounded-md shadow-lg drop-shadow-lg" href="#sobre">
+         <a class="inline-block bg-[#ff9a00] hover:bg-[#e08600] transition-colors text-white font-semibold px-10 py-4 rounded-md shadow-lg drop-shadow-lg" href="#sobre" data-translate="Conheça a Tektõn">
           Conheça a Tektõn
          </a>
         </div>
@@ -223,12 +435,12 @@
        <!-- Sobre a empresa -->
         <div id="sobre" ></div>
        <section class="bg-white bg-opacity-90 backdrop-blur-md rounded-xl max-w-6xl mx-auto my-20 p-10 md:p-16 shadow-lg fade-in" style="animation-delay: 1.5s;">
-        <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-10 text-center">
+        <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-10 text-center" data-translate="Sobre a Tektõn">
          Sobre a Tektõn
         </h2>
         <div class="flex flex-col md:flex-row items-center md:space-x-12">
          <img alt="Equipe de arquitetos profissionais colaborando em um projeto arquitetônico moderno, ambiente claro e organizado" class="rounded-lg shadow-lg mb-8 md:mb-0 md:w-1/2 object-cover" height="400" src="https://storage.googleapis.com/a1aa/image/294a983b-6197-4b5a-52c0-340d22ec3ac8.jpg" width="600"/>
-         <div class="md:w-1/2 text-gray-800 text-lg leading-relaxed">
+         <div class="md:w-1/2 text-gray-800 text-lg leading-relaxed" data-translate="Sobre a empresa texto">
           <p>
            A Tektõn é uma empresa especializada em projetos arquitetônicos que alia criatividade, técnica e sustentabilidade para entregar soluções personalizadas e de alta qualidade.
           </p>
@@ -242,7 +454,7 @@
    <div id="valores"></div>
    <div></div>
    <section class="max-w-6xl mx-auto my-20 px-6 md:px-0 fade-in"  style="animation-delay: 1.8s;">
-    <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-12 text-center">
+    <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-12 text-center" data-translate="Nossos Valores">
      Nossos Valores
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center text-white">
@@ -250,10 +462,10 @@
       <div class="flex justify-center text-[#ff9a00] text-6xl">
        <i class="fas fa-lightbulb"></i>
       </div>
-      <h3 class="text-xl font-semibold">
+      <h3 class="text-xl font-semibold" data-translate="Inovação">
        Inovação
       </h3>
-      <p class="max-w-xs mx-auto">
+      <p class="max-w-xs mx-auto" data-translate="Buscamos soluções criativas e modernas para cada projeto, garantindo exclusividade e funcionalidade.">
        Buscamos soluções criativas e modernas para cada projeto, garantindo exclusividade e funcionalidade.
       </p>
      </div>
@@ -261,10 +473,10 @@
       <div class="flex justify-center text-[#ff9a00] text-6xl">
        <i class="fas fa-leaf"></i>
       </div>
-      <h3 class="text-xl font-semibold">
+      <h3 class="text-xl font-semibold" data-translate="Sustentabilidade">
        Sustentabilidade
       </h3>
-      <p class="max-w-xs mx-auto">
+      <p class="max-w-xs mx-auto" data-translate="Priorizamos práticas e materiais que respeitam o meio ambiente e promovem a eficiência energética.">
        Priorizamos práticas e materiais que respeitam o meio ambiente e promovem a eficiência energética.
       </p>
      </div>
@@ -272,10 +484,10 @@
       <div class="flex justify-center text-[#ff9a00] text-6xl">
        <i class="fas fa-users"></i>
       </div>
-      <h3 class="text-xl font-semibold">
+      <h3 class="text-xl font-semibold" data-translate="Compromisso">
        Compromisso
       </h3>
-      <p class="max-w-xs mx-auto">
+      <p class="max-w-xs mx-auto" data-translate="Valorizamos a transparência, o respeito e o atendimento personalizado para cada cliente.">
        Valorizamos a transparência, o respeito e o atendimento personalizado para cada cliente.
       </p>
      </div>
@@ -284,10 +496,8 @@
    <!-- Tipos de Projetos como botões -->
    <div id="projetos"></div>
 
-   <div id="projetos"></div>
-
    <section class="bg-white bg-opacity-90 backdrop-blur-md rounded-xl max-w-6xl mx-auto my-20 p-10 md:p-16 shadow-lg fade-in" style="animation-delay: 2.1s;">
-     <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-12 text-center">
+     <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-12 text-center" data-translate="Tipos de Projetos">
        Tipos de Projetos
      </h2>
    
@@ -297,10 +507,10 @@
          <div class="text-[#ff9a00] text-6xl mb-6">
            <i class="fas fa-box-open"></i>
          </div>
-         <h3 class="text-xl font-semibold mb-2">
+         <h3 class="text-xl font-semibold mb-2" data-translate="Modelos Prontos">
            Modelos Prontos
          </h3>
-         <p class="text-gray-600 text-sm">
+         <p class="text-gray-600 text-sm" data-translate="Modelos prontos para quem busca agilidade e praticidade.">
            Modelos prontos para quem busca agilidade e praticidade.
          </p>
        </a>
@@ -309,10 +519,10 @@
          <div class="text-[#ff9a00] text-6xl mb-6">
            <i class="fas fa-cogs"></i>
          </div>
-         <h3 class="text-xl font-semibold mb-2">
+         <h3 class="text-xl font-semibold mb-2" data-translate="Projeto Básico">
            Projeto Básico
          </h3>
-         <p class="text-gray-600 text-sm">
+         <p class="text-gray-600 text-sm" data-translate="Soluções pré-definidas e acessíveis para quem busca agilidade.">
            Soluções pré-definidas e acessíveis para quem busca agilidade.
          </p>
        </a>
@@ -321,10 +531,10 @@
          <div class="text-[#ff9a00] text-6xl mb-6">
            <i class="fas fa-sliders-h"></i>
          </div>
-         <h3 class="text-xl font-semibold mb-2">
+         <h3 class="text-xl font-semibold mb-2" data-translate="Projeto Modificado">
            Projeto Modificado
          </h3>
-         <p class="text-gray-600 text-sm">
+         <p class="text-gray-600 text-sm" data-translate="Personalização de projetos básicos conforme as necessidades do cliente.">
            Personalização de projetos básicos conforme as necessidades do cliente.
          </p>
        </a>
@@ -333,10 +543,10 @@
          <div class="text-[#ff9a00] text-6xl mb-6">
            <i class="fas fa-pencil-ruler"></i>
          </div>
-         <h3 class="text-xl font-semibold mb-2">
+         <h3 class="text-xl font-semibold mb-2" data-translate="Projeto Personalizado">
            Projeto Personalizado
          </h3>
-         <p class="text-gray-600 text-sm">
+         <p class="text-gray-600 text-sm" data-translate="Desenvolvimento de projetos completamente novos para atender especificidades exclusivas.">
            Desenvolvimento de projetos completamente novos para atender especificidades exclusivas.
          </p>
        </a>
@@ -347,36 +557,36 @@
 
    <!-- Formulário de Contato -->
    <section class="max-w-3xl mx-auto my-20 bg-white bg-opacity-90 backdrop-blur-md rounded-xl p-10 shadow-lg fade-in" id="contato" style="animation-delay: 2.4s;">
-    <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-10 text-center">
+    <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-10 text-center" data-translate="Fale Conosco">
      Fale Conosco
     </h2>
     <form action="#" class="space-y-6 text-gray-800" method="POST">
      <div>
-      <label class="block font-semibold mb-2" for="nome">
+      <label class="block font-semibold mb-2" for="nome" data-translate="Nome">
        Nome
       </label>
       <input class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]" id="nome" name="nome" placeholder="Seu nome completo" required="" type="text"/>
      </div>
      <div>
-      <label class="block font-semibold mb-2" for="email">
+      <label class="block font-semibold mb-2" for="email" data-translate="E-mail">
        E-mail
       </label>
       <input class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]" id="email" name="email" placeholder="seuemail@exemplo.com" required="" type="email"/>
      </div>
      <div>
-      <label class="block font-semibold mb-2" for="telefone">
+      <label class="block font-semibold mb-2" for="telefone" data-translate="Telefone">
        Telefone
       </label>
       <input class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]" id="telefone" name="telefone" placeholder="(00) 00000-0000" type="tel"/>
      </div>
      <div>
-      <label class="block font-semibold mb-2" for="mensagem">
+      <label class="block font-semibold mb-2" for="mensagem" data-translate="Mensagem">
        Mensagem
       </label>
       <textarea class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]" id="mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui" required="" rows="5"></textarea>
      </div>
      <div class="text-center">
-      <button class="bg-[#ff9a00] hover:bg-[#e08600] transition-colors text-white font-semibold px-10 py-3 rounded-md shadow-md" type="submit">
+      <button class="bg-[#ff9a00] hover:bg-[#e08600] transition-colors text-white font-semibold px-10 py-3 rounded-md shadow-md" type="submit" data-translate="Enviar Mensagem">
        Enviar Mensagem
       </button>
      </div>
@@ -384,21 +594,21 @@
    </section>
    <!-- Área do Arquiteto -->
    <section class="max-w-3xl mx-auto my-20 bg-white bg-opacity-90 backdrop-blur-md rounded-xl p-10 shadow-lg fade-in" id="area-arquiteto" style="animation-delay: 2.7s;">
-    <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-10 text-center">
+    <h2 class="text-4xl font-extrabold text-[#ff9a00] mb-10 text-center" data-translate="Área do Arquiteto">
      Área do Arquiteto
     </h2>
-    <p class="text-center text-gray-700 mb-8 max-w-xl mx-auto">
+    <p class="text-center text-gray-700 mb-8 max-w-xl mx-auto" data-translate="Espaço exclusivo para nossos arquitetos acessarem suas ferramentas, projetos e informações internas. Faça login para continuar.">
      Espaço exclusivo para nossos arquitetos acessarem suas ferramentas, projetos e informações internas. Faça login para continuar.
     </p>
     <form action="#" class="space-y-6 text-gray-800 max-w-md mx-auto" method="POST">
      <div>
-      <label class="block font-semibold mb-2" for="arq-user">
+      <label class="block font-semibold mb-2" for="arq-user" data-translate="Usuário">
        Usuário
       </label>
       <input class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]" id="arq-user" name="arq-user" placeholder="Seu usuário" required="" type="text"/>
      </div>
      <div>
-      <label class="block font-semibold mb-2" for="arq-password">
+      <label class="block font-semibold mb-2" for="arq-password" data-translate="Senha">
        Senha
       </label>
       <input class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]" id="arq-password" name="arq-password" placeholder="Sua senha" required="" type="password"/>
@@ -408,6 +618,7 @@
           onclick="window.location.href='arqui.html'"
           class="bg-[#ff9a00] hover:bg-[#e08600] transition-colors text-white font-semibold px-10 py-3 rounded-md shadow-md"
           type="button"
+          data-translate="Entrar"
         >
           Entrar
         </button>
@@ -418,7 +629,7 @@
   </main>
   <footer class="bg-[#ff9a00] text-white py-6 mt-20">
    <div class="container mx-auto px-6 md:px-0 max-w-6xl flex flex-col md:flex-row justify-between items-center">
-    <p class="text-sm select-none">
+    <p class="text-sm select-none" data-translate="© 2024 Tekton. Todos os direitos reservados.">
      © 2024 Tekton. Todos os direitos reservados.
     </p>
     <div class="flex space-x-6 mt-4 md:mt-0">
@@ -434,6 +645,24 @@
     </div>
    </div>
   </footer>
+
+  <!-- Floating control button -->
+  <button id="control-button" aria-label="Abrir painel de controle">
+    <i class="fas fa-cog fa-lg"></i>
+  </button>
+
+  <!-- Control panel -->
+  <div id="control-panel" role="region" aria-label="Painel de controle de idioma e tema">
+    <h3>Configurações</h3>
+    <button id="translate-btn" type="button" aria-pressed="false" aria-label="Traduzir página para inglês">
+      <i class="fas fa-language"></i> Traduzir para Inglês
+    </button>
+    <div class="toggle-switch" style="margin-top:1rem;">
+      <label for="theme-toggle">Modo Claro / Escuro</label>
+      <input type="checkbox" id="theme-toggle" aria-checked="false" role="switch" />
+    </div>
+  </div>
+
   <script>
    const menuBtn = document.getElementById('menu-btn');
    const mobileMenu = document.getElementById('mobile-menu');
@@ -489,6 +718,133 @@
        header.classList.remove('scrolled');
      }
    });
+
+   // Control button and panel logic
+   const controlButton = document.getElementById('control-button');
+   const controlPanel = document.getElementById('control-panel');
+   controlButton.addEventListener('click', () => {
+     controlPanel.classList.toggle('open');
+     controlButton.setAttribute('aria-expanded', controlPanel.classList.contains('open'));
+   });
+
+   // Translation logic
+   const translateBtn = document.getElementById('translate-btn');
+   let translated = false;
+
+   // Translation dictionary for Portuguese to English
+   const translations = {
+     "Sobre": "About",
+     "Valores": "Values",
+     "Projetos": "Projects",
+     "Contato": "Contact",
+     "Login Arquitetos": "Architect Login",
+     "Baixar App": "Download App",
+     "Tektõn Projetos Arquitetônicos Profissionais": "Tektõn Professional Architectural Projects",
+     "Transformamos suas ideias em projetos arquitetônicos inovadores, funcionais e sustentáveis.": "We transform your ideas into innovative, functional, and sustainable architectural projects.",
+     "Conheça a Tektõn": "Meet Tektõn",
+     "Sobre a Tektõn": "About Tektõn",
+     "Sobre a empresa texto": "Tektõn is a company specialized in architectural projects that combines creativity, technique, and sustainability to deliver personalized and high-quality solutions. With an experienced and dedicated team, we turn dreams into reality, respecting deadlines and budgets, always paying attention to details and innovation.",
+     "Nossos Valores": "Our Values",
+     "Inovação": "Innovation",
+     "Buscamos soluções criativas e modernas para cada projeto, garantindo exclusividade e funcionalidade.": "We seek creative and modern solutions for each project, ensuring exclusivity and functionality.",
+     "Sustentabilidade": "Sustainability",
+     "Priorizamos práticas e materiais que respeitam o meio ambiente e promovem a eficiência energética.": "We prioritize practices and materials that respect the environment and promote energy efficiency.",
+     "Compromisso": "Commitment",
+     "Valorizamos a transparência, o respeito e o atendimento personalizado para cada cliente.": "We value transparency, respect, and personalized service for each client.",
+     "Tipos de Projetos": "Project Types",
+     "Modelos Prontos": "Ready Models",
+     "Modelos prontos para quem busca agilidade e praticidade.": "Ready models for those seeking agility and practicality.",
+     "Projeto Básico": "Basic Project",
+     "Soluções pré-definidas e acessíveis para quem busca agilidade.": "Predefined and affordable solutions for those seeking agility.",
+     "Projeto Modificado": "Modified Project",
+     "Personalização de projetos básicos conforme as necessidades do cliente.": "Customization of basic projects according to client needs.",
+     "Projeto Personalizado": "Custom Project",
+     "Desenvolvimento de projetos completamente novos para atender especificidades exclusivas.": "Development of completely new projects to meet exclusive specifications.",
+     "Fale Conosco": "Contact Us",
+     "Nome": "Name",
+     "E-mail": "Email",
+     "Telefone": "Phone",
+     "Mensagem": "Message",
+     "Enviar Mensagem": "Send Message",
+     "Área do Arquiteto": "Architect Area",
+     "Espaço exclusivo para nossos arquitetos acessarem suas ferramentas, projetos e informações internas. Faça login para continuar.": "Exclusive space for our architects to access their tools, projects, and internal information. Please log in to continue.",
+     "Usuário": "Username",
+     "Senha": "Password",
+     "Entrar": "Login",
+     "© 2024 Tekton. Todos os direitos reservados.": "© 2024 Tekton. All rights reserved."
+   };
+
+   function translatePage(toEnglish) {
+     const elements = document.querySelectorAll('[data-translate]');
+     elements.forEach(el => {
+       const key = el.getAttribute('data-translate');
+       if (toEnglish) {
+         if (translations[key]) {
+           if(el.tagName.toLowerCase() === 'input' || el.tagName.toLowerCase() === 'textarea') {
+             el.placeholder = translations[key];
+           } else {
+             el.textContent = translations[key];
+           }
+         }
+       } else {
+         // revert to original text stored in data attribute
+         if(el.tagName.toLowerCase() === 'input' || el.tagName.toLowerCase() === 'textarea') {
+           el.placeholder = key;
+         } else {
+           el.textContent = key;
+         }
+       }
+     });
+   }
+
+   translateBtn.addEventListener('click', () => {
+     translated = !translated;
+     translateBtn.setAttribute('aria-pressed', translated);
+     if (translated) {
+       translateBtn.innerHTML = '<i class="fas fa-language"></i> Reverter para Português';
+       translatePage(true);
+     } else {
+       translateBtn.innerHTML = '<i class="fas fa-language"></i> Traduzir para Inglês';
+       translatePage(false);
+     }
+   });
+
+   // Theme toggle logic
+   const themeToggle = document.getElementById('theme-toggle');
+   const body = document.body;
+   const bgOverlay = document.getElementById('background-overlay');
+   const bgImage = document.getElementById('background-image');
+
+   // Initialize theme from localStorage or default dark
+   function setTheme(theme) {
+     if (theme === 'light') {
+       document.documentElement.setAttribute('data-theme', 'light');
+       themeToggle.checked = true;
+       themeToggle.setAttribute('aria-checked', 'true');
+       // Remove dark overlay on background image
+       bgOverlay.style.backgroundColor = 'transparent';
+     } else {
+       document.documentElement.setAttribute('data-theme', 'dark');
+       themeToggle.checked = false;
+       themeToggle.setAttribute('aria-checked', 'false');
+       // Add dark overlay on background image
+       bgOverlay.style.backgroundColor = 'rgba(0,0,0,0.7)';
+     }
+     localStorage.setItem('theme', theme);
+   }
+
+   // Load saved theme or default to dark
+   const savedTheme = localStorage.getItem('theme') || 'dark';
+   setTheme(savedTheme);
+
+   themeToggle.addEventListener('change', () => {
+     if (themeToggle.checked) {
+       setTheme('light');
+     } else {
+       setTheme('dark');
+     }
+   });
+
   </script>
  </body>
 </html>
