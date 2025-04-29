@@ -185,6 +185,38 @@
       .phone-emulator {
         margin: 0 auto;
       }
+      .back-button {
+        margin-top: 48px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: transparent;
+        border: 2px solid #ff9a00;
+        color: #ff9a00;
+        font-weight: 700;
+        padding: 12px 28px;
+        border-radius: 9999px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none;
+        user-select: none;
+        font-family: 'Montserrat', sans-serif;
+        box-shadow: 0 0 8px #ff9a00aa;
+        justify-self: start;
+      }
+      .video-container {
+        max-width: 360px;
+        margin: 24px auto 0 auto;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 12px 30px rgba(255, 154, 0, 0.4);
+      }
+      .video-container video {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
     }
     @media (max-width: 767px) {
       .container {
@@ -197,6 +229,40 @@
         border-radius: 44px;
         border-width: 16px 16px 56px 16px;
         margin-top: 40px;
+      }
+      .back-button {
+        margin-top: 48px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: transparent;
+        border: 2px solid #ff9a00;
+        color: #ff9a00;
+        font-weight: 700;
+        padding: 12px 28px;
+        border-radius: 9999px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none;
+        user-select: none;
+        font-family: 'Montserrat', sans-serif;
+        box-shadow: 0 0 8px #ff9a00aa;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .video-container {
+        max-width: 300px;
+        margin: 24px auto 0 auto;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(255, 154, 0, 0.35);
+      }
+      .video-container video {
+        display: block;
+        width: 100%;
+        height: auto;
       }
     }
     /* Tabs styling */
@@ -582,12 +648,78 @@
       max-height: 200px;
       padding: 12px 24px 20px 24px;
     }
+    /* New section: Newsletter */
+    .newsletter-section {
+      margin-top: 60px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fff7e6;
+      border-radius: 16px;
+      padding: 32px 40px;
+      box-shadow: 0 8px 20px rgba(255, 154, 0, 0.3);
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      user-select: none;
+    }
+    .newsletter-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ff9a00;
+      margin-bottom: 16px;
+    }
+    .newsletter-section p {
+      font-size: 1.1rem;
+      color: #92400e;
+      margin-bottom: 24px;
+    }
+    .newsletter-form {
+      display: flex;
+      max-width: 480px;
+      margin: 0 auto;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .newsletter-input {
+      flex: 1 1 250px;
+      padding: 14px 18px;
+      border-radius: 9999px;
+      border: 2px solid #ff9a00;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease;
+    }
+    .newsletter-input:focus {
+      border-color: #e08600;
+      outline: none;
+    }
+    .newsletter-button {
+      background: #ff9a00;
+      color: white;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 9999px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 8px 16px rgba(255, 154, 0, 0.6);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      font-family: 'Montserrat', sans-serif;
+      user-select: none;
+    }
+    .newsletter-button:hover,
+    .newsletter-button:focus-visible {
+      background: #e08600;
+      box-shadow: 0 10px 20px rgba(224, 134, 0, 0.8);
+      outline: none;
+    }
   </style>
  </head>
  <body>
   <main class="min-h-screen bg-white flex items-center justify-center px-4">
    <div aria-label="Página de download do aplicativo Tektõn" class="container fade-in" role="main">
-    <!-- Left: Text and download -->
     <section class="left-section">
      <h1 class="text-5xl font-extrabold text-[#ff9a00] leading-tight mb-1">
       Baixe o App Tektõn
@@ -630,23 +762,32 @@
        <span>Agenda integrada para reuniões e prazos</span>
       </div>
      </div>
+     <div style="padding-top: 30px;"></div>
      <div aria-live="polite" class="info-banner slide-up" role="note" style="animation-delay: 1.85s;">
       Compatível com iOS 13+ e Android 8.0+
      </div>
-     <div class="download-buttons mt-6 slide-up" style="animation-delay: 1.9s;">
-      <a aria-label="Baixar na App Store" class="download-btn" href="#" role="button" tabindex="0">
-       <i aria-hidden="true" class="fab fa-apple"></i>
-       App Store
-      </a>
-      <a aria-label="Baixar no Google Play" class="download-btn" href="#" role="button" tabindex="0">
-       <i aria-hidden="true" class="fab fa-google-play"></i>
-       Google Play
+     <div class="download-buttons mt-6 slide-up flex flex-col sm:flex-row items-center gap-4" style="animation-delay: 1.9s;">
+      <div class="relative">
+       <a href="#" class="download-btn flex items-center gap-2 px-5 py-3 bg-gray-300 text-white rounded-lg opacity-50 cursor-not-allowed" tabindex="-1" aria-label="Baixar na App Store">
+        <i class="fab fa-apple text-xl"></i> App Store
+       </a>
+       <div class="absolute left-1/2 transform -translate-x-1/2 mt-1 text-xs text-red-600">
+        Indisponível no iOS
+       </div>
+      </div>
+      <a aria-label="Baixar no Google Play" class="download-btn flex items-center gap-2 px-5 py-3 bg-[#ff9a00] hover:bg-[#e08600] text-white rounded-lg" href="download/app-release.apk" role="button" tabindex="0">
+       <i aria-hidden="true" class="fab fa-google-play text-xl"></i> Google Play
       </a>
      </div>
-     <a aria-label="Voltar para a página inicial" class="back-button slide-up" href="index.html" style="animation-delay: 2.1s;">
-      <i aria-hidden="true" class="fas fa-arrow-left"></i>
-      Voltar para Início
-     </a>
+     <div style="text-align: center;">
+      <a aria-label="Voltar para a página inicial" 
+         class="back-button slide-up" 
+         href="index.html" 
+         style="animation-delay: 2.1s; display: inline-block;">
+       <i aria-hidden="true" class="fas fa-arrow-left"></i>
+       Voltar para Início
+      </a>
+     </div>
      <section aria-label="Depoimentos de usuários" class="testimonial-section slide-up" style="animation-delay: 2.3s;">
       <h2>O que nossos usuários dizem</h2>
       <div class="testimonial-cards">
@@ -690,7 +831,7 @@
         <i class="fas fa-plus" aria-hidden="true"></i>
        </button>
        <div class="faq-answer" id="faq1" role="region" aria-labelledby="faq1-btn">
-        Você pode sincronizar seus projetos automaticamente ao conectar o app à sua conta Tekton. Basta fazer login e tudo será atualizado em tempo real.
+        Você pode sincronizar seus projetos automaticamente ao conectar o app à sua conta Tektõn. Basta fazer login e tudo será atualizado em tempo real.
        </div>
       </div>
       <div class="faq-item" tabindex="0" aria-expanded="false">
@@ -712,8 +853,17 @@
        </div>
       </div>
      </section>
+     <section class="newsletter-section slide-up" style="animation-delay: 2.9s;" aria-label="Newsletter">
+      <h2>Fique por dentro das novidades</h2>
+      <p>Assine nossa newsletter para receber atualizações, dicas e ofertas exclusivas.</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Obrigado por assinar a newsletter!');" novalidate>
+       <input aria-label="Digite seu e-mail" class="newsletter-input" placeholder="Seu e-mail" required="" type="email"/>
+       <button aria-label="Assinar newsletter" class="newsletter-button" type="submit">
+        Assinar
+       </button>
+      </form>
+     </section>
     </section>
-    <!-- Right: Phone emulator with tabs and carousel -->
     <section class="right-section flex flex-col items-center mt-16 md:mt-0">
      <div aria-label="Emulador do aplicativo Tektõn em um smartphone" class="phone-emulator" role="img" tabindex="0">
       <div aria-atomic="true" aria-live="polite" class="app-header">
@@ -889,6 +1039,22 @@
       <button aria-controls="tab-notifications" aria-label="Notificações" aria-selected="false" class="carousel-dot" role="tab" tabindex="-1"></button>
       <button aria-controls="tab-calendar" aria-label="Agenda" aria-selected="false" class="carousel-dot" role="tab" tabindex="-1"></button>
      </div>
+     <section id="video" style="margin-top: 100px;">
+        <h2 style="text-align: center; font-size: 2rem; margin-bottom: 1rem;">Apresentação do App</h2>
+        <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+          <video 
+            id="presentation-video" 
+            controls 
+            controlsList="nodownload" 
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 12px;"
+            aria-label="Vídeo institucional de apresentação"
+          >
+            <source src="MicrosoftTeams-video (4).mp4" type="video/mp4">
+            Seu navegador não suporta a tag de vídeo.
+          </video>
+        </div>
+      </section>
+      
     </section>
    </div>
   </main>
