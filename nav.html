@@ -1,0 +1,759 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Sistema de Navegação para Equipe de Arquitetos
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Inter", sans-serif;
+    }
+    #map {
+      width: 100%;
+      height: 500px;
+      border-radius: 0.5rem;
+      border: 1px solid #d1d5db;
+      position: relative;
+      background: url("https://placehold.co/1200x600?text=Mapa+Simulado+da+Equipe") center center no-repeat;
+      background-size: cover;
+      overflow: hidden;
+    }
+    .marker {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      cursor: pointer;
+      user-select: none;
+    }
+    .marker .icon {
+      font-size: 1.8rem;
+      color: #2563eb;
+      text-shadow: 0 0 3px #fff;
+      transition: color 0.3s ease;
+    }
+    .marker.engineer .icon {
+      color: #16a34a;
+    }
+    .marker:hover .icon {
+      color: #1e40af;
+    }
+    .marker.engineer:hover .icon {
+      color: #166534;
+    }
+    .marker .tooltip {
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      font-size: 0.75rem;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+      z-index: 10;
+      user-select: none;
+    }
+    .marker:hover .tooltip,
+    .marker:focus .tooltip {
+      opacity: 1;
+    }
+    button:focus-visible {
+      outline: 2px solid #2563eb;
+      outline-offset: 2px;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col">
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+   <!-- Título -->
+   <header class="mb-8 text-center">
+    <h1 class="text-3xl font-bold text-blue-700">
+     Sistema Integrado de Navegação e Coordenação - Equipe de Arquitetura
+    </h1>
+    <p class="text-gray-600 mt-2 max-w-xl mx-auto">
+     Navegue, acompanhe e coordene os trabalhos em campo com facilidade.
+    </p>
+   </header>
+   <!-- Mapa e Navegação -->
+   <section class="mb-10" id="mapa">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center justify-center space-x-2">
+     <i class="fas fa-map-marked-alt text-blue-600">
+     </i>
+     <span>
+      Mapa Interativo da Equipe
+     </span>
+    </h2>
+    <div aria-label="Mapa interativo da equipe com marcadores de localização" class="relative bg-white shadow-lg" id="map" role="region" tabindex="0">
+    </div>
+    <div class="mt-6 flex flex-col sm:flex-row sm:space-x-4 space-y-3 sm:space-y-0 justify-center">
+     <button aria-label="Ativar GPS e obter localização atual" class="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-md shadow-md transition" id="btn-ativar-gps" type="button">
+      <i class="fas fa-location-arrow">
+      </i>
+      <span>
+       Ativar GPS
+      </span>
+     </button>
+     <button aria-label="Gerar rota otimizada entre membros da equipe" class="flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-3 rounded-md shadow-md transition" id="btn-gerar-rota" type="button">
+      <i class="fas fa-route">
+      </i>
+      <span>
+       Gerar Rota
+      </span>
+     </button>
+     <button aria-label="Atualizar posições da equipe no mapa" class="flex items-center justify-center space-x-2 bg-gray-600 hover:bg-gray-700 text-white font-semibold px-5 py-3 rounded-md shadow-md transition" id="btn-atualizar-posicao" type="button">
+      <i class="fas fa-sync-alt">
+      </i>
+      <span>
+       Atualizar Posições
+      </span>
+     </button>
+    </div>
+   </section>
+   <!-- Tarefas -->
+   <section class="mb-10" id="tarefas">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center justify-center space-x-2">
+     <i class="fas fa-tasks text-blue-600">
+     </i>
+     <span>
+      Tarefas em Campo
+     </span>
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+     <article aria-label="Tarefa Visita ao canteiro A, status Em andamento, prazo 28 de junho de 2024" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex flex-col justify-between" data-id="1" tabindex="0">
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900 mb-2">
+        Visita ao canteiro A
+       </h3>
+       <p class="text-gray-700 mb-3">
+        Conferir alinhamento das paredes e posicionamento das janelas.
+       </p>
+       <p class="text-sm text-gray-500">
+        Prazo: 28/06/2024
+       </p>
+      </div>
+      <div class="mt-4 flex items-center justify-between">
+       <span class="status text-sm font-medium text-green-700 bg-green-100 px-2 py-1 rounded-full">
+        Em andamento
+       </span>
+       <button aria-label="Marcar tarefa Visita ao canteiro A como concluída" class="btn-concluir text-blue-600 hover:text-blue-800 focus:outline-none" type="button">
+        <i class="fas fa-check-circle fa-lg">
+        </i>
+       </button>
+      </div>
+     </article>
+     <article aria-label="Tarefa Revisão do projeto estrutural, status Pendente, prazo 30 de junho de 2024" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex flex-col justify-between" data-id="2" tabindex="0">
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900 mb-2">
+        Revisão do projeto estrutural
+       </h3>
+       <p class="text-gray-700 mb-3">
+        Validar cálculos e materiais com o engenheiro responsável.
+       </p>
+       <p class="text-sm text-gray-500">
+        Prazo: 30/06/2024
+       </p>
+      </div>
+      <div class="mt-4 flex items-center justify-between">
+       <span class="status text-sm font-medium text-yellow-700 bg-yellow-100 px-2 py-1 rounded-full">
+        Pendente
+       </span>
+       <button aria-label="Marcar tarefa Revisão do projeto estrutural como concluída" class="btn-concluir text-blue-600 hover:text-blue-800 focus:outline-none" type="button">
+        <i class="fas fa-check-circle fa-lg">
+        </i>
+       </button>
+      </div>
+     </article>
+     <article aria-label="Tarefa Atualizar planta baixa, status Atrasada, prazo 2 de julho de 2024" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex flex-col justify-between" data-id="3" tabindex="0">
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900 mb-2">
+        Atualizar planta baixa
+       </h3>
+       <p class="text-gray-700 mb-3">
+        Incorporar alterações solicitadas pelo cliente.
+       </p>
+       <p class="text-sm text-gray-500">
+        Prazo: 02/07/2024
+       </p>
+      </div>
+      <div class="mt-4 flex items-center justify-between">
+       <span class="status text-sm font-medium text-red-700 bg-red-100 px-2 py-1 rounded-full">
+        Atrasada
+       </span>
+       <button aria-label="Marcar tarefa Atualizar planta baixa como concluída" class="btn-concluir text-blue-600 hover:text-blue-800 focus:outline-none" type="button">
+        <i class="fas fa-check-circle fa-lg">
+        </i>
+       </button>
+      </div>
+     </article>
+     <article aria-label="Tarefa Inspeção elétrica, status Pendente, prazo 5 de julho de 2024" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex flex-col justify-between" data-id="4" tabindex="0">
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900 mb-2">
+        Inspeção elétrica
+       </h3>
+       <p class="text-gray-700 mb-3">
+        Verificar instalação e segurança dos cabos.
+       </p>
+       <p class="text-sm text-gray-500">
+        Prazo: 05/07/2024
+       </p>
+      </div>
+      <div class="mt-4 flex items-center justify-between">
+       <span class="status text-sm font-medium text-yellow-700 bg-yellow-100 px-2 py-1 rounded-full">
+        Pendente
+       </span>
+       <button aria-label="Marcar tarefa Inspeção elétrica como concluída" class="btn-concluir text-blue-600 hover:text-blue-800 focus:outline-none" type="button">
+        <i class="fas fa-check-circle fa-lg">
+        </i>
+       </button>
+      </div>
+     </article>
+     <article aria-label="Tarefa Reunião com cliente, status Em andamento, prazo 7 de julho de 2024" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex flex-col justify-between" data-id="5" tabindex="0">
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900 mb-2">
+        Reunião com cliente
+       </h3>
+       <p class="text-gray-700 mb-3">
+        Apresentar progresso e discutir ajustes.
+       </p>
+       <p class="text-sm text-gray-500">
+        Prazo: 07/07/2024
+       </p>
+      </div>
+      <div class="mt-4 flex items-center justify-between">
+       <span class="status text-sm font-medium text-green-700 bg-green-100 px-2 py-1 rounded-full">
+        Em andamento
+       </span>
+       <button aria-label="Marcar tarefa Reunião com cliente como concluída" class="btn-concluir text-blue-600 hover:text-blue-800 focus:outline-none" type="button">
+        <i class="fas fa-check-circle fa-lg">
+        </i>
+       </button>
+      </div>
+     </article>
+     <article aria-label="Tarefa Levantamento topográfico, status Pendente, prazo 10 de julho de 2024" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex flex-col justify-between" data-id="6" tabindex="0">
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900 mb-2">
+        Levantamento topográfico
+       </h3>
+       <p class="text-gray-700 mb-3">
+        Coletar dados para atualização do projeto.
+       </p>
+       <p class="text-sm text-gray-500">
+        Prazo: 10/07/2024
+       </p>
+      </div>
+      <div class="mt-4 flex items-center justify-between">
+       <span class="status text-sm font-medium text-yellow-700 bg-yellow-100 px-2 py-1 rounded-full">
+        Pendente
+       </span>
+       <button aria-label="Marcar tarefa Levantamento topográfico como concluída" class="btn-concluir text-blue-600 hover:text-blue-800 focus:outline-none" type="button">
+        <i class="fas fa-check-circle fa-lg">
+        </i>
+       </button>
+      </div>
+     </article>
+    </div>
+   </section>
+   <!-- Equipe -->
+   <section class="mb-10" id="equipe">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center justify-center space-x-2">
+     <i class="fas fa-users text-blue-600">
+     </i>
+     <span>
+      Equipe em Campo
+     </span>
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+     <article aria-label="Lucas Silva, Arquiteto, localizado em Canteiro A" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex items-center space-x-4" tabindex="0">
+      <img alt="Foto do arquiteto Lucas, homem jovem com cabelo castanho curto e óculos, sorrindo" class="w-20 h-20 rounded-full object-cover border-2 border-blue-600" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/fa044415-9805-4d7e-9259-92317f687f3c.jpg" width="80"/>
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900">
+        Lucas Silva
+       </h3>
+       <p class="text-sm text-gray-600">
+        Arquiteto
+       </p>
+       <p class="text-sm text-green-600 flex items-center space-x-1">
+        <i class="fas fa-map-marker-alt">
+        </i>
+        <span>
+         Localização: Canteiro A
+        </span>
+       </p>
+      </div>
+     </article>
+     <article aria-label="Mariana Costa, Engenheira, localizada em Canteiro B" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex items-center space-x-4" tabindex="0">
+      <img alt="Foto da engenheira Mariana, mulher jovem com cabelo preto longo preso em rabo de cavalo, usando capacete amarelo" class="w-20 h-20 rounded-full object-cover border-2 border-green-600" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/17b39fdb-265c-4699-0415-efd3bb2186a7.jpg" width="80"/>
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900">
+        Mariana Costa
+       </h3>
+       <p class="text-sm text-gray-600">
+        Engenheira
+       </p>
+       <p class="text-sm text-green-600 flex items-center space-x-1">
+        <i class="fas fa-map-marker-alt">
+        </i>
+        <span>
+         Localização: Canteiro B
+        </span>
+       </p>
+      </div>
+     </article>
+     <article aria-label="Ana Pereira, Arquiteta, localizada em Escritório Central" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex items-center space-x-4" tabindex="0">
+      <img alt="Foto da arquiteta Ana, mulher de pele clara, cabelo loiro curto, usando óculos de grau" class="w-20 h-20 rounded-full object-cover border-2 border-blue-600" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/26b32f3e-355a-4bf9-4224-ed5dff2ba9be.jpg" width="80"/>
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900">
+        Ana Pereira
+       </h3>
+       <p class="text-sm text-gray-600">
+        Arquiteta
+       </p>
+       <p class="text-sm text-green-600 flex items-center space-x-1">
+        <i class="fas fa-map-marker-alt">
+        </i>
+        <span>
+         Localização: Escritório Central
+        </span>
+       </p>
+      </div>
+     </article>
+     <article aria-label="Carlos Mendes, Engenheiro, localizado em Canteiro C" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex items-center space-x-4" tabindex="0">
+      <img alt="Foto do engenheiro Carlos, homem de pele morena clara, cabelo curto e barba rala" class="w-20 h-20 rounded-full object-cover border-2 border-green-600" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/3c6de903-9437-43bb-4524-2c88de5d5643.jpg" width="80"/>
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900">
+        Carlos Mendes
+       </h3>
+       <p class="text-sm text-gray-600">
+        Engenheiro
+       </p>
+       <p class="text-sm text-green-600 flex items-center space-x-1">
+        <i class="fas fa-map-marker-alt">
+        </i>
+        <span>
+         Localização: Canteiro C
+        </span>
+       </p>
+      </div>
+     </article>
+     <article aria-label="Beatriz Lima, Arquiteta, localizada em Escritório Central" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex items-center space-x-4" tabindex="0">
+      <img alt="Foto da arquiteta Beatriz, mulher jovem, cabelo castanho claro longo e liso" class="w-20 h-20 rounded-full object-cover border-2 border-blue-600" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/952e5756-daa1-4dc5-2889-e302e9085f60.jpg" width="80"/>
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900">
+        Beatriz Lima
+       </h3>
+       <p class="text-sm text-gray-600">
+        Arquiteta
+       </p>
+       <p class="text-sm text-green-600 flex items-center space-x-1">
+        <i class="fas fa-map-marker-alt">
+        </i>
+        <span>
+         Localização: Escritório Central
+        </span>
+       </p>
+      </div>
+     </article>
+     <article aria-label="Felipe Santos, Engenheiro, localizado em Canteiro A" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex items-center space-x-4" tabindex="0">
+      <img alt="Foto do engenheiro Felipe, homem jovem, cabelo castanho escuro e barba cheia" class="w-20 h-20 rounded-full object-cover border-2 border-green-600" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/3b95651a-fe42-4858-315a-d35f98b48b3f.jpg" width="80"/>
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900">
+        Felipe Santos
+       </h3>
+       <p class="text-sm text-gray-600">
+        Engenheiro
+       </p>
+       <p class="text-sm text-green-600 flex items-center space-x-1">
+        <i class="fas fa-map-marker-alt">
+        </i>
+        <span>
+         Localização: Canteiro A
+        </span>
+       </p>
+      </div>
+     </article>
+     <article aria-label="Joana Ribeiro, Arquiteta, localizada em Canteiro B" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex items-center space-x-4" tabindex="0">
+      <img alt="Foto da arquiteta Joana, mulher de pele morena clara, cabelo cacheado preto preso" class="w-20 h-20 rounded-full object-cover border-2 border-blue-600" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/d1960519-3708-4b1f-2b65-588f07329c6a.jpg" width="80"/>
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900">
+        Joana Ribeiro
+       </h3>
+       <p class="text-sm text-gray-600">
+        Arquiteta
+       </p>
+       <p class="text-sm text-green-600 flex items-center space-x-1">
+        <i class="fas fa-map-marker-alt">
+        </i>
+        <span>
+         Localização: Canteiro B
+        </span>
+       </p>
+      </div>
+     </article>
+     <article aria-label="Rafael Oliveira, Engenheiro, localizado em Escritório Central" class="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex items-center space-x-4" tabindex="0">
+      <img alt="Foto do engenheiro Rafael, homem de pele clara, cabelo castanho curto e barba rala" class="w-20 h-20 rounded-full object-cover border-2 border-green-600" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/7ff034be-0e3b-4e0c-d450-dcd511256a58.jpg" width="80"/>
+      <div>
+       <h3 class="text-lg font-semibold text-gray-900">
+        Rafael Oliveira
+       </h3>
+       <p class="text-sm text-gray-600">
+        Engenheiro
+       </p>
+       <p class="text-sm text-green-600 flex items-center space-x-1">
+        <i class="fas fa-map-marker-alt">
+        </i>
+        <span>
+         Localização: Escritório Central
+        </span>
+       </p>
+      </div>
+     </article>
+    </div>
+   </section>
+   <!-- Perfil -->
+   <section class="mb-10 max-w-md mx-auto bg-white rounded-lg shadow-md border border-gray-200 p-6" id="perfil">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center justify-center space-x-2">
+     <i class="fas fa-user-circle text-blue-600">
+     </i>
+     <span>
+      Meu Perfil
+     </span>
+    </h2>
+    <div class="flex flex-col items-center space-y-4">
+     <img alt="Foto do usuário atual, rosto sorridente de arquiteto, cabelo castanho curto e óculos" class="w-30 h-30 rounded-full object-cover border-4 border-blue-600" height="120" loading="lazy" src="https://storage.googleapis.com/a1aa/image/eb601d8e-aa89-4283-22a5-d5a475b2e898.jpg" width="120"/>
+     <h3 class="text-xl font-semibold text-gray-900">
+      Lucas Silva
+     </h3>
+     <p class="text-gray-600">
+      Arquiteto
+     </p>
+     <form class="w-full space-y-4" id="perfil-form" novalidate="">
+      <div>
+       <label class="block text-gray-700 font-medium mb-1" for="nome">
+        Nome
+       </label>
+       <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" id="nome" name="nome" required="" type="text" value="Lucas Silva"/>
+      </div>
+      <div>
+       <label class="block text-gray-700 font-medium mb-1" for="email">
+        Email
+       </label>
+       <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" id="email" name="email" required="" type="email" value="lucas.silva@empresa.com"/>
+      </div>
+      <div>
+       <label class="block text-gray-700 font-medium mb-1" for="telefone">
+        Telefone
+       </label>
+       <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" id="telefone" name="telefone" required="" type="tel" value="+55 11 91234-5678"/>
+      </div>
+      <button aria-label="Salvar alterações do perfil" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md shadow-md transition" type="submit">
+       Salvar Alterações
+      </button>
+     </form>
+     <p aria-live="polite" class="text-green-600 font-semibold hidden" id="perfil-msg" role="alert">
+      Perfil atualizado com sucesso!
+     </p>
+    </div>
+   </section>
+  </main>
+  <footer class="bg-white border-t border-gray-200 py-4 text-center text-gray-600 text-sm">
+   © 2024 Equipe de Arquitetura - Sistema Interno de Navegação
+  </footer>
+  <script>
+   // Dados simulados da equipe com posições (latitude e longitude fictícios)
+    const equipe = [
+      {
+        id: 1,
+        nome: "Lucas Silva",
+        cargo: "Arquiteto",
+        lat: -23.55052,
+        lng: -46.633308,
+        localizacao: "Canteiro A",
+        tipo: "architect",
+        color: "#2563eb",
+      },
+      {
+        id: 2,
+        nome: "Mariana Costa",
+        cargo: "Engenheira",
+        lat: -23.5515,
+        lng: -46.6345,
+        localizacao: "Canteiro B",
+        tipo: "engineer",
+        color: "#16a34a",
+      },
+      {
+        id: 3,
+        nome: "Ana Pereira",
+        cargo: "Arquiteta",
+        lat: -23.549,
+        lng: -46.632,
+        localizacao: "Escritório Central",
+        tipo: "architect",
+        color: "#2563eb",
+      },
+      {
+        id: 4,
+        nome: "Carlos Mendes",
+        cargo: "Engenheiro",
+        lat: -23.552,
+        lng: -46.635,
+        localizacao: "Canteiro C",
+        tipo: "engineer",
+        color: "#16a34a",
+      },
+      {
+        id: 5,
+        nome: "Beatriz Lima",
+        cargo: "Arquiteta",
+        lat: -23.5485,
+        lng: -46.6315,
+        localizacao: "Escritório Central",
+        tipo: "architect",
+        color: "#2563eb",
+      },
+      {
+        id: 6,
+        nome: "Felipe Santos",
+        cargo: "Engenheiro",
+        lat: -23.55,
+        lng: -46.633,
+        localizacao: "Canteiro A",
+        tipo: "engineer",
+        color: "#16a34a",
+      },
+      {
+        id: 7,
+        nome: "Joana Ribeiro",
+        cargo: "Arquiteta",
+        lat: -23.551,
+        lng: -46.634,
+        localizacao: "Canteiro B",
+        tipo: "architect",
+        color: "#2563eb",
+      },
+      {
+        id: 8,
+        nome: "Rafael Oliveira",
+        cargo: "Engenheiro",
+        lat: -23.5495,
+        lng: -46.6325,
+        localizacao: "Escritório Central",
+        tipo: "engineer",
+        color: "#16a34a",
+      },
+    ];
+
+    // Tarefas simuladas
+    const tarefas = [
+      {
+        id: 1,
+        titulo: "Visita ao canteiro A",
+        descricao: "Conferir alinhamento das paredes e posicionamento das janelas.",
+        prazo: "28/06/2024",
+        status: "Em andamento",
+      },
+      {
+        id: 2,
+        titulo: "Revisão do projeto estrutural",
+        descricao: "Validar cálculos e materiais com o engenheiro responsável.",
+        prazo: "30/06/2024",
+        status: "Pendente",
+      },
+      {
+        id: 3,
+        titulo: "Atualizar planta baixa",
+        descricao: "Incorporar alterações solicitadas pelo cliente.",
+        prazo: "02/07/2024",
+        status: "Atrasada",
+      },
+      {
+        id: 4,
+        titulo: "Inspeção elétrica",
+        descricao: "Verificar instalação e segurança dos cabos.",
+        prazo: "05/07/2024",
+        status: "Pendente",
+      },
+      {
+        id: 5,
+        titulo: "Reunião com cliente",
+        descricao: "Apresentar progresso e discutir ajustes.",
+        prazo: "07/07/2024",
+        status: "Em andamento",
+      },
+      {
+        id: 6,
+        titulo: "Levantamento topográfico",
+        descricao: "Coletar dados para atualização do projeto.",
+        prazo: "10/07/2024",
+        status: "Pendente",
+      },
+    ];
+
+    // Limites fictícios para o mapa (latitude e longitude)
+    const mapBounds = {
+      north: -23.547,
+      south: -23.553,
+      east: -46.631,
+      west: -46.636,
+    };
+
+    // Referência ao container do mapa
+    const mapEl = document.getElementById("map");
+
+    // Converte lat/lng para % dentro do container do mapa
+    function latLngToPercent(lat, lng) {
+      const latPercent = ((mapBounds.north - lat) / (mapBounds.north - mapBounds.south)) * 100;
+      const lngPercent = ((lng - mapBounds.west) / (mapBounds.east - mapBounds.west)) * 100;
+      return { top: latPercent, left: lngPercent };
+    }
+
+    // Remove todos os marcadores do mapa
+    function limparMarcadores() {
+      const markers = mapEl.querySelectorAll(".marker");
+      markers.forEach((m) => m.remove());
+    }
+
+    // Cria marcadores no mapa para cada membro da equipe
+    function criarMarcadores() {
+      limparMarcadores();
+      equipe.forEach((membro) => {
+        const pos = latLngToPercent(membro.lat, membro.lng);
+        const marker = document.createElement("div");
+        marker.className = `marker ${membro.tipo === "engineer" ? "engineer" : "architect"}`;
+        marker.style.top = pos.top + "%";
+        marker.style.left = pos.left + "%";
+        marker.setAttribute("tabindex", "0");
+        marker.setAttribute(
+          "aria-label",
+          `${membro.nome}, ${membro.cargo}, localizado em ${membro.localizacao}`
+        );
+        marker.setAttribute("role", "button");
+
+        const icon = document.createElement("i");
+        icon.className = "icon fas fa-map-marker-alt";
+        marker.appendChild(icon);
+
+        const tooltip = document.createElement("div");
+        tooltip.className = "tooltip";
+        tooltip.textContent = `${membro.nome} (${membro.cargo}) - ${membro.localizacao}`;
+        marker.appendChild(tooltip);
+
+        // Clique ou Enter/Space no marcador mostra alerta com detalhes
+        marker.addEventListener("click", () => {
+          alert(
+            `Nome: ${membro.nome}\nCargo: ${membro.cargo}\nLocalização: ${membro.localizacao}`
+          );
+        });
+        marker.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            marker.click();
+          }
+        });
+
+        mapEl.appendChild(marker);
+      });
+    }
+
+    criarMarcadores();
+
+    // Botão Ativar GPS
+    document.getElementById("btn-ativar-gps").addEventListener("click", () => {
+      if (!navigator.geolocation) {
+        alert("Geolocalização não suportada pelo seu navegador.");
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          alert(
+            `GPS ativado. Sua localização atual:\nLatitude: ${pos.coords.latitude.toFixed(
+              5
+            )}\nLongitude: ${pos.coords.longitude.toFixed(5)}`
+          );
+        },
+        () => {
+          alert("Não foi possível obter sua localização.");
+        }
+      );
+    });
+
+    // Botão Gerar Rota (simulação)
+    document.getElementById("btn-gerar-rota").addEventListener("click", () => {
+      if (equipe.length < 2) {
+        alert("Equipe insuficiente para gerar rota.");
+        return;
+      }
+      const origem = equipe[0];
+      const destino = equipe[1];
+      alert(
+        `Rota gerada:\nDe: ${origem.nome} (${origem.localizacao})\nPara: ${destino.nome} (${destino.localizacao})\nDistância aproximada: 1.2 km\nTempo estimado: 5 minutos`
+      );
+    });
+
+    // Botão Atualizar Posições (simula pequenas variações)
+    document.getElementById("btn-atualizar-posicao").addEventListener("click", () => {
+      equipe.forEach((membro) => {
+        membro.lat += (Math.random() - 0.5) * 0.0004;
+        membro.lng += (Math.random() - 0.5) * 0.0004;
+      });
+      criarMarcadores();
+      alert("Posições da equipe atualizadas.");
+    });
+
+    // Marcar tarefa como concluída / pendente
+    document.querySelectorAll(".btn-concluir").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const article = btn.closest("article");
+        const statusSpan = article.querySelector(".status");
+        const tarefaId = Number(article.getAttribute("data-id"));
+        const tarefa = tarefas.find((t) => t.id === tarefaId);
+        if (!tarefa) return;
+
+        if (tarefa.status === "Concluída") {
+          tarefa.status = "Pendente";
+          statusSpan.textContent = "Pendente";
+          statusSpan.className =
+            "status text-sm font-medium text-yellow-700 bg-yellow-100 px-2 py-1 rounded-full";
+        } else {
+          tarefa.status = "Concluída";
+          statusSpan.textContent = "Concluída";
+          statusSpan.className =
+            "status text-sm font-medium text-green-700 bg-green-100 px-2 py-1 rounded-full";
+        }
+      });
+    });
+
+    // Formulário perfil - salvar alterações simuladas
+    const perfilForm = document.getElementById("perfil-form");
+    const perfilMsg = document.getElementById("perfil-msg");
+
+    perfilForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nome = perfilForm.nome.value.trim();
+      const email = perfilForm.email.value.trim();
+      const telefone = perfilForm.telefone.value.trim();
+
+      if (!nome || !email || !telefone) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+      }
+
+      // Simula salvar dados (poderia ser API)
+      equipe[0].nome = nome;
+
+      perfilMsg.classList.remove("hidden");
+      setTimeout(() => {
+        perfilMsg.classList.add("hidden");
+      }, 3000);
+    });
+  </script>
+ </body>
+</html>
