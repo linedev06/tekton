@@ -22,6 +22,7 @@
       justify-content: center;
       align-items: center;
       user-select: none;
+      touch-action: none;
     }
     #manual {
       scrollbar-width: thin;
@@ -48,6 +49,7 @@
       max-width: 100vw;
       max-height: 100vh;
       touch-action: none;
+      user-select: none;
     }
     .block-button {
       box-shadow: 0 8px 20px rgba(255, 154, 0, 0.4);
@@ -63,6 +65,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      user-select: none;
     }
     .block-button::before {
       content: '';
@@ -74,7 +77,8 @@
       border-radius: 16px;
       z-index: 0;
     }
-    .block-button:hover::before {
+    .block-button:hover::before,
+    .block-button:focus-visible::before {
       opacity: 0.3;
     }
     .block-button:focus-visible {
@@ -89,6 +93,8 @@
       object-fit: cover;
       width: 100%;
       height: 100%;
+      user-select: none;
+      pointer-events: none;
     }
     #manual-button {
       background: linear-gradient(45deg, #ff9a00, #ff6a00);
@@ -107,6 +113,7 @@
       z-index: 60;
       color: #1f2937;
       text-shadow: 0 0 3px rgba(255, 154, 0, 0.7);
+      touch-action: manipulation;
     }
     #manual-button:hover {
       filter: brightness(1.1);
@@ -179,6 +186,7 @@
       transform: translateY(-50%);
       max-height: 90vh;
       overflow-y: auto;
+      touch-action: manipulation;
     }
     #platform-size label {
       font-weight: 600;
@@ -222,6 +230,7 @@
       user-select: none;
       width: 100%;
       text-shadow: 0 0 4px #ff9a00cc;
+      touch-action: manipulation;
     }
     #resize-platform:hover {
       filter: brightness(1.15);
@@ -265,6 +274,7 @@
       accent-color: #ff9a00;
       cursor: pointer;
       flex-shrink: 0;
+      touch-action: manipulation;
     }
     #watermark {
       position: fixed;
@@ -391,6 +401,10 @@
      <input checked="" id="toggle-damping" type="checkbox"/>
      Suavizar Câmera
     </label>
+    <label for="toggle-snap">
+     <input id="toggle-snap" type="checkbox" checked/>
+     Snap na grade
+    </label>
    </div>
   </aside>
   <main aria-label="Área 3D da plataforma" class="flex-1 flex justify-center items-center p-6" role="main">
@@ -410,17 +424,17 @@
     <li>
      <i class="fas fa-cube">
      </i>
-     Clique na plataforma para adicionar blocos exatamente onde o mouse está.
+     Clique na plataforma para adicionar blocos exatamente onde o mouse ou toque está.
     </li>
     <li>
      <i class="fas fa-arrows-alt">
      </i>
-     Arraste o mouse para mover a câmera.
+     Arraste o mouse ou toque para mover a câmera.
     </li>
     <li>
      <i class="fas fa-search-plus">
      </i>
-     Use o scroll para aproximar e afastar a câmera.
+     Use o scroll ou gesto de pinça para aproximar e afastar a câmera.
     </li>
     <li>
      <i class="fas fa-redo">
@@ -435,7 +449,17 @@
     <li>
      <i class="fas fa-eye">
      </i>
-     Use as opções para mostrar/ocultar sombra, grade e suavizar câmera.
+     Use as opções para mostrar/ocultar sombra, grade, suavizar câmera e snap.
+    </li>
+    <li>
+     <i class="fas fa-undo-alt">
+     </i>
+     Pressione 'Z' para desfazer o último bloco adicionado.
+    </li>
+    <li>
+     <i class="fas fa-redo-alt">
+     </i>
+     Pressione 'Y' para refazer o último bloco removido.
     </li>
    </ul>
   </section>
@@ -517,6 +541,11 @@
     let removingBlocks = false;
     let shadowVisible = true;
     let gridVisible = true;
+    let snapToGrid = true;
+
+    // Undo/Redo stacks
+    let undoStack = [];
+    let redoStack = [];
 
     function updateShadow(x, z) {
       shadowMeshAdd.position.set(x, 0.01, z);
@@ -547,10 +576,27 @@
     // Track last intersect point for placing blocks exactly where mouse is
     let lastIntersectPoint = null;
 
-    function onMouseMove(event) {
+    function getCanvasRelativePosition(event) {
       const rect = renderer.domElement.getBoundingClientRect();
-      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      let x, y;
+      if (event.touches && event.touches.length > 0) {
+        x = event.touches[0].clientX;
+        y = event.touches[0].clientY;
+      } else {
+        x = event.clientX;
+        y = event.clientY;
+      }
+      return {
+        x: ((x - rect.left) / rect.width) * 2 - 1,
+        y: -((y - rect.top) / rect.height) * 2 + 1,
+      };
+    }
+
+    function onPointerMove(event) {
+      event.preventDefault();
+      const pos = getCanvasRelativePosition(event);
+      mouse.x = pos.x;
+      mouse.y = pos.y;
 
       raycaster.setFromCamera(mouse, camera);
 
@@ -558,10 +604,13 @@
       if (intersects.length > 0) {
         const intersect = intersects[0];
         lastIntersectPoint = intersect.point.clone();
-        updateShadow(
-          Math.round(intersect.point.x),
-          Math.round(intersect.point.z)
-        );
+        let px = lastIntersectPoint.x;
+        let pz = lastIntersectPoint.z;
+        if (snapToGrid) {
+          px = Math.round(px);
+          pz = Math.round(pz);
+        }
+        updateShadow(px, pz);
       } else {
         lastIntersectPoint = null;
         shadowMeshAdd.visible = false;
@@ -569,11 +618,16 @@
       }
     }
 
-    function onClick(event) {
+    function onPointerDown(event) {
+      event.preventDefault();
       if (!lastIntersectPoint) return;
 
-      const x = Math.round(lastIntersectPoint.x);
-      const z = Math.round(lastIntersectPoint.z);
+      let x = lastIntersectPoint.x;
+      let z = lastIntersectPoint.z;
+      if (snapToGrid) {
+        x = Math.round(x);
+        z = Math.round(z);
+      }
 
       if (removingBlocks) {
         const blocksAtPosition = blocks.filter(
@@ -587,6 +641,8 @@
           );
           scene.remove(highestBlock);
           blocks = blocks.filter((block) => block !== highestBlock);
+          undoStack.push({ action: 'remove', block: highestBlock });
+          redoStack = [];
         }
       } else {
         let highestY = -0.5; // Inicializa como a altura da plataforma
@@ -604,11 +660,43 @@
         const y = highestY + 1; // Altura do novo bloco empilhado
         const block = createBlock(x, y, z, blockColor);
         blocks.push(block);
+        undoStack.push({ action: 'add', block: block });
+        redoStack = [];
       }
     }
 
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('click', onClick);
+    // Undo function
+    function undo() {
+      if (undoStack.length === 0) return;
+      const lastAction = undoStack.pop();
+      if (lastAction.action === 'add') {
+        scene.remove(lastAction.block);
+        blocks = blocks.filter((b) => b !== lastAction.block);
+        redoStack.push(lastAction);
+      } else if (lastAction.action === 'remove') {
+        scene.add(lastAction.block);
+        blocks.push(lastAction.block);
+        redoStack.push(lastAction);
+      }
+    }
+
+    // Redo function
+    function redo() {
+      if (redoStack.length === 0) return;
+      const lastRedo = redoStack.pop();
+      if (lastRedo.action === 'add') {
+        scene.add(lastRedo.block);
+        blocks.push(lastRedo.block);
+        undoStack.push(lastRedo);
+      } else if (lastRedo.action === 'remove') {
+        scene.remove(lastRedo.block);
+        blocks = blocks.filter((b) => b !== lastRedo.block);
+        undoStack.push(lastRedo);
+      }
+    }
+
+    window.addEventListener('pointermove', onPointerMove, { passive: false });
+    window.addEventListener('pointerdown', onPointerDown, { passive: false });
 
     function animate() {
       requestAnimationFrame(animate);
@@ -632,6 +720,14 @@
         document.getElementById('platform-depth').value = platformDepth;
         createPlatform(platformWidth, platformDepth);
         createGridHelper(platformWidth, platformDepth);
+      }
+      if (event.key.toLowerCase() === 'z' && (event.ctrlKey || event.metaKey)) {
+        event.preventDefault();
+        undo();
+      }
+      if (event.key.toLowerCase() === 'y' && (event.ctrlKey || event.metaKey)) {
+        event.preventDefault();
+        redo();
       }
     });
 
@@ -681,6 +777,7 @@
     const toggleShadow = document.getElementById('toggle-shadow');
     const toggleGrid = document.getElementById('toggle-grid');
     const toggleDamping = document.getElementById('toggle-damping');
+    const toggleSnap = document.getElementById('toggle-snap');
 
     toggleRemove.addEventListener('change', () => {
       removingBlocks = toggleRemove.checked;
@@ -701,6 +798,10 @@
 
     toggleDamping.addEventListener('change', () => {
       controls.enableDamping = toggleDamping.checked;
+    });
+
+    toggleSnap.addEventListener('change', () => {
+      snapToGrid = toggleSnap.checked;
     });
 
     // Responsive resize
