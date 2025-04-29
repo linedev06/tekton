@@ -1,0 +1,189 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Lobby Tektõn
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <script>
+   tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            customOrange: '#ff9a00',
+          },
+          borderRadius: {
+            'bigger': '2.5rem',
+            'extra': '3rem',
+          },
+          boxShadow: {
+            'soft-lg': '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)',
+          },
+        },
+      },
+    }
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Inter', sans-serif;
+    }
+    button:focus-visible {
+      outline: 2px solid #ff9a00;
+      outline-offset: 2px;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col items-center px-4 py-6 sm:px-8 md:px-16 lg:px-24 xl:px-32 2xl:px-40">
+  <!-- Cabeçalho -->
+  <header class="w-full max-w-7xl bg-white rounded-b-bigger shadow-soft-lg relative" style="margin-top: -20px;">
+   <div class="flex justify-between items-center px-6 sm:px-12 pt-6 pb-3">
+    <h1 class="text-customOrange font-semibold text-lg sm:text-xl md:text-2xl select-none cursor-default">
+     Home
+    </h1>
+    <button aria-controls="faqSection" aria-expanded="false" aria-label="Ajuda" class="text-black font-extrabold text-lg sm:text-xl md:text-2xl select-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-customOrange focus:ring-offset-1" id="helpBtn">
+     Ajuda
+    </button>
+   </div>
+   <hr class="border-t-[2px] border-customOrange mx-6 sm:mx-12"/>
+   <!-- Logo pequena discreta no canto inferior central do cabeçalho -->
+   <div class="absolute bottom-1 left-1/2 transform -translate-x-1/2" style="bottom: -10px;">
+    <img alt="Logo minimalista da Lobby Tektõn com texto laranja sobre fundo branco, estilo profissional e limpo" 
+         class="select-none pointer-events-none" 
+         draggable="false" 
+         height="40" 
+         loading="lazy" 
+         src="latsflaubranco-removebg-preview.png" 
+         width="100px"/>
+  </div>
+  </header>
+  <!-- Menu Principal -->
+  <nav aria-label="Menu principal" class="w-full max-w-7xl mt-8 rounded-lg overflow-hidden" role="navigation">
+   <div class="flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-2">
+    <button aria-label="Minhas Plantas" class="flex items-center justify-center gap-3 flex-1 bg-customOrange hover:bg-[#e68a00] transition-colors rounded-lg py-4 px-5 sm:px-6 md:px-8 shadow-md shadow-orange-300/30" type="button">
+     <i class="fas fa-home text-white text-2xl sm:text-3xl">
+     </i>
+     <span class="text-white font-semibold text-base sm:text-lg md:text-xl whitespace-nowrap">
+      Minhas Plantas
+     </span>
+    </button>
+    <button aria-label="Mapa" class="flex items-center justify-center gap-3 flex-1 bg-customOrange hover:bg-[#e68a00] transition-colors rounded-lg py-4 px-5 sm:px-6 md:px-8 shadow-md shadow-orange-300/30" type="button">
+     <i class="fas fa-map-marker-alt text-white text-2xl sm:text-3xl">
+     </i>
+     <span class="text-white font-semibold text-base sm:text-lg md:text-xl whitespace-nowrap">
+      Mapa
+     </span>
+    </button>
+    <button aria-label="Chat com Arquiteto" class="flex items-center justify-center gap-3 flex-1 bg-customOrange hover:bg-[#e68a00] transition-colors rounded-lg py-4 px-5 sm:px-6 md:px-8 shadow-md shadow-orange-300/30" type="button">
+     <i class="fas fa-comment-alt text-white text-2xl sm:text-3xl">
+     </i>
+     <span class="text-white font-semibold text-base sm:text-lg md:text-xl whitespace-nowrap">
+      Chat com Arquiteto
+     </span>
+    </button>
+    <button aria-label="Perfil" class="flex items-center justify-center gap-3 flex-1 bg-customOrange hover:bg-[#e68a00] transition-colors rounded-lg py-4 px-5 sm:px-6 md:px-8 shadow-md shadow-orange-300/30" type="button">
+     <i class="fas fa-user text-white text-2xl sm:text-3xl">
+     </i>
+     <span class="text-white font-semibold text-base sm:text-lg md:text-xl whitespace-nowrap">
+      Perfil
+     </span>
+    </button>
+   </div>
+  </nav>
+  <!-- Área de Conteúdo Principal -->
+  <main class="w-full max-w-7xl mt-10 bg-gray-100 rounded-extra shadow-soft-lg p-8 sm:p-12 md:p-16" role="main">
+   <h1 class="text-blue-900 font-extrabold text-3xl sm:text-4xl md:text-5xl mb-4 leading-tight select-none cursor-default">
+    Bem-vindo ao Lobby Tektõn!
+   </h1>
+   <p class="text-blue-900 text-lg sm:text-xl md:text-2xl font-normal max-w-3xl select-none cursor-default">
+    Selecione uma opção no menu acima para começar.
+   </p>
+  </main>
+  <!-- FAQ Modal -->
+  <div aria-describedby="faqDesc" aria-labelledby="faqTitle" aria-modal="true" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden" id="faqSection" role="dialog">
+   <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-lg p-8 relative">
+    <button aria-label="Fechar FAQ" class="absolute top-5 right-5 text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-customOrange rounded-full p-2" id="closeFaqBtn">
+     <i class="fas fa-times text-2xl">
+     </i>
+    </button>
+    <h2 class="text-customOrange font-extrabold text-3xl mb-6 select-none cursor-default" id="faqTitle">
+     FAQ - Perguntas Frequentes
+    </h2>
+    <div class="space-y-5" id="faqDesc">
+     <details class="border border-gray-300 rounded-lg p-4 open:ring-2 open:ring-customOrange open:ring-offset-1">
+      <summary class="font-semibold text-lg cursor-pointer select-none">
+       Como posso adicionar minhas plantas?
+      </summary>
+      <p class="mt-2 text-gray-700 leading-relaxed">
+       Para adicionar suas plantas, clique no botão "Minhas Plantas" no menu principal e siga as instruções para cadastrar suas plantas.
+      </p>
+     </details>
+     <details class="border border-gray-300 rounded-lg p-4 open:ring-2 open:ring-customOrange open:ring-offset-1">
+      <summary class="font-semibold text-lg cursor-pointer select-none">
+       Como usar o mapa?
+      </summary>
+      <p class="mt-2 text-gray-700 leading-relaxed">
+       O mapa permite visualizar a localização das suas plantas e arquitetos próximos. Clique no botão "Mapa" para acessar essa funcionalidade.
+      </p>
+     </details>
+     <details class="border border-gray-300 rounded-lg p-4 open:ring-2 open:ring-customOrange open:ring-offset-1">
+      <summary class="font-semibold text-lg cursor-pointer select-none">
+       Como iniciar um chat com um arquiteto?
+      </summary>
+      <p class="mt-2 text-gray-700 leading-relaxed">
+       Clique no botão "Chat com Arquiteto" para iniciar uma conversa com um arquiteto disponível para ajudar você com seu projeto.
+      </p>
+     </details>
+     <details class="border border-gray-300 rounded-lg p-4 open:ring-2 open:ring-customOrange open:ring-offset-1">
+      <summary class="font-semibold text-lg cursor-pointer select-none">
+       Como editar meu perfil?
+      </summary>
+      <p class="mt-2 text-gray-700 leading-relaxed">
+       Para editar seu perfil, clique no botão "Perfil" e acesse as configurações para atualizar suas informações pessoais.
+      </p>
+     </details>
+    </div>
+   </div>
+  </div>
+  <script>
+   const helpBtn = document.getElementById('helpBtn');
+    const faqSection = document.getElementById('faqSection');
+    const closeFaqBtn = document.getElementById('closeFaqBtn');
+
+    function openFaq() {
+      faqSection.classList.remove('hidden');
+      helpBtn.setAttribute('aria-expanded', 'true');
+      // Trap focus inside modal
+      faqSection.querySelector('details summary').focus();
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeFaq() {
+      faqSection.classList.add('hidden');
+      helpBtn.setAttribute('aria-expanded', 'false');
+      helpBtn.focus();
+      document.body.style.overflow = '';
+    }
+
+    helpBtn.addEventListener('click', openFaq);
+    closeFaqBtn.addEventListener('click', closeFaq);
+
+    // Close modal on outside click
+    faqSection.addEventListener('click', (e) => {
+      if (e.target === faqSection) {
+        closeFaq();
+      }
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !faqSection.classList.contains('hidden')) {
+        closeFaq();
+      }
+    });
+  </script>
+ </body>
+</html>
