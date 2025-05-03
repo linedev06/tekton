@@ -1,0 +1,1102 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Discord Clone Functional Minimalist Responsive Icons</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+    /* Scrollbar styling for channels and messages */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #ff9a00aa;
+      border-radius: 3px;
+    }
+    /* Hide number input arrows */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+    /* Textarea minimal resize */
+    textarea {
+      resize: none;
+    }
+    /* User avatar icon styling */
+    .user-avatar-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 9999px;
+      background-color: #ff9a00;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.25rem;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    /* Voice call modal user avatar icon */
+    .voice-call-avatar-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 9999px;
+      background-color: #ff9a00;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.75rem;
+      user-select: none;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900 flex flex-col h-screen select-none">
+  <div
+    class="flex flex-1 overflow-hidden border border-gray-200 rounded-lg shadow-md"
+    id="app-container"
+  >
+    <!-- Server List -->
+    <nav
+      aria-label="Servers"
+      class="w-16 bg-white border-r border-gray-200 flex flex-col items-center py-3 space-y-3 overflow-y-auto"
+      id="server-list"
+    >
+      <button
+        aria-label="Home Server"
+        class="w-12 h-12 rounded-3xl bg-[#ff9a00] flex items-center justify-center text-white text-2xl font-bold hover:bg-[#e08800] focus:outline-none focus:ring-2 focus:ring-[#ff9a00]"
+        title="Home"
+      >
+        <i class="fab fa-discord"></i>
+      </button>
+    </nav>
+
+    <!-- Channels List -->
+    <aside
+      aria-label="Channels"
+      class="w-64 bg-white border-r border-gray-200 flex flex-col"
+      id="channels-aside"
+    >
+      <header
+        class="flex items-center justify-between px-4 py-3 border-b border-gray-200"
+      >
+        <h2
+          class="text-[#ff9a00] font-semibold text-lg truncate"
+          id="server-title"
+          title="Discord Clone Server"
+        >
+          Discord Clone Server
+        </h2>
+        <button
+          aria-label="Add Channel"
+          class="text-[#ff9a00] hover:text-[#cc7a00] focus:outline-none focus:ring-2 focus:ring-[#ff9a00]"
+          id="add-channel-btn"
+          title="Add Channel"
+        >
+          <i class="fas fa-plus"></i>
+        </button>
+      </header>
+      <nav
+        aria-label="Channel list"
+        class="flex-1 overflow-y-auto px-2 py-3 space-y-1"
+        id="channels-list"
+        role="list"
+      >
+        <button
+          aria-current="page"
+          class="flex items-center space-x-2 w-full px-2 py-1 rounded hover:bg-[#ff9a00] hover:text-white focus:outline-none focus:bg-[#ff9a00] focus:text-white text-[#ff9a00] font-semibold"
+          data-channel="general"
+          title="general"
+        >
+          <i class="fas fa-hashtag"></i>
+          <span class="truncate">general</span>
+        </button>
+        <button
+          class="flex items-center space-x-2 w-full px-2 py-1 rounded hover:bg-[#ff9a00] hover:text-white focus:outline-none focus:bg-[#ff9a00] focus:text-white text-gray-700"
+          data-channel="random"
+          title="random"
+        >
+          <i class="fas fa-hashtag"></i>
+          <span class="truncate">random</span>
+        </button>
+        <button
+          class="flex items-center space-x-2 w-full px-2 py-1 rounded hover:bg-[#ff9a00] hover:text-white focus:outline-none focus:bg-[#ff9a00] focus:text-white text-gray-700"
+          data-channel="memes"
+          title="memes"
+        >
+          <i class="fas fa-hashtag"></i>
+          <span class="truncate">memes</span>
+        </button>
+        <button
+          class="flex items-center space-x-2 w-full px-2 py-1 rounded hover:bg-[#ff9a00] hover:text-white focus:outline-none focus:bg-[#ff9a00] focus:text-white text-gray-700"
+          data-channel="music"
+          title="music"
+        >
+          <i class="fas fa-hashtag"></i>
+          <span class="truncate">music</span>
+        </button>
+        <button
+          class="flex items-center space-x-2 w-full px-2 py-1 rounded hover:bg-[#ff9a00] hover:text-white focus:outline-none focus:bg-[#ff9a00] focus:text-white text-gray-700"
+          data-channel="gaming"
+          title="gaming"
+        >
+          <i class="fas fa-hashtag"></i>
+          <span class="truncate">gaming</span>
+        </button>
+        <button
+          class="flex items-center space-x-2 w-full px-2 py-1 rounded hover:bg-[#ff9a00] hover:text-white focus:outline-none focus:bg-[#ff9a00] focus:text-white text-gray-700"
+          data-channel="development"
+          title="development"
+        >
+          <i class="fas fa-hashtag"></i>
+          <span class="truncate">development</span>
+        </button>
+        <button
+          class="flex items-center space-x-2 w-full px-2 py-1 rounded hover:bg-[#ff9a00] hover:text-white focus:outline-none focus:bg-[#ff9a00] focus:text-white text-gray-700"
+          data-channel="support"
+          title="support"
+        >
+          <i class="fas fa-hashtag"></i>
+          <span class="truncate">support</span>
+        </button>
+        <button
+          class="flex items-center space-x-2 w-full px-2 py-1 rounded hover:bg-[#ff9a00] hover:text-white focus:outline-none focus:bg-[#ff9a00] focus:text-white text-gray-700"
+          data-channel="announcements"
+          title="announcements"
+        >
+          <i class="fas fa-hashtag"></i>
+          <span class="truncate">announcements</span>
+        </button>
+        <button
+          class="flex items-center space-x-2 w-full px-2 py-1 rounded hover:bg-[#ff9a00] hover:text-white focus:outline-none focus:bg-[#ff9a00] focus:text-white text-gray-700"
+          data-channel="off-topic"
+          title="off-topic"
+        >
+          <i class="fas fa-hashtag"></i>
+          <span class="truncate">off-topic</span>
+        </button>
+        <button
+          class="flex items-center space-x-2 w-full px-2 py-1 rounded hover:bg-[#ff9a00] hover:text-white focus:outline-none focus:bg-[#ff9a00] focus:text-white text-gray-700"
+          data-channel="bot-commands"
+          title="bot-commands"
+        >
+          <i class="fas fa-hashtag"></i>
+          <span class="truncate">bot-commands</span>
+        </button>
+      </nav>
+      <div
+        class="border-t border-gray-200 px-4 py-3 flex items-center space-x-3"
+        id="user-info-aside"
+      >
+        <div class="user-avatar-icon" aria-hidden="true" title="You">Y</div>
+        <div class="flex-1 min-w-0">
+          <p class="text-gray-900 font-semibold truncate">You</p>
+          <p class="text-gray-500 text-xs truncate">#1234</p>
+        </div>
+        <button
+          aria-label="Mute microphone"
+          class="text-[#ff9a00] hover:text-[#cc7a00] focus:outline-none focus:ring-2 focus:ring-[#ff9a00]"
+          id="mic-toggle"
+          title="Toggle Microphone"
+        >
+          <i class="fas fa-microphone"></i>
+        </button>
+        <button
+          aria-label="Deafen"
+          class="text-[#ff9a00] hover:text-[#cc7a00] focus:outline-none focus:ring-2 focus:ring-[#ff9a00]"
+          id="deafen-toggle"
+          title="Toggle Deafen"
+        >
+          <i class="fas fa-headphones"></i>
+        </button>
+        <button
+          aria-label="User settings"
+          class="text-[#ff9a00] hover:text-[#cc7a00] focus:outline-none focus:ring-2 focus:ring-[#ff9a00]"
+          id="user-settings"
+          title="User Settings"
+        >
+          <i class="fas fa-cog"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Chat Area -->
+    <main
+      class="flex-1 flex flex-col bg-white relative"
+      id="chat-main"
+      tabindex="0"
+    >
+      <header
+        class="flex items-center justify-between px-6 py-3 border-b border-gray-200 sticky top-0 bg-white z-10"
+      >
+        <div class="flex items-center space-x-2">
+          <h3
+            class="text-[#ff9a00] text-xl font-semibold flex items-center space-x-2"
+            id="channel-name"
+          >
+            <i class="fas fa-hashtag"></i>
+            <span># general</span>
+          </h3>
+          <button
+            aria-label="Connect to Voice Channel"
+            class="ml-4 text-gray-400 hover:text-[#ff9a00] focus:outline-none focus:ring-2 focus:ring-[#ff9a00] rounded"
+            id="voice-connect-btn"
+            title="Connect to Voice Channel"
+          >
+            <i class="fas fa-phone"></i>
+          </button>
+          <button
+            aria-label="Disconnect from Voice Channel"
+            class="ml-2 hidden text-gray-400 hover:text-[#ff9a00] focus:outline-none focus:ring-2 focus:ring-[#ff9a00] rounded"
+            id="voice-disconnect-btn"
+            title="Disconnect from Voice Channel"
+          >
+            <i class="fas fa-phone-slash"></i>
+          </button>
+          <span
+            class="ml-3 text-xs font-semibold text-[#ff9a00] hidden"
+            id="voice-status"
+            >Connected</span
+          >
+        </div>
+        <button
+          aria-label="Channel Info"
+          class="text-[#ff9a00] hover:text-[#cc7a00] focus:outline-none focus:ring-2 focus:ring-[#ff9a00]"
+          id="channel-info-btn"
+          title="Edit Channel Topic"
+        >
+          <i class="fas fa-info-circle"></i>
+        </button>
+      </header>
+      <section
+        aria-live="polite"
+        aria-relevant="additions"
+        class="flex-1 overflow-y-auto px-6 py-4 space-y-4 scrollbar-thin scrollbar-thumb-[#ff9a00] scrollbar-track-white"
+        id="messages-container"
+      >
+        <!-- Messages will be dynamically inserted here -->
+      </section>
+      <form
+        aria-label="Send message form"
+        class="flex items-center px-6 py-3 border-t border-gray-200 bg-white"
+        id="message-form"
+      >
+        <textarea
+          aria-label="Message input"
+          class="flex-1 resize-none rounded border border-gray-300 text-gray-900 placeholder-gray-400 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]"
+          id="message-input"
+          placeholder="Message #general"
+          required
+          rows="1"
+          spellcheck="false"
+        ></textarea>
+        <button
+          aria-label="Send message"
+          class="ml-3 bg-[#ff9a00] hover:bg-[#cc7a00] text-white rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#ff9a00]"
+          title="Send Message"
+          type="submit"
+        >
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+      <!-- Voice Call Panel -->
+      <section
+        id="voice-call-panel"
+        class="hidden fixed bottom-4 right-4 bg-white border border-[#ff9a00] rounded-lg shadow-lg w-80 max-w-full flex flex-col z-50"
+        aria-live="polite"
+        aria-label="Voice call panel"
+      >
+        <header
+          class="flex items-center justify-between px-4 py-2 border-b border-[#ff9a00]"
+        >
+          <h4 class="text-[#ff9a00] font-semibold text-lg flex items-center space-x-2">
+            <i class="fas fa-phone-alt"></i>
+            <span id="voice-call-panel-channel">#general</span>
+          </h4>
+          <button
+            id="voice-call-panel-end-btn"
+            aria-label="End Call"
+            class="text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-600 rounded"
+            title="End Call"
+          >
+            <i class="fas fa-phone-slash fa-lg"></i>
+          </button>
+        </header>
+        <main class="p-4 flex-1 overflow-y-auto voice-call-users space-y-4 max-h-48">
+          <!-- Users in call -->
+        </main>
+        <footer
+          class="flex items-center justify-between px-4 py-3 border-t border-[#ff9a00]"
+        >
+          <button
+            id="voice-call-panel-mute-btn"
+            aria-label="Toggle Mute"
+            class="text-[#ff9a00] hover:text-[#cc7a00] focus:outline-none focus:ring-2 focus:ring-[#ff9a00] rounded flex items-center space-x-2"
+            title="Toggle Mute"
+          >
+            <i class="fas fa-microphone"></i>
+            <span>Mute</span>
+          </button>
+          <button
+            id="voice-call-panel-deafen-btn"
+            aria-label="Toggle Deafen"
+            class="text-[#ff9a00] hover:text-[#cc7a00] focus:outline-none focus:ring-2 focus:ring-[#ff9a00] rounded flex items-center space-x-2"
+            title="Toggle Deafen"
+          >
+            <i class="fas fa-headphones"></i>
+            <span>Deafen</span>
+          </button>
+          <button
+            id="voice-call-panel-video-btn"
+            aria-label="Toggle Video"
+            class="text-[#ff9a00] hover:text-[#cc7a00] focus:outline-none focus:ring-2 focus:ring-[#ff9a00] rounded flex items-center space-x-2"
+            title="Toggle Video"
+          >
+            <i class="fas fa-video"></i>
+            <span>Video</span>
+          </button>
+        </footer>
+      </section>
+    </main>
+
+    <!-- User List -->
+    <aside
+      aria-label="Users"
+      class="w-64 bg-white border-l border-gray-200 flex flex-col"
+      id="users-aside"
+    >
+      <header
+        class="px-4 py-3 border-b border-gray-200 flex items-center justify-between"
+      >
+        <h4 class="text-[#ff9a00] font-semibold text-lg">Online - 10</h4>
+        <button
+          aria-label="Refresh user list"
+          class="text-[#ff9a00] hover:text-[#cc7a00] focus:outline-none focus:ring-2 focus:ring-[#ff9a00]"
+          id="refresh-users-btn"
+          title="Refresh User List"
+        >
+          <i class="fas fa-sync-alt"></i>
+        </button>
+      </header>
+      <ul
+        class="flex-1 overflow-y-auto divide-y divide-gray-200"
+        id="users-list"
+        role="list"
+      >
+        <li
+          aria-label="User: Alice"
+          class="flex items-center space-x-3 px-4 py-3 hover:bg-[#ff9a00] hover:text-white cursor-pointer rounded transition-colors"
+          role="button"
+          tabindex="0"
+          title="Alice"
+        >
+          <div class="user-avatar-icon" aria-hidden="true" title="Alice">A</div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-medium truncate">Alice</span>
+            <span class="text-green-500 text-xs">Online</span>
+          </div>
+        </li>
+        <li
+          aria-label="User: Bob"
+          class="flex items-center space-x-3 px-4 py-3 hover:bg-[#ff9a00] hover:text-white cursor-pointer rounded transition-colors"
+          role="button"
+          tabindex="0"
+          title="Bob"
+        >
+          <div class="user-avatar-icon" aria-hidden="true" title="Bob">B</div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-medium truncate">Bob</span>
+            <span class="text-green-500 text-xs">Online</span>
+          </div>
+        </li>
+        <li
+          aria-label="User: Charlie"
+          class="flex items-center space-x-3 px-4 py-3 hover:bg-[#ff9a00] hover:text-white cursor-pointer rounded transition-colors"
+          role="button"
+          tabindex="0"
+          title="Charlie"
+        >
+          <div class="user-avatar-icon" aria-hidden="true" title="Charlie">C</div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-medium truncate">Charlie</span>
+            <span class="text-green-500 text-xs">Online</span>
+          </div>
+        </li>
+        <li
+          aria-label="User: Diana"
+          class="flex items-center space-x-3 px-4 py-3 hover:bg-[#ff9a00] hover:text-white cursor-pointer rounded transition-colors"
+          role="button"
+          tabindex="0"
+          title="Diana"
+        >
+          <div class="user-avatar-icon" aria-hidden="true" title="Diana">D</div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-medium truncate">Diana</span>
+            <span class="text-green-500 text-xs">Online</span>
+          </div>
+        </li>
+        <li
+          aria-label="User: Ethan"
+          class="flex items-center space-x-3 px-4 py-3 hover:bg-[#ff9a00] hover:text-white cursor-pointer rounded transition-colors"
+          role="button"
+          tabindex="0"
+          title="Ethan"
+        >
+          <div class="user-avatar-icon" aria-hidden="true" title="Ethan">E</div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-medium truncate">Ethan</span>
+            <span class="text-green-500 text-xs">Online</span>
+          </div>
+        </li>
+        <li
+          aria-label="User: Fiona"
+          class="flex items-center space-x-3 px-4 py-3 hover:bg-[#ff9a00] hover:text-white cursor-pointer rounded transition-colors"
+          role="button"
+          tabindex="0"
+          title="Fiona"
+        >
+          <div class="user-avatar-icon" aria-hidden="true" title="Fiona">F</div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-medium truncate">Fiona</span>
+            <span class="text-green-500 text-xs">Online</span>
+          </div>
+        </li>
+        <li
+          aria-label="User: George"
+          class="flex items-center space-x-3 px-4 py-3 hover:bg-[#ff9a00] hover:text-white cursor-pointer rounded transition-colors"
+          role="button"
+          tabindex="0"
+          title="George"
+        >
+          <div class="user-avatar-icon" aria-hidden="true" title="George">G</div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-medium truncate">George</span>
+            <span class="text-green-500 text-xs">Online</span>
+          </div>
+        </li>
+        <li
+          aria-label="User: Hannah"
+          class="flex items-center space-x-3 px-4 py-3 hover:bg-[#ff9a00] hover:text-white cursor-pointer rounded transition-colors"
+          role="button"
+          tabindex="0"
+          title="Hannah"
+        >
+          <div class="user-avatar-icon" aria-hidden="true" title="Hannah">H</div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-medium truncate">Hannah</span>
+            <span class="text-green-500 text-xs">Online</span>
+          </div>
+        </li>
+        <li
+          aria-label="User: Ian"
+          class="flex items-center space-x-3 px-4 py-3 hover:bg-[#ff9a00] hover:text-white cursor-pointer rounded transition-colors"
+          role="button"
+          tabindex="0"
+          title="Ian"
+        >
+          <div class="user-avatar-icon" aria-hidden="true" title="Ian">I</div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-medium truncate">Ian</span>
+            <span class="text-green-500 text-xs">Online</span>
+          </div>
+        </li>
+      </ul>
+    </aside>
+  </div>
+
+  <script>
+    // Data structure for channels and messages
+    const channels = {
+      general: {
+        topic: "Welcome to the general channel!",
+        messages: [],
+      },
+      random: {
+        topic: "Random chat and fun stuff.",
+        messages: [],
+      },
+      memes: {
+        topic: "Share your favorite memes.",
+        messages: [],
+      },
+      music: {
+        topic: "Discuss music and share playlists.",
+        messages: [],
+      },
+      gaming: {
+        topic: "Talk about games and gaming news.",
+        messages: [],
+      },
+      development: {
+        topic: "Development talk and code sharing.",
+        messages: [],
+      },
+      support: {
+        topic: "Get help and support here.",
+        messages: [],
+      },
+      announcements: {
+        topic: "Official announcements.",
+        messages: [],
+      },
+      "off-topic": {
+        topic: "Off-topic discussions.",
+        messages: [],
+      },
+      "bot-commands": {
+        topic: "Use bot commands here.",
+        messages: [],
+      },
+    };
+
+    // Users data for voice call simulation
+    const users = [
+      {
+        id: 1,
+        name: "Alice",
+        avatarLetter: "A",
+        muted: false,
+        deafened: false,
+        speaking: false,
+      },
+      {
+        id: 2,
+        name: "Bob",
+        avatarLetter: "B",
+        muted: false,
+        deafened: false,
+        speaking: true,
+      },
+      {
+        id: 3,
+        name: "Charlie",
+        avatarLetter: "C",
+        muted: true,
+        deafened: false,
+        speaking: false,
+      },
+      {
+        id: 4,
+        name: "You",
+        avatarLetter: "Y",
+        muted: false,
+        deafened: false,
+        speaking: false,
+      },
+    ];
+
+    // Current selected channel
+    let currentChannel = "general";
+
+    // Voice connection state
+    let voiceConnected = false;
+    let micMuted = false;
+    let deafened = false;
+    let videoEnabled = false;
+
+    // DOM elements
+    const channelsList = document.getElementById("channels-list");
+    const messagesContainer = document.getElementById("messages-container");
+    const channelNameEl = document.getElementById("channel-name");
+    const channelTopicEl = document.getElementById("channel-topic");
+    const messageForm = document.getElementById("message-form");
+    const messageInput = document.getElementById("message-input");
+    const addChannelBtn = document.getElementById("add-channel-btn");
+    const channelInfoBtn = document.getElementById("channel-info-btn");
+    const voiceConnectBtn = document.getElementById("voice-connect-btn");
+    const voiceDisconnectBtn = document.getElementById("voice-disconnect-btn");
+    const voiceStatus = document.getElementById("voice-status");
+    const micToggleBtn = document.getElementById("mic-toggle");
+    const deafenToggleBtn = document.getElementById("deafen-toggle");
+    const userSettingsBtn = document.getElementById("user-settings");
+    const refreshUsersBtn = document.getElementById("refresh-users-btn");
+
+    // Voice Call Panel Elements
+    const voiceCallPanel = document.getElementById("voice-call-panel");
+    const voiceCallPanelChannel = document.getElementById("voice-call-panel-channel");
+    const voiceCallPanelEndBtn = document.getElementById("voice-call-panel-end-btn");
+    const voiceCallPanelMuteBtn = document.getElementById("voice-call-panel-mute-btn");
+    const voiceCallPanelDeafenBtn = document.getElementById("voice-call-panel-deafen-btn");
+    const voiceCallPanelVideoBtn = document.getElementById("voice-call-panel-video-btn");
+    const voiceCallUsersContainer = voiceCallPanel.querySelector("main.voice-call-users");
+
+    // Utility: format timestamp to HH:mm
+    function formatTime(date) {
+      return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    }
+
+    // Create avatar icon element with letter
+    function createAvatarIcon(letter, size = "user-avatar-icon") {
+      const div = document.createElement("div");
+      div.className = size;
+      div.setAttribute("aria-hidden", "true");
+      div.title = letter;
+      div.textContent = letter;
+      return div;
+    }
+
+    // Render messages for the current channel
+    function renderMessages() {
+      messagesContainer.innerHTML = "";
+      const channel = channels[currentChannel];
+      if (!channel) return;
+
+      channel.messages.forEach((msg) => {
+        const messageEl = document.createElement("article");
+        messageEl.className = "flex space-x-4";
+
+        const avatar = createAvatarIcon(msg.avatarLetter || "?", "user-avatar-icon");
+        avatar.setAttribute("aria-label", `Avatar of ${msg.author}`);
+
+        const contentWrapper = document.createElement("div");
+        contentWrapper.className = "flex-1";
+
+        const header = document.createElement("div");
+        header.className = "flex items-center space-x-2";
+
+        const author = document.createElement("h5");
+        author.className = "text-[#ff9a00] font-semibold select-text";
+        author.textContent = msg.author;
+
+        const time = document.createElement("time");
+        time.className = "text-gray-500 text-xs select-text";
+        time.dateTime = msg.timestamp.toISOString();
+        time.textContent = formatTime(msg.timestamp);
+
+        header.appendChild(author);
+        header.appendChild(time);
+
+        const messageText = document.createElement("p");
+        messageText.className = "text-gray-900 whitespace-pre-wrap select-text";
+        messageText.textContent = msg.content;
+
+        contentWrapper.appendChild(header);
+        contentWrapper.appendChild(messageText);
+
+        messageEl.appendChild(avatar);
+        messageEl.appendChild(contentWrapper);
+
+        messagesContainer.appendChild(messageEl);
+      });
+
+      // Scroll to bottom
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // Update channel header info
+    function updateChannelHeader() {
+      channelNameEl.innerHTML = `<i class="fas fa-hashtag"></i> <span># ${currentChannel}</span>`;
+      channelTopicEl.textContent = channels[currentChannel]?.topic || "";
+      messageInput.placeholder = `Message #${currentChannel}`;
+    }
+
+    // Update selected channel button styles
+    function updateSelectedChannel() {
+      const buttons = channelsList.querySelectorAll("button");
+      buttons.forEach((btn) => {
+        if (btn.dataset.channel === currentChannel) {
+          btn.classList.add("text-[#ff9a00]", "font-semibold");
+          btn.classList.remove("text-gray-700");
+          btn.setAttribute("aria-current", "page");
+        } else {
+          btn.classList.remove("text-[#ff9a00]", "font-semibold");
+          btn.classList.add("text-gray-700");
+          btn.removeAttribute("aria-current");
+        }
+      });
+    }
+
+    // Handle channel switching
+    channelsList.addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      const channel = btn.dataset.channel;
+      if (!channel || channel === currentChannel) return;
+
+      currentChannel = channel;
+      updateSelectedChannel();
+      updateChannelHeader();
+      renderMessages();
+      messageInput.focus();
+      updateVoiceUI(false);
+    });
+
+    // Handle sending a message
+    messageForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const content = messageInput.value.trim();
+      if (!content) return;
+
+      // For demo, author is fixed as "You"
+      const newMessage = {
+        id: Date.now(),
+        author: "You",
+        avatarLetter: "Y",
+        content,
+        timestamp: new Date(),
+      };
+
+      channels[currentChannel].messages.push(newMessage);
+      renderMessages();
+      messageInput.value = "";
+      messageInput.style.height = "auto";
+      messageInput.focus();
+    });
+
+    // Auto resize textarea height
+    messageInput.addEventListener("input", () => {
+      messageInput.style.height = "auto";
+      messageInput.style.height = messageInput.scrollHeight + "px";
+    });
+
+    // Add channel button functionality
+    addChannelBtn.addEventListener("click", () => {
+      const newChannelName = prompt(
+        "Enter new channel name (no spaces, lowercase):"
+      );
+      if (!newChannelName) return;
+      if (channels[newChannelName]) {
+        alert("Channel already exists!");
+        return;
+      }
+      if (!/^[a-z0-9-_]+$/.test(newChannelName)) {
+        alert(
+          "Invalid channel name. Use lowercase letters, numbers, hyphens or underscores only."
+        );
+        return;
+      }
+      channels[newChannelName] = {
+        topic: "No topic set.",
+        messages: [],
+      };
+      // Add new channel button
+      const btn = document.createElement("button");
+      btn.className =
+        "flex items-center space-x-2 w-full px-2 py-1 rounded hover:bg-[#ff9a00] hover:text-white focus:outline-none focus:bg-[#ff9a00] focus:text-white text-gray-700";
+      btn.dataset.channel = newChannelName;
+      btn.setAttribute("aria-label", `Channel: ${newChannelName}`);
+      btn.title = newChannelName;
+
+      const icon = document.createElement("i");
+      icon.className = "fas fa-hashtag";
+
+      const span = document.createElement("span");
+      span.className = "truncate";
+      span.textContent = newChannelName;
+
+      btn.appendChild(icon);
+      btn.appendChild(span);
+
+      channelsList.appendChild(btn);
+
+      // Switch to new channel
+      currentChannel = newChannelName;
+      updateSelectedChannel();
+      updateChannelHeader();
+      renderMessages();
+      messageInput.focus();
+      updateVoiceUI(false);
+    });
+
+    // Channel info button (show topic and allow editing)
+    channelInfoBtn.addEventListener("click", () => {
+      const currentTopic = channels[currentChannel]?.topic || "";
+      const newTopic = prompt("Edit channel topic:", currentTopic);
+      if (newTopic !== null) {
+        channels[currentChannel].topic = newTopic.trim() || "No topic set.";
+        updateChannelHeader();
+      }
+    });
+
+    // Refresh users button (dummy functionality)
+    refreshUsersBtn.addEventListener("click", () => {
+      alert("User list refreshed!");
+    });
+
+    // Voice connection toggles and panel management
+    function updateVoiceUI(connected) {
+      voiceConnected = connected;
+      if (voiceConnected) {
+        voiceConnectBtn.classList.add("hidden");
+        voiceDisconnectBtn.classList.remove("hidden");
+        voiceStatus.classList.remove("hidden");
+        openVoiceCallPanel();
+      } else {
+        voiceConnectBtn.classList.remove("hidden");
+        voiceDisconnectBtn.classList.add("hidden");
+        voiceStatus.classList.add("hidden");
+        closeVoiceCallPanel();
+      }
+    }
+
+    voiceConnectBtn.addEventListener("click", () => {
+      updateVoiceUI(true);
+    });
+
+    voiceDisconnectBtn.addEventListener("click", () => {
+      updateVoiceUI(false);
+    });
+
+    // Microphone toggle
+    micToggleBtn.addEventListener("click", () => {
+      micMuted = !micMuted;
+      micToggleBtn.innerHTML = micMuted
+        ? '<i class="fas fa-microphone-slash"></i>'
+        : '<i class="fas fa-microphone"></i>';
+      micToggleBtn.title = micMuted ? "Unmute Microphone" : "Mute Microphone";
+      updateVoiceCallPanelMuteUI();
+    });
+
+    // Deafen toggle
+    deafenToggleBtn.addEventListener("click", () => {
+      deafened = !deafened;
+      deafenToggleBtn.innerHTML = deafened
+        ? '<i class="fas fa-headphones-alt"></i>'
+        : '<i class="fas fa-headphones"></i>';
+      deafenToggleBtn.title = deafened ? "Undeafen" : "Deafen";
+      updateVoiceCallPanelDeafenUI();
+    });
+
+    // User settings button (dummy)
+    userSettingsBtn.addEventListener("click", () => {
+      alert("User settings modal would open here.");
+    });
+
+    // Voice Call Panel Logic
+    function openVoiceCallPanel() {
+      voiceCallPanelChannel.textContent = `#${currentChannel}`;
+      voiceCallPanel.classList.remove("hidden");
+      renderVoiceCallUsers();
+      updateVoiceCallPanelMuteUI();
+      updateVoiceCallPanelDeafenUI();
+      updateVoiceCallPanelVideoUI();
+    }
+
+    function closeVoiceCallPanel() {
+      voiceCallPanel.classList.add("hidden");
+    }
+
+    voiceCallPanelEndBtn.addEventListener("click", () => {
+      updateVoiceUI(false);
+    });
+
+    voiceCallPanelMuteBtn.addEventListener("click", () => {
+      micMuted = !micMuted;
+      updateVoiceCallPanelMuteUI();
+      updateMicToggleBtn();
+    });
+
+    voiceCallPanelDeafenBtn.addEventListener("click", () => {
+      deafened = !deafened;
+      updateVoiceCallPanelDeafenUI();
+      updateDeafenToggleBtn();
+    });
+
+    voiceCallPanelVideoBtn.addEventListener("click", () => {
+      videoEnabled = !videoEnabled;
+      updateVoiceCallPanelVideoUI();
+    });
+
+    function updateVoiceCallPanelMuteUI() {
+      voiceCallPanelMuteBtn.innerHTML = micMuted
+        ? '<i class="fas fa-microphone-slash"></i><span>Unmute</span>'
+        : '<i class="fas fa-microphone"></i><span>Mute</span>';
+      voiceCallPanelMuteBtn.title = micMuted ? "Unmute" : "Mute";
+    }
+
+    function updateVoiceCallPanelDeafenUI() {
+      voiceCallPanelDeafenBtn.innerHTML = deafened
+        ? '<i class="fas fa-headphones-alt"></i><span>Undeafen</span>'
+        : '<i class="fas fa-headphones"></i><span>Deafen</span>';
+      voiceCallPanelDeafenBtn.title = deafened ? "Undeafen" : "Deafen";
+    }
+
+    function updateVoiceCallPanelVideoUI() {
+      voiceCallPanelVideoBtn.innerHTML = videoEnabled
+        ? '<i class="fas fa-video"></i><span>Stop Video</span>'
+        : '<i class="fas fa-video-slash"></i><span>Start Video</span>';
+      voiceCallPanelVideoBtn.title = videoEnabled ? "Stop Video" : "Start Video";
+    }
+
+    function updateMicToggleBtn() {
+      micToggleBtn.innerHTML = micMuted
+        ? '<i class="fas fa-microphone-slash"></i>'
+        : '<i class="fas fa-microphone"></i>';
+      micToggleBtn.title = micMuted ? "Unmute Microphone" : "Mute Microphone";
+    }
+
+    function updateDeafenToggleBtn() {
+      deafenToggleBtn.innerHTML = deafened
+        ? '<i class="fas fa-headphones-alt"></i>'
+        : '<i class="fas fa-headphones"></i>';
+      deafenToggleBtn.title = deafened ? "Undeafen" : "Deafen";
+    }
+
+    // Render users in voice call panel
+    function renderVoiceCallUsers() {
+      voiceCallUsersContainer.innerHTML = "";
+      users.forEach((user) => {
+        const userEl = document.createElement("div");
+        userEl.className =
+          "flex items-center space-x-4 p-2 rounded border border-gray-200";
+
+        const avatar = createAvatarIcon(user.avatarLetter || "?", "voice-call-avatar-icon");
+        avatar.setAttribute("aria-label", `Avatar of ${user.name}`);
+
+        const info = document.createElement("div");
+        info.className = "flex-1 min-w-0";
+
+        const name = document.createElement("p");
+        name.className = "font-semibold text-[#ff9a00] truncate";
+        name.textContent = user.name;
+
+        const status = document.createElement("div");
+        status.className = "flex items-center space-x-2 mt-1";
+
+        // Muted icon
+        const muteIcon = document.createElement("i");
+        muteIcon.className = user.muted
+          ? "fas fa-microphone-slash text-red-600"
+          : "fas fa-microphone text-green-600";
+
+        // Deafened icon
+        const deafenIcon = document.createElement("i");
+        deafenIcon.className = user.deafened
+          ? "fas fa-headphones-alt text-red-600"
+          : "fas fa-headphones text-green-600";
+
+        // Speaking indicator (animated)
+        const speakingIndicator = document.createElement("span");
+        speakingIndicator.className =
+          "w-3 h-3 rounded-full " +
+          (user.speaking ? "bg-[#ff9a00] animate-pulse" : "bg-gray-300");
+
+        status.appendChild(muteIcon);
+        status.appendChild(deafenIcon);
+        status.appendChild(speakingIndicator);
+
+        info.appendChild(name);
+        info.appendChild(status);
+
+        userEl.appendChild(avatar);
+        userEl.appendChild(info);
+
+        voiceCallUsersContainer.appendChild(userEl);
+      });
+    }
+
+    // Responsive adjustments: toggle sidebars on mobile
+    function setupResponsive() {
+      const serverList = document.getElementById("server-list");
+      const channelsAside = document.getElementById("channels-aside");
+      const usersAside = document.getElementById("users-aside");
+      const chatMain = document.getElementById("chat-main");
+      let sidebarVisible = false;
+      let usersVisible = false;
+
+      // Create toggle buttons for mobile
+      const mobileTopBar = document.createElement("div");
+      mobileTopBar.className =
+        "fixed top-0 left-0 right-0 bg-white border-b border-gray-200 flex items-center justify-between px-4 py-2 z-50 md:hidden";
+
+      const btnChannels = document.createElement("button");
+      btnChannels.className =
+        "text-[#ff9a00] hover:text-[#cc7a00] focus:outline-none focus:ring-2 focus:ring-[#ff9a00]";
+      btnChannels.title = "Toggle Channels";
+      btnChannels.innerHTML = '<i class="fas fa-bars fa-lg"></i>';
+      btnChannels.setAttribute("aria-label", "Toggle Channels");
+
+      const btnUsers = document.createElement("button");
+      btnUsers.className =
+        "text-[#ff9a00] hover:text-[#cc7a00] focus:outline-none focus:ring-2 focus:ring-[#ff9a00]";
+      btnUsers.title = "Toggle Users";
+      btnUsers.innerHTML = '<i class="fas fa-user-friends fa-lg"></i>';
+      btnUsers.setAttribute("aria-label", "Toggle Users");
+
+      const title = document.createElement("div");
+      title.className = "text-[#ff9a00] font-semibold text-lg truncate";
+      title.textContent = "Discord Clone";
+
+      mobileTopBar.appendChild(btnChannels);
+      mobileTopBar.appendChild(title);
+      mobileTopBar.appendChild(btnUsers);
+
+      document.body.appendChild(mobileTopBar);
+
+      // Hide sidebars initially on mobile
+      function updateLayout() {
+        if (window.innerWidth < 768) {
+          serverList.classList.add("hidden");
+          channelsAside.classList.add("hidden");
+          usersAside.classList.add("hidden");
+          chatMain.classList.add("pt-12");
+        } else {
+          serverList.classList.remove("hidden");
+          channelsAside.classList.remove("hidden");
+          usersAside.classList.remove("hidden");
+          chatMain.classList.remove("pt-12");
+          sidebarVisible = false;
+          usersVisible = false;
+        }
+      }
+      updateLayout();
+
+      window.addEventListener("resize", updateLayout);
+
+      btnChannels.addEventListener("click", () => {
+        if (window.innerWidth >= 768) return;
+        sidebarVisible = !sidebarVisible;
+        if (sidebarVisible) {
+          channelsAside.classList.remove("hidden");
+          serverList.classList.remove("hidden");
+          usersAside.classList.add("hidden");
+        } else {
+          channelsAside.classList.add("hidden");
+          serverList.classList.add("hidden");
+        }
+      });
+
+      btnUsers.addEventListener("click", () => {
+        if (window.innerWidth >= 768) return;
+        usersVisible = !usersVisible;
+        if (usersVisible) {
+          usersAside.classList.remove("hidden");
+          channelsAside.classList.add("hidden");
+          serverList.classList.add("hidden");
+        } else {
+          usersAside.classList.add("hidden");
+        }
+      });
+    }
+
+    // Initialize UI
+    updateSelectedChannel();
+    updateChannelHeader();
+    renderMessages();
+    updateVoiceUI(false);
+    setupResponsive();
+  </script>
+</body>
+</html>
