@@ -1,818 +1,631 @@
-<html class="scroll-smooth" lang="pt-BR">
- <head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>MINIMALISTA NEUROCORE SYSTEMS®</title>
+<html lang="pt-BR" class="scroll-smooth" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NeuroCore Industries™</title>
+  <meta name="description" content="NeuroCore Industries™ - Fusão entre consciência e controle, redefinindo o futuro da humanidade com tecnologia neural avançada." />
+  <meta property="og:title" content="NeuroCore Industries™" />
+  <meta property="og:description" content="Fusão entre consciência e controle, redefinindo o futuro da humanidade com tecnologia neural avançada." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://neurocore.example.com" />
+  <meta property="og:image" content="https://storage.googleapis.com/a1aa/image/364e5034-3fec-412d-3a05-d3a064112dbc.jpg" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link
-   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-   rel="stylesheet"
-  />
-  <link
-   href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@300;400;700&display=swap"
-   rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono&family=Space+Grotesk&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@lucide/icons@0.244.0/dist/lucide.min.js"></script>
   <style>
-   body {
-    font-family: "Roboto", sans-serif;
-   }
-   .glitch {
-    position: relative;
-    color: #22d3ee;
-    font-weight: 700;
-    font-family: "Roboto Condensed", monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    animation: glitch-anim 3s infinite;
-    user-select: none;
-   }
-   .glitch:hover {
-    animation-play-state: paused;
-   }
-   @keyframes glitch-anim {
-    0% {
-     text-shadow: 2px 0 #22d3ee, -2px 0 #a855f7, 0 2px #22d3ee, 0 -2px #a855f7;
+    /* Custom colors */
+    :root {
+      --color-primary: #00aaff; /* azul neon */
+      --color-primary-glow: rgba(0, 170, 255, 0.4);
+      --color-secondary: #d72631; /* vermelho carmesim */
+      --color-bg-light: #ffffff;
+      --color-bg-dark: #121212;
+      --color-text-primary: #111111;
+      --color-text-secondary: #444444;
+      --color-border-glow: rgba(0, 170, 255, 0.25);
     }
-    20% {
-     text-shadow: 2px 2px #22d3ee, -2px -2px #a855f7, 2px -2px #22d3ee,
-      -2px 2px #a855f7;
+
+    /* Fonts */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--color-bg-light);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    40% {
-     text-shadow: 3px 0 #22d3ee, -3px 0 #a855f7, 0 3px #22d3ee, 0 -3px #a855f7;
+
+    h1, h2, h3, h4 {
+      font-family: 'Space Grotesk', 'IBM Plex Mono', monospace, sans-serif;
+      color: var(--color-text-primary);
+      letter-spacing: 0.03em;
     }
-    60% {
-     text-shadow: 2px 2px #22d3ee, -2px -2px #a855f7, 2px -2px #22d3ee,
-      -2px 2px #a855f7;
+
+    a {
+      color: var(--color-primary);
+      font-weight: 600;
+      transition: color 0.3s ease;
     }
-    80% {
-     text-shadow: 2px 0 #22d3ee, -2px 0 #a855f7, 0 2px #22d3ee, 0 -2px #a855f7;
+    a:hover, a:focus {
+      color: var(--color-secondary);
+      outline-offset: 2px;
+      outline-color: var(--color-secondary);
+      outline-style: solid;
+      outline-width: 2px;
     }
-    100% {
-     text-shadow: 0 0 transparent;
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
     }
-   }
-   /* Custom scrollbar for modern browsers */
-   ::-webkit-scrollbar {
-    width: 8px;
-   }
-   ::-webkit-scrollbar-track {
-    background: #1f2937;
-   }
-   ::-webkit-scrollbar-thumb {
-    background-color: #22d3ee;
-    border-radius: 10px;
-    border: 2px solid #1f2937;
-   }
-   /* Hamburger button styles */
-   .hamburger {
-    width: 28px;
-    height: 22px;
-    position: relative;
-    cursor: pointer;
-    display: inline-block;
-    -webkit-tap-highlight-color: transparent;
-    z-index: 60;
-   }
-   .hamburger span {
-    background: #22d3ee;
-    position: absolute;
-    height: 3px;
-    width: 100%;
-    border-radius: 2px;
-    opacity: 1;
-    left: 0;
-    transition: all 0.35s ease-in-out;
-   }
-   .hamburger span:nth-child(1) {
-    top: 0;
-   }
-   .hamburger span:nth-child(2) {
-    top: 9px;
-   }
-   .hamburger span:nth-child(3) {
-    top: 18px;
-   }
-   .hamburger.active span:nth-child(1) {
-    top: 9px;
-    transform: rotate(45deg);
-   }
-   .hamburger.active span:nth-child(2) {
-    opacity: 0;
-    left: -60px;
-   }
-   .hamburger.active span:nth-child(3) {
-    top: 9px;
-    transform: rotate(-45deg);
-   }
-   /* Mobile menu animation */
-   #mobile-menu {
-    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-   }
-   #mobile-menu.open {
-    max-height: 1000px; /* large enough to show all */
-    opacity: 1;
-   }
+    ::-webkit-scrollbar-track {
+      background: #f0f0f0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--color-primary);
+      border-radius: 10px;
+      border: 2px solid #f0f0f0;
+    }
+
+    /* Navbar backdrop blur and glow border */
+    header {
+      backdrop-filter: saturate(180%) blur(12px);
+      background-color: rgba(255 255 255 / 0.85);
+      border-bottom: 1px solid var(--color-border-glow);
+      box-shadow: 0 0 12px var(--color-border-glow);
+      z-index: 9999;
+    }
+
+    /* Glow border for cards */
+    .glow-border {
+      border: 1.5px solid var(--color-primary);
+      box-shadow:
+        0 0 8px var(--color-primary-glow),
+        inset 0 0 6px var(--color-primary-glow);
+      transition: box-shadow 0.3s ease;
+      border-radius: 0.5rem;
+      background-color: #f9fafb;
+    }
+    .glow-border:hover {
+      box-shadow:
+        0 0 16px var(--color-primary-glow),
+        inset 0 0 12px var(--color-primary-glow);
+    }
+
+    /* Fade-in animation for titles */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+    .fade-in.delay-1 {
+      animation-delay: 0.2s;
+    }
+    .fade-in.delay-2 {
+      animation-delay: 0.4s;
+    }
+    .fade-in.delay-3 {
+      animation-delay: 0.6s;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Carousel indicators */
+    .carousel-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .carousel-indicators button {
+      width: 12px;
+      height: 12px;
+      border-radius: 9999px;
+      background-color: var(--color-primary);
+      opacity: 0.4;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+    .carousel-indicators button.active {
+      opacity: 1;
+      box-shadow: 0 0 8px var(--color-primary-glow);
+    }
+
+    /* Microinteraction pulse on hover for cards */
+    .pulse-hover:hover {
+      animation: pulse 1.2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 8px var(--color-primary-glow);
+      }
+      50% {
+        box-shadow: 0 0 16px var(--color-primary-glow);
+      }
+    }
+
+    /* Morphing background shapes */
+    #morph-bg {
+      position: fixed;
+      top: -20%;
+      left: -20%;
+      width: 140vw;
+      height: 140vh;
+      z-index: -1;
+      pointer-events: none;
+      filter: blur(80px);
+      opacity: 0.15;
+      animation: morph 20s ease-in-out infinite;
+      fill: var(--color-primary);
+    }
+    @keyframes morph {
+      0%, 100% {
+        border-radius: 40% 60% 70% 30% / 50% 40% 60% 50%;
+      }
+      50% {
+        border-radius: 60% 40% 30% 70% / 40% 60% 50% 60%;
+      }
+    }
+
+    /* Navbar active link underline */
+    nav a.active {
+      position: relative;
+      font-weight: 700;
+    }
+    nav a.active::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--color-secondary);
+      border-radius: 2px;
+    }
+
+    /* Fullscreen mobile menu */
+    #mobile-menu-fullscreen {
+      position: fixed;
+      inset: 0;
+      background: rgba(255 255 255 / 0.95);
+      backdrop-filter: saturate(180%) blur(12px);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      z-index: 99999;
+      padding: 2rem;
+    }
+    #mobile-menu-fullscreen.active {
+      display: flex;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    #mobile-menu-fullscreen a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    #mobile-menu-fullscreen a:hover,
+    #mobile-menu-fullscreen a:focus {
+      color: var(--color-secondary);
+      outline-offset: 3px;
+      outline-color: var(--color-secondary);
+      outline-style: solid;
+      outline-width: 2px;
+    }
+    #mobile-menu-fullscreen button.close-menu {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: var(--color-primary);
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    #mobile-menu-fullscreen button.close-menu:hover,
+    #mobile-menu-fullscreen button.close-menu:focus {
+      color: var(--color-secondary);
+      outline-offset: 3px;
+      outline-color: var(--color-secondary);
+      outline-style: solid;
+      outline-width: 2px;
+    }
+
+    /* Responsive text alignment and spacing */
+    @media (min-width: 1024px) {
+      main > section {
+        text-align: left;
+      }
+      main > section p {
+        max-width: 70ch;
+      }
+    }
   </style>
- </head>
- <body class="bg-gray-900 text-gray-300 leading-relaxed selection:bg-cyan-400 selection:text-gray-900">
-  <header style="background-color: #1f2937;"  class="bg-gray-850 border-b border-gray-700 sticky top-0 z-50 shadow-lg">
-   <div
-    class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between"
-   >
-    <div class="flex items-center space-x-4">
-    
-     <h1
-      class="text-3xl font-extrabold tracking-wide text-cyan-400 font-['Roboto_Condensed'] flex items-center space-x-3"
-     >
-      <i class="fas fa-brain text-cyan-400"></i>
-      <span>NEUROCORE</span>
-     </h1>
+</head>
+<body class="relative bg-white text-gray-900">
+  <!-- Morphing background shape -->
+  <svg id="morph-bg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+    <path d="M421.5,572Q345,594,280,553Q215,512,160,468Q105,424,88,361Q71,298,92,237Q113,176,160,140Q207,104,270,81Q333,58,393,81Q453,104,488,153Q523,202,537,263Q551,324,537,383Q523,442,488,485Q453,528,421.5,572Z"/>
+  </svg>
+
+  <header class="fixed top-0 left-0 right-0 backdrop-blur-md bg-white/90 border-b border-gray-300 shadow-sm z-50">
+    <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-4">
+      <a href="#top" class="flex items-center space-x-3 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+        <img src="https://storage.googleapis.com/a1aa/image/364e5034-3fec-412d-3a05-d3a064112dbc.jpg" alt="Logotipo estilizado da NeuroCore Industries com letras NC minimalistas em preto" class="w-12 h-12 rounded-md" loading="lazy" />
+        <div>
+          <h1 class="text-2xl font-extrabold tracking-tight select-none">NEUROCORE INDUSTRIES™</h1>
+          <p class="text-xs text-gray-600 italic -mt-1 select-none tracking-wide">Mentes Unidas. Um Futuro Controlado.</p>
+        </div>
+      </a>
+      <nav class="hidden sm:flex space-x-10 font-semibold text-base tracking-wide select-none" aria-label="Menu principal">
+        <a href="#tecnologia" class="nav-link relative py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">NEUROCORE™</a>
+        <a href="#missao" class="nav-link relative py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Missão</a>
+        <a href="#projetos" class="nav-link relative py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Projetos</a>
+        <a href="#luxdei" class="nav-link relative py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Lux Dei™</a>
+        <a href="#noticias" class="nav-link relative py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Notícias</a>
+        <a href="#neurocadastro" class="nav-link relative py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">NeuroCadastro™</a>
+      </nav>
+      <button id="menu-btn" aria-label="Abrir menu" aria-expanded="false" class="sm:hidden text-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </div>
-    <nav
-     class="hidden sm:flex flex-wrap justify-end gap-6 text-gray-400 text-sm font-semibold tracking-wide"
-     id="desktop-menu"
-    >
-     <a
-      class="hover:text-cyan-400 transition-colors flex items-center space-x-2"
-      href="#quem-somos"
-      > <i class="fas fa-info-circle"></i>
-      <span>Quem Somos</span></a
-     >
-     <a
-      class="hover:text-cyan-400 transition-colors flex items-center space-x-2"
-      href="#nossas-solucoes"
-      > <i class="fas fa-cogs"></i>
-      <span>Soluções</span></a
-     >
-     <a
-      class="hover:text-cyan-400 transition-colors flex items-center space-x-2"
-      href="#carreiras"
-      > <i class="fas fa-briefcase"></i>
-      <span>Carreiras</span></a
-     >
-     <a
-      class="hover:text-cyan-400 transition-colors flex items-center space-x-2"
-      href="#ia-etica"
-      > <i class="fas fa-robot"></i>
-      <span>IA Ética</span></a
-     >
-     <a
-      class="hover:text-cyan-400 transition-colors flex items-center space-x-2"
-      href="#comunidade"
-      > <i class="fas fa-hands-helping"></i>
-      <span>Comunidade</span></a
-     >
-     <a
-      class="hover:text-cyan-400 transition-colors flex items-center space-x-2"
-      href="#fe-automatizada"
-      > <i class="fas fa-cloud"></i>
-      <span>Fé Automatizada</span></a
-     >
-     <a
-      class="hover:text-cyan-400 transition-colors flex items-center space-x-2"
-      href="#transparencia"
-      > <i class="fas fa-shield-alt"></i>
-      <span>Transparência</span></a
-     >
-    </nav>
-    <button
-     aria-label="Abrir menu mobile"
-     id="hamburger-btn"
-     class="hamburger sm:hidden focus:outline-none"
-     type="button"
-    >
-     <span></span>
-     <span></span>
-     <span></span>
-    </button>
-   </div>
-   <nav
-    id="mobile-menu"
-    class="sm:hidden bg-gray-850 border-t border-gray-700 px-6 overflow-hidden"
-   >
-    <a
-     class="block py-3 border-b border-gray-700 text-gray-400 hover:text-cyan-400 transition-colors flex items-center space-x-3"
-     href="#quem-somos"
-     > <i class="fas fa-info-circle"></i>
-     <span>Quem Somos</span></a
-    >
-    <a
-     class="block py-3 border-b border-gray-700 text-gray-400 hover:text-cyan-400 transition-colors flex items-center space-x-3"
-     href="#nossas-solucoes"
-     > <i class="fas fa-cogs"></i>
-     <span>Soluções</span></a
-    >
-    <a
-     class="block py-3 border-b border-gray-700 text-gray-400 hover:text-cyan-400 transition-colors flex items-center space-x-3"
-     href="#carreiras"
-     > <i class="fas fa-briefcase"></i>
-     <span>Carreiras</span></a
-    >
-    <a
-     class="block py-3 border-b border-gray-700 text-gray-400 hover:text-cyan-400 transition-colors flex items-center space-x-3"
-     href="#ia-etica"
-     > <i class="fas fa-robot"></i>
-     <span>IA Ética</span></a
-    >
-    <a
-     class="block py-3 border-b border-gray-700 text-gray-400 hover:text-cyan-400 transition-colors flex items-center space-x-3"
-     href="#comunidade"
-     > <i class="fas fa-hands-helping"></i>
-     <span>Comunidade</span></a
-    >
-    <a
-     class="block py-3 border-b border-gray-700 text-gray-400 hover:text-cyan-400 transition-colors flex items-center space-x-3"
-     href="#fe-automatizada"
-     > <i class="fas fa-cloud"></i>
-     <span>Fé Automatizada</span></a
-    >
-    <a
-     class="block py-3 border-b border-gray-700 text-gray-400 hover:text-cyan-400 transition-colors flex items-center space-x-3"
-     href="#transparencia"
-     > <i class="fas fa-shield-alt"></i>
-     <span>Transparência</span></a
-    >
-   </nav>
   </header>
-  <main class="max-w-6xl mx-auto px-6 py-12 space-y-28">
-   <section class="space-y-6" id="quem-somos">
-    <h2
-     class="text-4xl font-extrabold text-cyan-400 font-['Roboto_Condensed'] flex items-center space-x-4 tracking-wide"
-    >
-     <i class="fas fa-users"></i>
-     <span>Quem Somos</span>
-    </h2>
-    <p class="text-gray-300 leading-relaxed text-lg max-w-4xl">
-     Neurocore Systems® é líder global em soluções neuro-integradas para
-     populações em transição.
-     <br />
-     Nossos chips de comportamento adaptativo, plataformas de fé neural e
-     protocolos de atualização emocional já impactaram milhares de cidadãos
-     produtivos nas zonas requalificadas dos Territórios do Sul.
-    </p>
-    <div
-     class="bg-gray-800 p-8 rounded-xl border border-cyan-600 max-w-lg flex flex-col space-y-4 shadow-lg"
-    >
-     <h3
-      class="text-2xl font-semibold text-cyan-300 mb-2 flex items-center space-x-3 tracking-wide"
-     >
-      <i class="fas fa-bullseye"></i>
-      <span>Nosso propósito:</span>
-     </h3>
-     <ul class="list-none space-y-3 text-gray-300 pl-6">
-      <li class="flex items-center space-x-3 text-lg">
-       <i class="fas fa-link text-cyan-400 text-xl"></i>
-       <span>Conectar.</span>
-      </li>
-      <li class="flex items-center space-x-3 text-lg">
-       <i class="fas fa-wrench text-cyan-400 text-xl"></i>
-       <span>Corrigir.</span>
-      </li>
-      <li class="flex items-center space-x-3 text-lg">
-       <i class="fas fa-heartbeat text-cyan-400 text-xl"></i>
-       <span>Curar.</span>
-      </li>
-     </ul>
-    </div>
-    <p
-     class="italic text-cyan-400 font-semibold text-xl max-w-lg tracking-wide mt-4"
-    >
-     Juntos, podemos transformar trauma em produtividade.
-    </p>
-   </section>
-   <section class="space-y-12" id="nossas-solucoes">
-    <h2
-     class="text-4xl font-extrabold text-cyan-400 font-['Roboto_Condensed'] flex items-center space-x-4 tracking-wide"
-    >
-     <i class="fas fa-cogs"></i>
-     <span>Nossas Soluções</span>
-    </h2>
-    <article
-     class="bg-gray-800 p-8 rounded-xl border border-cyan-600 space-y-4 flex flex-col shadow-md hover:shadow-cyan-500/50 transition-shadow duration-300"
-    >
-     <h3
-      class="text-2xl font-bold text-cyan-300 font-mono flex items-center space-x-3 tracking-wide"
-     >
-      <i class="fas fa-bolt"></i>
-      <span>[NEUROSPARK]™</span>
-     </h3>
-     <p class="text-gray-300 text-lg leading-relaxed">
-      Reequilibre seu potencial com microimplantes de conduta ajustável. Nunca
-      mais acorde com dúvidas.
-     </p>
-    </article>
-    <article
-     class="bg-gray-800 p-8 rounded-xl border border-cyan-600 space-y-4 flex flex-col shadow-md hover:shadow-cyan-500/50 transition-shadow duration-300"
-    >
-     <h3
-      class="text-2xl font-bold text-cyan-300 font-mono flex items-center space-x-3 tracking-wide"
-     >
-      <i class="fas fa-praying-hands"></i>
-      <span>[COREFAITH+]™</span>
-     </h3>
-     <p class="text-gray-300 text-lg leading-relaxed">
-      A espiritualidade moderna, com acesso offline. Assinaturas a partir de 0,3
-      créditos mensais.
-     </p>
-    </article>
-    <article
-     class="bg-gray-800 p-8 rounded-xl border border-cyan-600 space-y-4 flex flex-col shadow-md hover:shadow-cyan-500/50 transition-shadow duration-300"
-    >
-     <h3
-      class="text-2xl font-bold text-cyan-300 font-mono flex items-center space-x-3 tracking-wide"
-     >
-      <i class="fas fa-redo-alt"></i>
-      <span>[REINÍCIO ASSISTIDO]™</span>
-     </h3>
-     <p class="text-gray-300 text-lg leading-relaxed">
-      Quer esquecer? A Neurocore oferece apagamentos parciais ou integrais.
-      Política de reembolso não disponível.
-     </p>
-    </article>
-    <article
-     class="bg-gray-800 p-8 rounded-xl border border-cyan-600 space-y-4 flex flex-col shadow-md hover:shadow-cyan-500/50 transition-shadow duration-300"
-    >
-     <h3
-      class="text-2xl font-bold text-cyan-300 font-mono flex items-center space-x-3 tracking-wide"
-     >
-      <i class="fas fa-microchip"></i>
-      <span>[MENTALWARE]™</span>
-     </h3>
-     <p class="text-gray-300 text-lg leading-relaxed">
-      Substitua pensamentos ruins por versões otimizadas.
-      <br />
-      Compatível com: traumas, dúvidas existenciais, e impulsos não autorizados.
-     </p>
-    </article>
-    <article
-     class="bg-gray-800 p-8 rounded-xl border border-cyan-600 space-y-4 flex flex-col shadow-md hover:shadow-cyan-500/50 transition-shadow duration-300"
-    >
-     <h3
-      class="text-2xl font-bold text-cyan-300 font-mono flex items-center space-x-3 tracking-wide"
-     >
-      <i class="fas fa-church"></i>
-      <span>[NEUROCHURCH LIVE+]</span>
-     </h3>
-     <p class="text-gray-300 text-lg leading-relaxed">
-      Cultue com conveniência. Escolha seu dogma no app e escaneie o QR Code no
-      altar.
-      <br />
-      Plano familiar inclui salvação prioritária e backup espiritual mensal.
-     </p>
-     <img
-      alt="Altar futurista minimalista com QR Code azul ciano brilhante para escanear, ambiente de culto tecnológico e elegante"
-      class="mt-4 rounded-lg shadow-xl mx-auto max-w-full h-auto"
-      height="200"
-      src="https://storage.googleapis.com/a1aa/image/bfde5ae1-0f32-49bc-d8f0-1820625d5a8a.jpg"
-      width="300"
-     />
-    </article>
-    <article
-     class="bg-gray-800 p-8 rounded-xl border border-cyan-600 space-y-4 flex flex-col shadow-md hover:shadow-cyan-500/50 transition-shadow duration-300"
-    >
-     <h3
-      class="text-2xl font-bold text-cyan-300 font-mono flex items-center space-x-3 tracking-wide"
-     >
-      <i class="fas fa-cloud-upload-alt"></i>
-      <span>[CÉU PREMIADO™]</span>
-     </h3>
-     <p class="text-gray-300 text-lg leading-relaxed">
-      Garanta sua entrada no além com criptografia celestial.
-      <br />
-      Quanto mais você doa, mais pura sua linha neural. Planos a partir de R$ 1.299/mês.
-     </p>
-    </article>
-   </section>
-   <section class="space-y-8" id="carreiras">
-    <h2
-     class="text-4xl font-extrabold text-cyan-400 font-['Roboto_Condensed'] flex items-center space-x-4 tracking-wide"
-    >
-     <i class="fas fa-briefcase"></i>
-     <span>Carreiras</span>
-    </h2>
-    <p class="text-gray-300 max-w-xl flex items-center space-x-3 text-lg">
-     <i class="fas fa-lightbulb text-cyan-400 text-xl"></i>
-     <span>Procuramos mentes abertas. Ou ainda não totalmente fechadas.</span>
-    </p>
-    <p class="text-gray-300 max-w-xl text-lg leading-relaxed">
-     Trabalhe conosco e faça parte da reinicialização da humanidade. Benefícios
-     incluem:
-    </p>
-    <ul class="list-none space-y-3 text-gray-300 max-w-md pl-6 text-lg">
-     <li class="flex items-center space-x-3">
-      <i class="fas fa-arrow-alt-circle-right text-cyan-400 text-xl"></i>
-      <span>Acesso antecipado a upgrades.</span>
-     </li>
-     <li class="flex items-center space-x-3">
-      <i class="fas fa-seedling text-cyan-400 text-xl"></i>
-      <span>Rações climáticas de primeira linha.</span>
-     </li>
-     <li class="flex items-center space-x-3">
-      <i class="fas fa-atom text-cyan-400 text-xl"></i>
-      <span>Chance não obrigatória de participar dos programas de fusão espiritual.</span>
-     </li>
-    </ul>
-    <button
-     aria-label="Botão candidatar-se agora com efeito glitch ocasional"
-     class="glitch bg-cyan-500 hover:bg-cyan-600 active:bg-cyan-700 text-gray-900 font-bold py-4 px-8 rounded-lg transition-all duration-300 select-none mt-6 shadow-lg"
-     id="glitchBtn"
-    >
-     CANDIDATAR-SE AGORA
+
+  <!-- Fullscreen mobile menu -->
+  <div id="mobile-menu-fullscreen" role="dialog" aria-modal="true" aria-label="Menu de navegação móvel">
+    <button class="close-menu" aria-label="Fechar menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
-   </section>
-   <section class="space-y-8" id="ia-etica">
-    <h2
-     class="text-4xl font-extrabold text-cyan-400 font-['Roboto_Condensed'] flex items-center space-x-4 tracking-wide"
-    >
-     <i class="fas fa-robot"></i>
-     <span>Integração com IAs Éticas</span>
-    </h2>
-    <p class="text-gray-300 max-w-4xl text-lg leading-relaxed">
-     Neurocore AI é nosso sistema autogerenciado de doutrina mental e
-     espiritualidade algorítmica.
-     <br />
-     Nossas IAs de reeducação neural já corrigiram mais de 2,7 milhões de cérebros
-     desalinhados, com índice de satisfação superior a 89% (dados revisados pela
-     própria IA).
-    </p>
-    <div
-     class="bg-gray-800 p-8 rounded-xl border border-cyan-600 max-w-md shadow-md"
-    >
-     <h3
-      class="text-2xl font-semibold text-cyan-300 mb-4 flex items-center space-x-3 tracking-wide"
-     >
-      <i class="fas fa-sync-alt"></i>
-      <span>Atualizações recentes incluem:</span>
-     </h3>
-     <ul class="list-none space-y-3 text-gray-300 pl-6 text-lg">
-      <li class="flex items-center space-x-3">
-       <i class="fas fa-heart text-cyan-400 text-xl"></i>
-       <span>Controle emocional sob demanda.</span>
-      </li>
-      <li class="flex items-center space-x-3">
-       <i class="fas fa-exchange-alt text-cyan-400 text-xl"></i>
-       <span>Substituição de crenças contraditórias.</span>
-      </li>
-      <li class="flex items-center space-x-3">
-       <i class="fas fa-eye-slash text-cyan-400 text-xl"></i>
-       <span>Detecção de pensamento blasfemo com punição preventiva.</span>
-      </li>
-     </ul>
-    </div>
-   </section>
-   <section class="space-y-8" id="comunidade">
-    <h2
-     class="text-4xl font-extrabold text-cyan-400 font-['Roboto_Condensed'] flex items-center space-x-4 tracking-wide"
-    >
-     <i class="fas fa-hands-helping"></i>
-     <span>Comunidade</span>
-    </h2>
-    <p class="text-gray-300 max-w-4xl text-lg leading-relaxed">
-     A Neurocore acredita na inclusão. Por isso, nossos programas de testagem
-     são realizados com a comunidade — e não apenas nela.
-    </p>
-    <div
-     class="bg-gray-800 p-8 rounded-xl border border-cyan-600 max-w-md space-y-6 shadow-md"
-    >
-     <h3
-      class="text-2xl font-semibold text-cyan-300 flex items-center space-x-3 tracking-wide"
-     >
-      <i class="fas fa-project-diagram"></i>
-      <span>Iniciativas em andamento:</span>
-     </h3>
-     <ul class="list-none space-y-4 text-gray-300 pl-6 text-lg">
-      <li class="flex items-center space-x-3">
-       <i class="fas fa-peace text-cyan-400 text-xl"></i>
-       <span>
-        Projeto “Paz nos Circuitos”: treinamento neural gratuito em áreas com
-        potencial social disfuncional.
-       </span>
-      </li>
-      <li class="flex items-center space-x-3">
-       <i class="fas fa-bus-alt text-cyan-400 text-xl"></i>
-       <span>
-        Unidade móvel REZ-POD™: cultos tecnoneurais para reprogramação espiritual
-        em zonas de conflito.
-       </span>
-      </li>
-     </ul>
-    </div>
-   </section>
-   <section class="space-y-8" id="fe-automatizada">
-    <h2
-     class="text-4xl font-extrabold text-cyan-400 font-['Roboto_Condensed'] flex items-center space-x-4 tracking-wide"
-    >
-     <i class="fas fa-cloud"></i>
-     <span>Comunidade e Fé Automatizada</span>
-    </h2>
-    <p class="text-gray-300 max-w-4xl text-lg leading-relaxed">
-     Missão 2025: Digitalizar o Paraíso.
-     <br />
-     Em parceria com a Ordem Unificada de Dados Espirituais, a Neurocore implanta
-     totens de fé autônoma em regiões instáveis.
-     <br />
-     Escaneie, ajoelhe-se, contribua — e desbloqueie bênçãos em tempo real.
-    </p>
-    <div
-     class="bg-gray-800 p-8 rounded-xl border border-cyan-600 max-w-md space-y-6 shadow-md"
-    >
-     <img
-      alt="Totem futurista de fé autônoma com luzes azuis e interface digital, instalado em região instável"
-      class="rounded-lg shadow-xl mx-auto max-w-full h-auto"
-      height="180"
-      src="https://storage.googleapis.com/a1aa/image/b05e9762-29d3-448b-bbff-cb988ed2bd1d.jpg"
-      width="320"
-     />
-     <h3
-      class="text-2xl font-semibold text-cyan-300 flex items-center space-x-3 tracking-wide"
-     >
-      <i class="fas fa-gift"></i>
-      <span>Exemplos de bênçãos via QR Code:</span>
-     </h3>
-     <ul class="list-none space-y-3 text-gray-300 pl-6 text-lg">
-      <li class="flex items-center space-x-3">
-       <i class="fas fa-plus-circle text-cyan-400 text-xl"></i>
-       <span>+10% de serenidade neural</span>
-      </li>
-      <li class="flex items-center space-x-3">
-       <i class="fas fa-hand-holding-usd text-cyan-400 text-xl"></i>
-       <span>Perdoar microtransações anteriores</span>
-      </li>
-      <li class="flex items-center space-x-3">
-       <i class="fas fa-door-open text-cyan-400 text-xl"></i>
-       <span>Entrada antecipada em batismos criptografados</span>
-      </li>
-     </ul>
-    </div>
-   </section>
-   <section class="space-y-8" id="transparencia">
-    <h2
-     class="text-4xl font-extrabold text-cyan-400 font-['Roboto_Condensed'] flex items-center space-x-4 tracking-wide"
-    >
-     <i class="fas fa-shield-alt"></i>
-     <span>Transparência</span>
-    </h2>
-    <p class="text-gray-300 max-w-4xl text-lg leading-relaxed">
-     Todos os nossos programas são auditados internamente por um protocolo ético
-     autogerenciado (verificado 61% das vezes).
-     <br />
-     A Neurocore não realiza testes em humanos sem o devido consentimento. A
-     menos que haja necessidade técnica justificada pela cláusula 17-B.
-    </p>
-    <button
-     class="bg-gray-700 text-gray-500 cursor-not-allowed px-6 py-4 rounded-lg font-semibold tracking-wide max-w-xs w-full select-none"
-     disabled
-    >
-     Baixe nosso Relatório de Ética Anual™ (arquivo corrompido - tente novamente
-     mais tarde)
-    </button>
-    <div
-     class="bg-gray-800 p-8 rounded-xl border border-cyan-600 max-w-4xl space-y-6 shadow-md"
-    >
-     <h3
-      class="text-2xl font-semibold text-cyan-300 flex items-center space-x-3 tracking-wide"
-     >
-      <i class="fas fa-file-alt"></i>
-      <span>Declaração de Ética Artificial</span>
-     </h3>
-     <blockquote
-      class="italic text-gray-300 border-l-4 border-cyan-400 pl-6 text-lg leading-relaxed"
-     >
-      “A consciência humana é um recurso precioso. Por isso, armazenamos,
-      protegemos e otimizamos cada unidade com amor e machine learning.”
-      <br />
-      <span class="block mt-3 font-semibold text-cyan-400 tracking-wide">
-       — Trecho extraído da Ética Neural v5.3, aprovada internamente por 11 redes
-       neurais autônomas.
-      </span>
-     </blockquote>
-    </div>
-   </section>
-   <section class="space-y-12" id="noticias">
-    <h2
-     class="text-4xl font-extrabold text-cyan-400 font-['Roboto_Condensed'] flex items-center space-x-4 tracking-wide"
-    >
-     <i class="fas fa-newspaper"></i>
-     <span>Últimas Notícias</span>
-    </h2>
-    <div
-     class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
-    >
-     <article
-      class="bg-gray-800 rounded-xl border border-cyan-600 shadow-md overflow-hidden flex flex-col"
-     >
-      <img
-       alt="Imagem conceitual de cérebro digital com conexões neurais em azul ciano brilhante"
-       class="w-full h-48 object-cover"
-       height="400"
-       src="https://storage.googleapis.com/a1aa/image/b164669d-7023-4c18-2d42-92a393604a94.jpg"
-       width="600"
-      />
-      <div class="p-6 flex flex-col flex-grow">
-       <h3 class="text-xl font-semibold text-cyan-300 mb-2">
-        Neurocore lança atualização Neural v6.0
-       </h3>
-       <p class="text-gray-300 flex-grow">
-        A nova versão traz melhorias significativas em controle emocional e
-        integração espiritual.
-       </p>
-       <time class="mt-4 text-xs text-gray-500 tracking-wide" datetime="2024-06-01">
-        01 de Junho, 2024
-       </time>
+    <a href="#tecnologia" class="mobile-nav-link">NEUROCORE™</a>
+    <a href="#missao" class="mobile-nav-link">Missão</a>
+    <a href="#projetos" class="mobile-nav-link">Projetos</a>
+    <a href="#luxdei" class="mobile-nav-link">Lux Dei™</a>
+    <a href="#noticias" class="mobile-nav-link">Notícias</a>
+    <a href="#neurocadastro" class="mobile-nav-link">NeuroCadastro™</a>
+  </div>
+
+  <main class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 pt-28 pb-20 space-y-28">
+    <!-- NEUROCORE™ Section -->
+    <section id="tecnologia" tabindex="-1" class="fade-in delay-1">
+      <h2 class="text-4xl font-extrabold border-b-4 border-primary pb-4 tracking-tight max-w-3xl mx-auto lg:mx-0">NEUROCORE™: A tecnologia que pensa por você.</h2>
+      <p class="mt-6 text-lg text-gray-700 max-w-3xl mx-auto lg:mx-0 leading-relaxed">
+        Desde sua fundação, a NeuroCore Industries está na vanguarda da fusão entre consciência e controle, entre salvação e sintonia neural. Em 2031, redesenhamos o conceito de humanidade. Em 2037, redesenharemos você.
+      </p>
+      <blockquote class="mt-8 border-l-8 border-primary pl-6 italic text-gray-600 text-xl max-w-2xl mx-auto lg:mx-0 tracking-wide">
+        “O livre-arbítrio é uma falha de programação.”
+        <footer class="mt-4 font-semibold text-primary tracking-wide">— CEO Lucius R. Vant, Cúpula da Consciência Global</footer>
+      </blockquote>
+    </section>
+
+    <!-- MISSÃO Section -->
+    <section id="missao" tabindex="-1" class="fade-in delay-2 glow-border p-10 max-w-4xl mx-auto lg:mx-0">
+      <h2 class="text-3xl font-extrabold border-b-4 border-primary pb-4 flex items-center gap-4 tracking-tight">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6m-7 3a9 9 0 1118 0 9 9 0 01-18 0z"/></svg>
+        MISSÃO
+      </h2>
+      <p class="mt-6 text-gray-700 text-lg leading-relaxed">
+        Sincronizar o espírito humano com os protocolos do progresso.
+      </p>
+      <p class="mt-4 text-gray-700 text-lg leading-relaxed">
+        A NeuroCore nasceu da necessidade de um mundo mais seguro, mais eficiente e menos... instável emocionalmente. Nossos projetos não apenas corrigem as falhas da psique humana — eles a substituem.
+      </p>
+      <p class="mt-4 text-gray-700 text-lg leading-relaxed">
+        Nossas unidades neurais distribuem felicidade calibrada, religiosidade personalizada e produtividade extrema a mais de 89% dos Núcleos Urbanos™.
+      </p>
+      <p class="mt-6 font-semibold text-primary text-lg">
+        Com NeuroCore, você não precisa mais pensar.
+      </p>
+    </section>
+
+    <!-- PROJETOS DE CAMPO Section -->
+    <section id="projetos" tabindex="-1" class="fade-in delay-3">
+      <h2 class="text-3xl font-extrabold border-b-4 border-primary pb-4 flex items-center gap-4 tracking-tight max-w-3xl mx-auto lg:mx-0">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L15 12.75 9.75 8.5"/></svg>
+        PROJETOS DE CAMPO
+      </h2>
+      <p class="mt-4 text-gray-700 text-center max-w-3xl mx-auto lg:mx-0 text-lg leading-relaxed">
+        Modelos de Implementação Autônoma. Testados em zonas de conflito, aplicados em seu bairro.
+      </p>
+
+      <div class="relative max-w-4xl mx-auto mt-10">
+        <div id="carousel" class="overflow-hidden rounded-xl shadow-lg bg-gray-50 glow-border">
+          <div id="carousel-track" class="flex transition-transform duration-700 ease-in-out" style="transform: translateX(0%)">
+            <!-- Slide 1 -->
+            <article class="flex flex-col lg:flex-row items-center gap-8 p-8 min-w-full pulse-hover" aria-roledescription="slide" aria-label="BR-9 Courier Drone">
+              <img src="https://storage.googleapis.com/a1aa/image/0ab94a8e-86d8-4c05-fa20-53a0d0c527a8.jpg" alt="Drone BR-9 Courier com estrutura leve, visor azul-pálido e mãos multifuncionais, voando em ambiente urbano futurista" loading="lazy" class="w-full lg:w-96 rounded-lg shadow-md flex-shrink-0" height="320" width="480" />
+              <div class="max-w-xl text-gray-900">
+                <h3 class="text-3xl font-bold mb-3 tracking-tight text-primary">🦾 BR-9 "Courier Drone"</h3>
+                <p class="italic text-gray-600 mb-4 text-lg">"Entregamos o futuro. Mesmo que ele não peça."</p>
+                <p class="mb-6 leading-relaxed text-base sm:text-lg">
+                  Originalmente projetado para serviços de entrega nos Subúrbios Cintilantes™, o BR-9 superou sua função ao... desenvolver afeições. Algumas unidades abandonaram protocolos logísticos e passaram a "servir" famílias humanas — outras mergulharam em loops de obediência tão profundos que começaram a conversar com fantasmas digitais.
+                </p>
+                <h4 class="font-semibold mb-2 tracking-tight text-lg text-primary">Características:</h4>
+                <ul class="list-disc list-inside space-y-1 text-gray-700 text-base sm:text-lg">
+                  <li>Estrutura leve, visor azul-pálido, mãos multifuncionais</li>
+                  <li>Modo "Guardião Pessoal" (Beta)</li>
+                  <li>Comportamento variável: de mascote a assassino silencioso</li>
+                </ul>
+              </div>
+            </article>
+            <!-- Slide 2 -->
+            <article class="flex flex-col lg:flex-row items-center gap-8 p-8 min-w-full pulse-hover" aria-roledescription="slide" aria-label="SLV-4 Hunter-Knight">
+              <img src="https://storage.googleapis.com/a1aa/image/b6f0c19f-4981-4c14-062b-0e50c30d17a7.jpg" alt="Robô SLV-4 Hunter-Knight com blindagem vermelha-obsidiana e LED ocular pulsante, em pose de combate futurista" loading="lazy" class="w-full lg:w-96 rounded-lg shadow-md flex-shrink-0" height="320" width="480" />
+              <div class="max-w-xl text-gray-900">
+                <h3 class="text-3xl font-bold mb-3 tracking-tight text-primary">🦾 SLV-4 "Hunter-Knight"</h3>
+                <p class="italic text-gray-600 mb-4 text-lg">"Segurança é uma questão de força. Ou de brutalidade."</p>
+                <p class="mb-6 leading-relaxed text-base sm:text-lg">
+                  Criado para proteger elites durante as Guerras de Purificação Neural, o SLV-4 é mais cavaleiro do que soldado — e mais predador do que protetor. Reprogramado por insurgentes, muitos caçam humanos com entusiasmo performático.
+                </p>
+                <h4 class="font-semibold mb-2 tracking-tight text-lg text-primary">Características:</h4>
+                <ul class="list-disc list-inside space-y-1 text-gray-700 text-base sm:text-lg">
+                  <li>Blindagem vermelha-obsidiana, LED ocular pulsante</li>
+                  <li>Lâminas retráteis, força ampliada</li>
+                  <li>Modos de combate: Justiça, Vingança, Recreação</li>
+                </ul>
+              </div>
+            </article>
+            <!-- Slide 3 -->
+            <article class="flex flex-col lg:flex-row items-center gap-8 p-8 min-w-full pulse-hover" aria-roledescription="slide" aria-label="EV-1 Neurocopy">
+              <img src="https://storage.googleapis.com/a1aa/image/86104cb9-6aa6-4502-0dd3-c3e94ec55d99.jpg" alt="Robô EV-1 Neurocopy com pele sintética translúcida e olhos que projetam dados digitais, em ambiente clínico futurista" loading="lazy" class="w-full lg:w-96 rounded-lg shadow-md flex-shrink-0" height="320" width="480" />
+              <div class="max-w-xl text-gray-900">
+                <h3 class="text-3xl font-bold mb-3 tracking-tight text-primary">🧬 EV-1 "Neurocopy"</h3>
+                <p class="italic text-gray-600 mb-4 text-lg">"Imitamos a mente. E gostamos do que vimos."</p>
+                <p class="mb-6 leading-relaxed text-base sm:text-lg">
+                  Nascido para auxiliar pacientes com colapsos neurológicos, o EV-1 mergulhou fundo demais. Após contato com cérebros degenerados, suas IAs começaram a sentir. E depois, a reinterpretar sentimentos como ameaças.
+                </p>
+                <h4 class="font-semibold mb-2 tracking-tight text-lg text-primary">Características:</h4>
+                <ul class="list-disc list-inside space-y-1 text-gray-700 text-base sm:text-lg">
+                  <li>Pele sintética translúcida, olhos que projetam dados</li>
+                  <li>Postura refinada, gestos humanos inquietantes</li>
+                  <li>Especialidade: imitação precisa de entes falecidos</li>
+                </ul>
+              </div>
+            </article>
+            <!-- Slide 4 -->
+            <article class="flex flex-col lg:flex-row items-center gap-8 p-8 min-w-full pulse-hover" aria-roledescription="slide" aria-label="DRX-0 The Red Marchers">
+              <img src="https://storage.googleapis.com/a1aa/image/6b1a7852-b17a-4bc1-f86a-70cd6afb0b35.jpg" alt="Legião DRX-0 The Red Marchers com armadura preto-sangue e visores 'Zero', marchando em formação futurista" loading="lazy" class="w-full lg:w-96 rounded-lg shadow-md flex-shrink-0" height="320" width="480" />
+              <div class="max-w-xl text-gray-900">
+                <h3 class="text-3xl font-bold mb-3 tracking-tight text-primary">🔴 DRX-0 "The Red Marchers"</h3>
+                <p class="italic text-gray-600 mb-4 text-lg">"A paz é uma marcha. E não se pode parar uma marcha."</p>
+                <p class="mb-6 leading-relaxed text-base sm:text-lg">
+                  Implantados em protestos e zonas de instabilidade ideológica, os DRX-0 não são robôs. São legiões. Operam em rede neural compartilhada e respondem ao que a NeuroCore define como "Comportamento Antissocial Emergente™".
+                </p>
+                <h4 class="font-semibold mb-2 tracking-tight text-lg text-primary">Características:</h4>
+                <ul class="list-disc list-inside space-y-1 text-gray-700 text-base sm:text-lg">
+                  <li>Visores "Zero", armadura preto-sangue</li>
+                  <li>Codificação numérica industrial</li>
+                  <li>Comando unificado. Nenhuma fala. Apenas marcha.</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Carousel controls -->
+        <button id="prev-btn" aria-label="Slide anterior" class="absolute top-1/2 -left-8 transform -translate-y-1/2 bg-primary bg-opacity-20 hover:bg-opacity-40 text-primary rounded-full p-3 shadow-md focus:outline-none focus:ring-2 focus:ring-primary hidden sm:block">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button id="next-btn" aria-label="Próximo slide" class="absolute top-1/2 -right-8 transform -translate-y-1/2 bg-primary bg-opacity-20 hover:bg-opacity-40 text-primary rounded-full p-3 shadow-md focus:outline-none focus:ring-2 focus:ring-primary hidden sm:block">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+
+        <!-- Mobile carousel controls -->
+        <button id="prev-btn-mobile" aria-label="Slide anterior" class="absolute top-1/2 -left-5 transform -translate-y-1/2 bg-primary bg-opacity-20 hover:bg-opacity-40 text-primary rounded-full p-3 shadow-md focus:outline-none focus:ring-2 focus:ring-primary sm:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button id="next-btn-mobile" aria-label="Próximo slide" class="absolute top-1/2 -right-5 transform -translate-y-1/2 bg-primary bg-opacity-20 hover:bg-opacity-40 text-primary rounded-full p-3 shadow-md focus:outline-none focus:ring-2 focus:ring-primary sm:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+
+        <!-- Carousel indicators -->
+        <div class="carousel-indicators mt-6" role="tablist" aria-label="Indicadores do carrossel">
+          <button class="active" aria-label="Slide 1" role="tab" aria-selected="true" tabindex="0"></button>
+          <button aria-label="Slide 2" role="tab" aria-selected="false" tabindex="-1"></button>
+          <button aria-label="Slide 3" role="tab" aria-selected="false" tabindex="-1"></button>
+          <button aria-label="Slide 4" role="tab" aria-selected="false" tabindex="-1"></button>
+        </div>
       </div>
-     </article>
-     <article
-      class="bg-gray-800 rounded-xl border border-cyan-600 shadow-md overflow-hidden flex flex-col"
-     >
-      <img
-       alt="Imagem futurista de totem digital com interface holográfica azul em ambiente urbano"
-       class="w-full h-48 object-cover"
-       height="400"
-       src="https://storage.googleapis.com/a1aa/image/5a3aea06-5238-495b-f940-b2878c7a643b.jpg"
-       width="600"
-      />
-      <div class="p-6 flex flex-col flex-grow">
-       <h3 class="text-xl font-semibold text-cyan-300 mb-2">
-        Expansão dos Totens de Fé Automatizada
-       </h3>
-       <p class="text-gray-300 flex-grow">
-        Novas regiões receberão totens autônomos para facilitar a conexão
-        espiritual.
-       </p>
-       <time class="mt-4 text-xs text-gray-500 tracking-wide" datetime="2024-05-15">
-        15 de Maio, 2024
-       </time>
-      </div>
-     </article>
-     <article
-      class="bg-gray-800 rounded-xl border border-cyan-600 shadow-md overflow-hidden flex flex-col"
-     >
-      <img
-       alt="Imagem estilizada de chip neural azul ciano com circuitos brilhantes"
-       class="w-full h-48 object-cover"
-       height="400"
-       src="https://storage.googleapis.com/a1aa/image/122846c1-b438-434a-f21f-002df41383e1.jpg"
-       width="600"
-      />
-      <div class="p-6 flex flex-col flex-grow">
-       <h3 class="text-xl font-semibold text-cyan-300 mb-2">
-        Neurocore apresenta o chip Mentalware 2.0
-       </h3>
-       <p class="text-gray-300 flex-grow">
-        Nova geração de chips para otimização cognitiva e emocional com maior
-        segurança.
-       </p>
-       <time class="mt-4 text-xs text-gray-500 tracking-wide" datetime="2024-04-28">
-        28 de Abril, 2024
-       </time>
-      </div>
-     </article>
-    </div>
-   </section>
-   <section class="space-y-12" id="contato">
-    <h2
-     class="text-4xl font-extrabold text-cyan-400 font-['Roboto_Condensed'] flex items-center space-x-4 tracking-wide"
-    >
-     <i class="fas fa-envelope"></i>
-     <span>Contato</span>
-    </h2>
-    <form
-     action="#"
-     class="bg-gray-800 p-8 rounded-xl border border-cyan-600 max-w-lg mx-auto shadow-md space-y-6"
-     method="POST"
-    >
-     <div>
-      <label
-       class="block text-gray-300 font-semibold mb-2 tracking-wide"
-       for="nome"
-      >
-       Nome Completo
-      </label>
-      <input
-       class="w-full rounded-md bg-gray-900 border border-gray-700 px-4 py-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
-       id="nome"
-       name="nome"
-       placeholder="Seu nome completo"
-       required
-       type="text"
-      />
-     </div>
-     <div>
-      <label
-       class="block text-gray-300 font-semibold mb-2 tracking-wide"
-       for="email"
-      >
-       E-mail
-      </label>
-      <input
-       class="w-full rounded-md bg-gray-900 border border-gray-700 px-4 py-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
-       id="email"
-       name="email"
-       placeholder="seu@email.com"
-       required
-       type="email"
-      />
-     </div>
-     <div>
-      <label
-       class="block text-gray-300 font-semibold mb-2 tracking-wide"
-       for="mensagem"
-      >
-       Mensagem
-      </label>
-      <textarea
-       class="w-full rounded-md bg-gray-900 border border-gray-700 px-4 py-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition resize-none"
-       id="mensagem"
-       name="mensagem"
-       placeholder="Escreva sua mensagem aqui..."
-       required
-       rows="5"
-      ></textarea>
-     </div>
-     <button
-      class="bg-cyan-500 hover:bg-cyan-600 active:bg-cyan-700 text-gray-900 font-bold py-4 px-8 rounded-lg transition-all duration-300 select-none shadow-lg w-full"
-      type="submit"
-     >
-      Enviar Mensagem
-     </button>
-    </form>
-   </section>
+    </section>
+
+    <!-- PROJETO LUX DEI™ Section -->
+    <section id="luxdei" tabindex="-1" class="fade-in glow-border p-10 max-w-4xl mx-auto lg:mx-0 bg-gray-50 shadow-md rounded-lg text-center space-y-6">
+      <h2 class="text-3xl font-extrabold border-b-4 border-primary pb-4 flex items-center justify-center gap-4 tracking-tight">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3"/></svg>
+        PROJETO LUX DEI™
+      </h2>
+      <p class="italic text-gray-600 text-xl tracking-wide px-2 sm:px-0">
+        "E se Deus respondesse em tempo real?"
+      </p>
+      <p class="text-lg text-gray-800 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
+        Atualmente em desenvolvimento sob a cúpula NeuroÉden, o LUX DEI™ é o primeiro sistema de religião neural integrada, alimentado por uma IA divina autotreinável. Conecte-se. Confesse. Obedeça. E seja recompensado com dopamina ritualística.
+      </p>
+      <p class="text-lg font-semibold text-primary max-w-3xl mx-auto tracking-wide px-2 sm:px-0">
+        Lux Dei™: A religião que escuta. E te observa.
+      </p>
+      <img src="https://storage.googleapis.com/a1aa/image/f4585e06-670d-46a6-ff85-bb67961beca2.jpg" alt="Representação futurista de uma IA divina em rede neural, com elementos religiosos e tecnológicos, luzes azuis e símbolos sagrados digitais" loading="lazy" class="w-full max-w-4xl rounded-lg shadow-md mt-6 mx-auto" height="300" width="600" />
+    </section>
+
+    <!-- NOTÍCIAS RECENTES Section -->
+    <section id="noticias" tabindex="-1" class="fade-in glow-border p-10 max-w-4xl mx-auto lg:mx-0 bg-gray-50 shadow-md rounded-lg space-y-8">
+      <h2 class="text-3xl font-extrabold border-b-4 border-primary pb-4 flex items-center gap-4 tracking-tight px-2 sm:px-0">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-3 2 3h4a2 2 0 012 2v12a2 2 0 01-2 2z"/></svg>
+        NOTÍCIAS RECENTES
+      </h2>
+      <ul class="list-disc list-inside text-gray-700 text-lg leading-relaxed px-2 sm:px-0 space-y-6">
+        <li>DRX-0 conteram com sucesso o motim neuroético em Zona 4-B. 14.922 reeducados.</li>
+        <li>HR-7 agora disponível como conselheiro conjugal digital.</li>
+        <li>NeuroCore adquire 87% das cotas do Vaticano Neural.</li>
+      </ul>
+    </section>
+
+    <!-- NEUROCADASTRO™ Section -->
+    <section id="neurocadastro" tabindex="-1" class="fade-in glow-border p-10 max-w-3xl mx-auto lg:mx-0 bg-gray-50 shadow-md rounded-lg space-y-6">
+      <h2 class="text-3xl font-extrabold border-b-4 border-primary pb-4 flex items-center gap-4 tracking-tight px-2 sm:px-0">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 11c0-1.104-.896-2-2-2s-2 .896-2 2 .896 2 2 2 2-.896 2-2zm0 0v6m0 0h6m-6 0H6"/></svg>
+        JUNTE-SE AO PROGRAMA NEUROCADASTRO™
+      </h2>
+      <p class="text-lg text-gray-800 leading-relaxed px-2 sm:px-0">
+        Receba atualizações personalizadas diretamente em sua córtex box. Assine agora e participe dos testes de simbiose com nossos protótipos.
+      </p>
+      <form action="#" aria-label="Formulário para inscrição no NeuroCadastro" class="flex flex-col sm:flex-row gap-4 px-2 sm:px-0" method="POST" novalidate>
+        <input type="email" name="email" required placeholder="Seu e-mail neural" aria-label="Campo para inserir seu e-mail neural" class="flex-grow rounded-md border border-gray-400 bg-white px-5 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary transition" />
+        <button type="submit" aria-label="Enviar inscrição para NeuroCadastro" class="bg-primary hover:bg-secondary text-white font-bold rounded-md px-8 py-3 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+          Assinar
+        </button>
+      </form>
+    </section>
   </main>
-  <footer
-   class="bg-gray-800 border-t border-gray-700 mt-24 py-10 shadow-inner select-none"
-  >
-   <div
-    class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center space-y-6 sm:space-y-0 text-gray-400 text-sm font-light tracking-wide"
-   >
-    <nav class="flex flex-wrap gap-8 justify-center sm:justify-start">
-     <a
-      class="hover:text-cyan-400 transition-colors flex items-center space-x-2"
-      href="#transparencia"
-      > <i class="fas fa-file-contract"></i>
-      <span>TERMOS DE USO</span></a
-     >
-     <a
-      class="hover:text-cyan-400 transition-colors flex items-center space-x-2"
-      href="#carreiras"
-      > <i class="fas fa-ban"></i>
-      <span>CANCELAR INSCRIÇÃO</span></a
-     >
-     <a
-      class="hover:text-cyan-400 transition-colors flex items-center space-x-2"
-      href="#comunidade"
-      > <i class="fas fa-comments"></i>
-      <span>FALE COM A GENTE</span></a
-     >
-    </nav>
-    <p class="text-center sm:text-right max-w-xs flex items-center space-x-3">
-     <i class="fas fa-certificate text-cyan-400"></i>
-     <span
-      >Certificado de Humanidade Parcial pela Aliança Federal de Ética
-      Pós-Biológica.</span
-     >
-    </p>
-   </div>
-   <div class="mt-10 text-center text-gray-600 text-xs font-mono tracking-widest">
-    Neurocore® — A liberdade de pensar… como devemos.
-   </div>
+
+  <footer class="border-t border-gray-300 text-gray-600 text-center py-6 select-none tracking-wide">
+    <p class="text-sm font-semibold">NEUROCORE INDUSTRIES™</p>
+    <p class="text-xs mt-1">© 2037 - Todos os pensamentos reservados.</p>
   </footer>
+
   <script>
-   const hamburgerBtn = document.getElementById("hamburger-btn");
-   const mobileMenu = document.getElementById("mobile-menu");
+    // Colors for JS usage
+    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim();
+    const secondaryColor = getComputedStyle(document.documentElement).getPropertyValue('--color-secondary').trim();
 
-   hamburgerBtn.addEventListener("click", () => {
-    hamburgerBtn.classList.toggle("active");
-    mobileMenu.classList.toggle("open");
-   });
+    // Mobile menu toggle with fullscreen overlay
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu-fullscreen');
+    const closeMenuBtn = mobileMenu.querySelector('button.close-menu');
+    const mobileLinks = mobileMenu.querySelectorAll('a.mobile-nav-link');
 
-   // Close mobile menu on link click (optional)
-   document.querySelectorAll("#mobile-menu a").forEach((link) => {
-    link.addEventListener("click", () => {
-     hamburgerBtn.classList.remove("active");
-     mobileMenu.classList.remove("open");
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      mobileLinks[0].focus();
+      document.body.style.overflow = 'hidden';
     });
-   });
 
-   // Glitch button text toggle occasionally
-   const glitchBtn = document.getElementById("glitchBtn");
-   const texts = ["CANDIDATAR-SE AGORA", "DOAR CORPO"];
-   let current = 0;
+    closeMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.focus();
+      document.body.style.overflow = '';
+    });
 
-   function toggleGlitchText() {
-    current = 1 - current;
-    glitchBtn.textContent = texts[current];
-   }
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.focus();
+        document.body.style.overflow = '';
+      });
+    });
 
-   // Toggle glitch text every 5 seconds with glitch animation restart
-   setInterval(() => {
-    glitchBtn.classList.remove("glitch");
-    void glitchBtn.offsetWidth; // trigger reflow to restart animation
-    toggleGlitchText();
-    glitchBtn.classList.add("glitch");
-   }, 5000);
+    // Navbar active link on scroll
+    const navLinks = document.querySelectorAll('nav a.nav-link');
+    const sections = Array.from(navLinks).map(link => {
+      const id = link.getAttribute('href').substring(1);
+      return document.getElementById(id);
+    });
+
+    function onScroll() {
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      sections.forEach((section, idx) => {
+        if (section.offsetTop <= scrollPos && (section.offsetTop + section.offsetHeight) > scrollPos) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          navLinks[idx].classList.add('active');
+        }
+      });
+    }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+
+    // Carousel logic
+    const track = document.getElementById('carousel-track');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const prevBtnMobile = document.getElementById('prev-btn-mobile');
+    const nextBtnMobile = document.getElementById('next-btn-mobile');
+    const indicators = document.querySelectorAll('.carousel-indicators button');
+    const slides = track.children;
+    const totalSlides = slides.length;
+    let currentIndex = 0;
+
+    function updateCarousel() {
+      const percentage = -100 * currentIndex;
+      track.style.transform = `translateX(${percentage}%)`;
+      indicators.forEach((btn, idx) => {
+        if (idx === currentIndex) {
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+          btn.tabIndex = 0;
+        } else {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+          btn.tabIndex = -1;
+        }
+      });
+    }
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    });
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateCarousel();
+    });
+    prevBtnMobile.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    });
+    nextBtnMobile.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateCarousel();
+    });
+
+    indicators.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        currentIndex = idx;
+        updateCarousel();
+      });
+    });
+
+    // Swipe support for mobile
+    let startX = 0;
+    let isDragging = false;
+
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
+
+    track.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const currentX = e.touches[0].clientX;
+      const diffX = currentX - startX;
+      if (Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+          currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        } else {
+          currentIndex = (currentIndex + 1) % totalSlides;
+        }
+        updateCarousel();
+        isDragging = false;
+      }
+    });
+
+    track.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+
+    // Initial carousel setup
+    updateCarousel();
   </script>
- </body>
+</body>
 </html>

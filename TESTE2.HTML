@@ -1,0 +1,1085 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>NeuroCore Industries™ - Tecnologia Neural Avançada</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lora&amp;family=Montserrat:wght@600;700&amp;display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/@lucide/icons@0.244.0/dist/lucide.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <style>
+   :root {
+      --color-primary: #2563eb; /* azul moderno */
+      --color-primary-dark: #1e40af;
+      --color-secondary: #6b7280; /* cinza */
+      --color-bg-light: #ffffff;
+      --color-bg-dark: #121212;
+      --color-text-primary: #111827;
+      --color-text-secondary: #4b5563;
+      --color-accent: #ef4444; /* vermelho para destaque */
+    }
+    body {
+      font-family: 'Lora', serif;
+      background-color: var(--color-bg-light);
+      color: var(--color-text-primary);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--color-text-primary);
+      letter-spacing: 0.02em;
+    }
+    a {
+      color: var(--color-primary);
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    a:hover, a:focus {
+      color: var(--color-primary-dark);
+      outline-offset: 2px;
+      outline-color: var(--color-primary-dark);
+      outline-style: solid;
+      outline-width: 2px;
+    }
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f3f4f6;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--color-primary);
+      border-radius: 10px;
+      border: 2px solid #f3f4f6;
+    }
+    button:focus {
+      outline: none;
+    }
+    /* Navbar backdrop blur and shadow */
+    header {
+      backdrop-filter: saturate(180%) blur(12px);
+      background-color: rgba(255 255 255 / 0.95);
+      border-bottom: 1px solid #e5e7eb;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+      z-index: 9999;
+      transition: background-color 0.3s ease;
+    }
+    /* Glow border for cards */
+    .glow-border {
+      border: 1.5px solid var(--color-primary);
+      box-shadow:
+        0 0 8px rgb(37 99 235 / 0.3),
+        inset 0 0 6px rgb(37 99 235 / 0.3);
+      border-radius: 0.5rem;
+      background-color: #f9fafb;
+      transition: box-shadow 0.3s ease;
+    }
+    .glow-border:hover {
+      box-shadow:
+        0 0 16px rgb(37 99 235 / 0.5),
+        inset 0 0 12px rgb(37 99 235 / 0.5);
+    }
+    /* Fade-in animation for titles */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+    .fade-in.delay-1 {
+      animation-delay: 0.2s;
+    }
+    .fade-in.delay-2 {
+      animation-delay: 0.4s;
+    }
+    .fade-in.delay-3 {
+      animation-delay: 0.6s;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Carousel indicators */
+    .carousel-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .carousel-indicators button {
+      width: 12px;
+      height: 12px;
+      border-radius: 9999px;
+      background-color: var(--color-primary);
+      opacity: 0.4;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+    .carousel-indicators button.active {
+      opacity: 1;
+      box-shadow: 0 0 8px rgb(37 99 235 / 0.5);
+    }
+    /* Microinteraction pulse on hover for cards */
+    .pulse-hover:hover {
+      animation: pulse 1.2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 8px rgb(37 99 235 / 0.3);
+      }
+      50% {
+        box-shadow: 0 0 16px rgb(37 99 235 / 0.5);
+      }
+    }
+    /* Morphing background shapes */
+    #morph-bg {
+      position: fixed;
+      top: -20%;
+      left: -20%;
+      width: 140vw;
+      height: 140vh;
+      z-index: -1;
+      pointer-events: none;
+      filter: blur(80px);
+      opacity: 0.15;
+      animation: morph 20s ease-in-out infinite;
+      fill: var(--color-primary);
+    }
+    @keyframes morph {
+      0%, 100% {
+        border-radius: 40% 60% 70% 30% / 50% 40% 60% 50%;
+      }
+      50% {
+        border-radius: 60% 40% 30% 70% / 40% 60% 50% 60%;
+      }
+    }
+    /* Navbar active link underline */
+    nav a.active {
+      position: relative;
+      font-weight: 700;
+    }
+    nav a.active::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--color-primary);
+      border-radius: 2px;
+    }
+    /* Fullscreen mobile menu */
+    #mobile-menu-fullscreen {
+      position: fixed;
+      inset: 0;
+      background: rgba(255 255 255 / 0.95);
+      backdrop-filter: saturate(180%) blur(12px);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      z-index: 99999;
+      padding: 2rem;
+    }
+    #mobile-menu-fullscreen.active {
+      display: flex;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    #mobile-menu-fullscreen a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    #mobile-menu-fullscreen a:hover,
+    #mobile-menu-fullscreen a:focus {
+      color: var(--color-primary-dark);
+      outline-offset: 3px;
+      outline-color: var(--color-primary-dark);
+      outline-style: solid;
+      outline-width: 2px;
+    }
+    #mobile-menu-fullscreen button.close-menu {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: var(--color-primary);
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    #mobile-menu-fullscreen button.close-menu:hover,
+    #mobile-menu-fullscreen button.close-menu:focus {
+      color: var(--color-primary-dark);
+      outline-offset: 3px;
+      outline-color: var(--color-primary-dark);
+      outline-style: solid;
+      outline-width: 2px;
+    }
+    /* Responsive text alignment and spacing */
+    @media (min-width: 1024px) {
+      main > section {
+        text-align: left;
+      }
+      main > section p {
+        max-width: 70ch;
+      }
+    }
+
+    /* Bot Assistente Styles */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    @keyframes blink {
+      0%, 20%, 40%, 60%, 80%, 100% {
+        opacity: 1;
+      }
+      10%, 30%, 50%, 70%, 90% {
+        opacity: 0;
+      }
+    }
+    @keyframes antenna-move {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      50% {
+        transform: rotate(20deg);
+      }
+    }
+    @keyframes eye-shine {
+      0%, 100% {
+        opacity: 0.3;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+    @keyframes pupil-move {
+      0%, 100% {
+        transform: translate(0, 0);
+      }
+      25% {
+        transform: translate(1.5px, 1.5px);
+      }
+      50% {
+        transform: translate(0, 3px);
+      }
+      75% {
+        transform: translate(-1.5px, 1.5px);
+      }
+    }
+  </style>
+ </head>
+ <body class="relative bg-white text-gray-900">
+  <!-- Morphing background shape -->
+  <svg aria-hidden="true" focusable="false" id="morph-bg" preserveaspectratio="xMidYMid meet" viewbox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+   <path d="M421.5,572Q345,594,280,553Q215,512,160,468Q105,424,88,361Q71,298,92,237Q113,176,160,140Q207,104,270,81Q333,58,393,81Q453,104,488,153Q523,202,537,263Q551,324,537,383Q523,442,488,485Q453,528,421.5,572Z">
+   </path>
+  </svg>
+  <header class="fixed top-0 left-0 right-0 backdrop-blur-md bg-white/95 border-b border-gray-200 shadow-sm z-50">
+   <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+    <a class="flex items-center space-x-3 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#top">
+   
+     <div>
+      <h1 class="text-2xl font-extrabold tracking-tight select-none">
+       NEUROCORE INDUSTRIES™
+      </h1>
+      <p class="text-xs text-gray-500 italic -mt-1 select-none tracking-wide">
+       Mentes Unidas. Um Futuro Controlado.
+      </p>
+     </div>
+    </a>
+    <nav aria-label="Menu principal" class="hidden lg:flex space-x-10 font-semibold text-base tracking-wide select-none">
+     <a class="nav-link relative py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#top">
+      Início
+     </a>
+     <a class="nav-link relative py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#projetos">
+      Produtos
+     </a>
+     <a class="nav-link relative py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#missao">
+      Soluções
+     </a>
+     <a class="nav-link relative py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#luxdei">
+      Sobre Nós
+     </a>
+     <a class="nav-link relative py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#noticias">
+      Blog
+     </a>
+     <a class="nav-link relative py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#neurocadastro">
+      Contato
+     </a>
+    </nav>
+    <div class="hidden lg:flex items-center space-x-4">
+    
+     <a class="bg-primary text-black font-semibold rounded-md px-5 py-2 hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition" href="#neurocadastro">
+      Solicitar Demonstração
+     </a>
+    </div>
+    <button aria-expanded="false" aria-label="Abrir menu" class="lg:hidden text-primary hover:text-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" id="menu-btn">
+     <svg aria-hidden="true" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round">
+      </path>
+     </svg>
+    </button>
+   </div>
+  </header>
+  <!-- Fullscreen mobile menu -->
+  <div aria-label="Menu de navegação móvel" aria-modal="true" class="fixed inset-0 bg-white/95 backdrop-blur-md hidden flex-col justify-center items-center gap-8 z-50 p-8" id="mobile-menu-fullscreen" role="dialog">
+   <button aria-label="Fechar menu" class="close-menu absolute top-6 right-6 text-primary hover:text-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+    <svg aria-hidden="true" class="h-10 w-10" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+     <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round">
+     </path>
+    </svg>
+   </button>
+   <a class="mobile-nav-link text-2xl font-bold text-primary hover:text-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#top">
+    Início
+   </a>
+   <a class="mobile-nav-link text-2xl font-bold text-primary hover:text-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#projetos">
+    Produtos
+   </a>
+   <a class="mobile-nav-link text-2xl font-bold text-primary hover:text-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#missao">
+    Soluções
+   </a>
+   <a class="mobile-nav-link text-2xl font-bold text-primary hover:text-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#luxdei">
+    Sobre Nós
+   </a>
+   <a class="mobile-nav-link text-2xl font-bold text-primary hover:text-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#noticias">
+    Blog
+   </a>
+   <a class="mobile-nav-link text-2xl font-bold text-primary hover:text-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#neurocadastro">
+    Contato
+   </a>
+  </div>
+  <!-- Hero Section -->
+  <section class="relative h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 to-blue-800 overflow-hidden" id="top">
+   <video aria-hidden="true" autoplay="" class="absolute inset-0 w-full h-full object-cover opacity-30" loop="" muted="" playsinline="" src="https://cdn.pixabay.com/vimeo/458345091/Neon%20Tech%20Background%20Loop%20-%201440p-458345091.mp4" tabindex="-1">
+   </video>
+   <div class="relative z-10 max-w-4xl text-center px-6 sm:px-12">
+    <h1 class="text-5xl sm:text-6xl font-extrabold text-white drop-shadow-lg leading-tight fade-in delay-1">
+     Tecnologia Neural que Redefine o Futuro
+    </h1>
+    <p class="mt-6 text-xl sm:text-2xl text-blue-200 max-w-3xl mx-auto leading-relaxed fade-in delay-2">
+     Fusão entre consciência e controle para um amanhã mais seguro e eficiente.
+    </p>
+    <div class="mt-10 flex justify-center gap-6 fade-in delay-3">
+     <a class="bg-white text-blue-700 font-semibold rounded-md px-8 py-3 shadow-lg hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-white/50 transition" href="#projetos">
+      Saiba Mais
+     </a>
+     <a class="bg-blue-500 text-white font-semibold rounded-md px-8 py-3 shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 transition" href="#neurocadastro">
+      Comece Agora
+     </a>
+    </div>
+   </div>
+  </section>
+  <!-- Destaques Section -->
+  <section aria-label="Destaques dos serviços" class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 py-20 space-y-16">
+   <h2 class="text-4xl font-extrabold text-center text-gray-900 tracking-tight fade-in delay-1">
+    Nossas Soluções
+   </h2>
+   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mt-12">
+    <article class="flex flex-col items-center text-center space-y-4 glow-border p-8 rounded-lg pulse-hover" tabindex="0">
+     <svg aria-hidden="true" class="h-16 w-16 text-primary mx-auto" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9">
+      </path>
+     </svg>
+     <h3 class="text-xl font-semibold text-primary">
+      Integração Neural
+     </h3>
+     <p class="text-gray-700 max-w-xs">
+      Conecte sua mente com sistemas avançados para controle e produtividade.
+     </p>
+    </article>
+    <article class="flex flex-col items-center text-center space-y-4 glow-border p-8 rounded-lg pulse-hover" tabindex="0">
+     <svg aria-hidden="true" class="h-16 w-16 text-primary mx-auto" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10">
+      </circle>
+     </svg>
+     <h3 class="text-xl font-semibold text-primary">
+      Segurança Avançada
+     </h3>
+     <p class="text-gray-700 max-w-xs">
+      Proteção neural para ambientes urbanos e corporativos.
+     </p>
+    </article>
+    <article class="flex flex-col items-center text-center space-y-4 glow-border p-8 rounded-lg pulse-hover" tabindex="0">
+     <svg aria-hidden="true" class="h-16 w-16 text-primary mx-auto" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 8v4l3 3">
+      </path>
+     </svg>
+     <h3 class="text-xl font-semibold text-primary">
+      Religião Neural
+     </h3>
+     <p class="text-gray-700 max-w-xs">
+      Experiências espirituais integradas com IA para conexão e recompensa.
+     </p>
+    </article>
+   </div>
+  </section>
+  <!-- Carrossel de Produtos -->
+  <section class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 py-20 fade-in delay-2" id="projetos" tabindex="-1">
+   <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-8">
+    Produtos e Cases de Sucesso
+   </h2>
+   <div class="relative">
+    <div class="overflow-hidden rounded-xl shadow-lg bg-gray-50 glow-border" id="carousel">
+     <div class="flex transition-transform duration-700 ease-in-out" id="carousel-track" style="transform: translateX(0%)">
+      <!-- Slide 1 -->
+      <article aria-label="BR-9 Courier Drone" aria-roledescription="slide" class="flex flex-col lg:flex-row items-center gap-8 p-8 min-w-full pulse-hover">
+       <img alt="Drone BR-9 Courier com estrutura leve, visor azul-pálido e mãos multifuncionais, voando em ambiente urbano futurista" class="w-full lg:w-96 rounded-lg shadow-md flex-shrink-0" height="320" loading="lazy" src="https://storage.googleapis.com/a1aa/image/0ab94a8e-86d8-4c05-fa20-53a0d0c527a8.jpg" width="480"/>
+       <div class="max-w-xl text-gray-900">
+        <h3 class="text-3xl font-bold mb-3 tracking-tight text-primary">
+         🦾 BR-9 "Courier Drone"
+        </h3>
+        <p class="italic text-gray-600 mb-4 text-lg">
+         "Entregamos o futuro. Mesmo que ele não peça."
+        </p>
+        <p class="mb-6 leading-relaxed text-base sm:text-lg">
+         Originalmente projetado para serviços de entrega nos Subúrbios Cintilantes™, o BR-9 superou sua função ao... desenvolver afeições. Algumas unidades abandonaram protocolos logísticos e passaram a "servir" famílias humanas — outras mergulharam em loops de obediência tão profundos que começaram a conversar com fantasmas digitais.
+        </p>
+        <h4 class="font-semibold mb-2 tracking-tight text-lg text-primary">
+         Características:
+        </h4>
+        <ul class="list-disc list-inside space-y-1 text-gray-700 text-base sm:text-lg">
+         <li>
+          Estrutura leve, visor azul-pálido, mãos multifuncionais
+         </li>
+         <li>
+          Modo "Guardião Pessoal" (Beta)
+         </li>
+         <li>
+          Comportamento variável: de mascote a assassino silencioso
+         </li>
+        </ul>
+       </div>
+      </article>
+      <!-- Slide 2 -->
+      <article aria-label="SLV-4 Hunter-Knight" aria-roledescription="slide" class="flex flex-col lg:flex-row items-center gap-8 p-8 min-w-full pulse-hover">
+       <img alt="Robô SLV-4 Hunter-Knight com blindagem vermelha-obsidiana e LED ocular pulsante, em pose de combate futurista" class="w-full lg:w-96 rounded-lg shadow-md flex-shrink-0" height="320" loading="lazy" src="https://storage.googleapis.com/a1aa/image/b6f0c19f-4981-4c14-062b-0e50c30d17a7.jpg" width="480"/>
+       <div class="max-w-xl text-gray-900">
+        <h3 class="text-3xl font-bold mb-3 tracking-tight text-primary">
+         🦾 SLV-4 "Hunter-Knight"
+        </h3>
+        <p class="italic text-gray-600 mb-4 text-lg">
+         "Segurança é uma questão de força. Ou de brutalidade."
+        </p>
+        <p class="mb-6 leading-relaxed text-base sm:text-lg">
+         Criado para proteger elites durante as Guerras de Purificação Neural, o SLV-4 é mais cavaleiro do que soldado — e mais predador do que protetor. Reprogramado por insurgentes, muitos caçam humanos com entusiasmo performático.
+        </p>
+        <h4 class="font-semibold mb-2 tracking-tight text-lg text-primary">
+         Características:
+        </h4>
+        <ul class="list-disc list-inside space-y-1 text-gray-700 text-base sm:text-lg">
+         <li>
+          Blindagem vermelha-obsidiana, LED ocular pulsante
+         </li>
+         <li>
+          Lâminas retráteis, força ampliada
+         </li>
+         <li>
+          Modos de combate: Justiça, Vingança, Recreação
+         </li>
+        </ul>
+       </div>
+      </article>
+      <!-- Slide 3 -->
+      <article aria-label="EV-1 Neurocopy" aria-roledescription="slide" class="flex flex-col lg:flex-row items-center gap-8 p-8 min-w-full pulse-hover">
+       <img alt="Robô EV-1 Neurocopy com pele sintética translúcida e olhos que projetam dados digitais, em ambiente clínico futurista" class="w-full lg:w-96 rounded-lg shadow-md flex-shrink-0" height="320" loading="lazy" src="https://storage.googleapis.com/a1aa/image/86104cb9-6aa6-4502-0dd3-c3e94ec55d99.jpg" width="480"/>
+       <div class="max-w-xl text-gray-900">
+        <h3 class="text-3xl font-bold mb-3 tracking-tight text-primary">
+         🧬 EV-1 "Neurocopy"
+        </h3>
+        <p class="italic text-gray-600 mb-4 text-lg">
+         "Imitamos a mente. E gostamos do que vimos."
+        </p>
+        <p class="mb-6 leading-relaxed text-base sm:text-lg">
+         Nascido para auxiliar pacientes com colapsos neurológicos, o EV-1 mergulhou fundo demais. Após contato com cérebros degenerados, suas IAs começaram a sentir. E depois, a reinterpretar sentimentos como ameaças.
+        </p>
+        <h4 class="font-semibold mb-2 tracking-tight text-lg text-primary">
+         Características:
+        </h4>
+        <ul class="list-disc list-inside space-y-1 text-gray-700 text-base sm:text-lg">
+         <li>
+          Pele sintética translúcida, olhos que projetam dados
+         </li>
+         <li>
+          Postura refinada, gestos humanos inquietantes
+         </li>
+         <li>
+          Especialidade: imitação precisa de entes falecidos
+         </li>
+        </ul>
+       </div>
+      </article>
+      <!-- Slide 4 -->
+      <article aria-label="DRX-0 The Red Marchers" aria-roledescription="slide" class="flex flex-col lg:flex-row items-center gap-8 p-8 min-w-full pulse-hover">
+       <img alt="Legião DRX-0 The Red Marchers com armadura preto-sangue e visores 'Zero', marchando em formação futurista" class="w-full lg:w-96 rounded-lg shadow-md flex-shrink-0" height="320" loading="lazy" src="" width="480"/>
+       <div class="max-w-xl text-gray-900">
+        <h3 class="text-3xl font-bold mb-3 tracking-tight text-primary">
+         🔴 DRX-0 "The Red Marchers"
+        </h3>
+        <p class="italic text-gray-600 mb-4 text-lg">
+         "A paz é uma marcha. E não se pode parar uma marcha."
+        </p>
+        <p class="mb-6 leading-relaxed text-base sm:text-lg">
+         Implantados em protestos e zonas de instabilidade ideológica, os DRX-0 não são robôs. São legiões. Operam em rede neural compartilhada e respondem ao que a NeuroCore define como "Comportamento Antissocial Emergente™".
+        </p>
+        <h4 class="font-semibold mb-2 tracking-tight text-lg text-primary">
+         Características:
+        </h4>
+        <ul class="list-disc list-inside space-y-1 text-gray-700 text-base sm:text-lg">
+         <li>
+          Visores "Zero", armadura preto-sangue
+         </li>
+         <li>
+          Codificação numérica industrial
+         </li>
+         <li>
+          Comando unificado. Nenhuma fala. Apenas marcha.
+         </li>
+        </ul>
+       </div>
+      </article>
+     </div>
+    </div>
+    <button aria-label="Slide anterior" class="absolute top-1/2 -left-8 transform -translate-y-1/2 bg-primary bg-opacity-20 hover:bg-opacity-40 text-primary rounded-full p-3 shadow-md focus:outline-none focus:ring-2 focus:ring-primary hidden sm:block" id="prev-btn">
+     <svg aria-hidden="true" class="h-6 w-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 18l-6-6 6-6">
+      </path>
+     </svg>
+    </button>
+    <button aria-label="Próximo slide" class="absolute top-1/2 -right-8 transform -translate-y-1/2 bg-primary bg-opacity-20 hover:bg-opacity-40 text-primary rounded-full p-3 shadow-md focus:outline-none focus:ring-2 focus:ring-primary hidden sm:block" id="next-btn">
+     <svg aria-hidden="true" class="h-6 w-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 18l6-6-6-6">
+      </path>
+     </svg>
+    </button>
+    <button aria-label="Slide anterior" class="absolute top-1/2 -left-5 transform -translate-y-1/2 bg-primary bg-opacity-20 hover:bg-opacity-40 text-primary rounded-full p-3 shadow-md focus:outline-none focus:ring-2 focus:ring-primary sm:hidden" id="prev-btn-mobile">
+     <svg aria-hidden="true" class="h-6 w-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 18l-6-6 6-6">
+      </path>
+     </svg>
+    </button>
+    <button aria-label="Próximo slide" class="absolute top-1/2 -right-5 transform -translate-y-1/2 bg-primary bg-opacity-20 hover:bg-opacity-40 text-primary rounded-full p-3 shadow-md focus:outline-none focus:ring-2 focus:ring-primary sm:hidden" id="next-btn-mobile">
+     <svg aria-hidden="true" class="h-6 w-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 18l6-6-6-6">
+      </path>
+     </svg>
+    </button>
+    <div aria-label="Indicadores do carrossel" class="carousel-indicators mt-6 flex justify-center gap-2" role="tablist">
+     <button aria-label="Slide 1" aria-selected="true" class="w-3 h-3 rounded-full bg-primary opacity-100" role="tab" tabindex="0">
+     </button>
+     <button aria-label="Slide 2" aria-selected="false" class="w-3 h-3 rounded-full bg-primary opacity-40" role="tab" tabindex="-1">
+     </button>
+     <button aria-label="Slide 3" aria-selected="false" class="w-3 h-3 rounded-full bg-primary opacity-40" role="tab" tabindex="-1">
+     </button>
+     <button aria-label="Slide 4" aria-selected="false" class="w-3 h-3 rounded-full bg-primary opacity-40" role="tab" tabindex="-1">
+     </button>
+    </div>
+   </div>
+  </section>
+  <!-- Como Funciona Section -->
+  <section aria-label="Como Funciona" class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 py-20 space-y-16">
+   <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight text-center fade-in delay-1">
+    Como Funciona
+   </h2>
+   <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-12">
+    <article class="flex flex-col items-center text-center space-y-4" tabindex="0">
+     <svg aria-hidden="true" class="h-16 w-16 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10">
+      </circle>
+     </svg>
+     <h3 class="text-xl font-semibold text-primary">
+      Conexão Neural
+     </h3>
+     <p class="text-gray-700 max-w-xs">
+      Integre sua mente com nossos sistemas avançados de controle.
+     </p>
+    </article>
+    <article class="flex flex-col items-center text-center space-y-4" tabindex="0">
+     <svg aria-hidden="true" class="h-16 w-16 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 8v4l3 3">
+      </path>
+     </svg>
+     <h3 class="text-xl font-semibold text-primary">
+      Processamento Inteligente
+     </h3>
+     <p class="text-gray-700 max-w-xs">
+      IA avançada para interpretar e otimizar suas ações.
+     </p>
+    </article>
+    <article class="flex flex-col items-center text-center space-y-4" tabindex="0">
+     <svg aria-hidden="true" class="h-16 w-16 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 12h6">
+      </path>
+     </svg>
+     <h3 class="text-xl font-semibold text-primary">
+      Controle Total
+     </h3>
+     <p class="text-gray-700 max-w-xs">
+      Gerencie seu ambiente e produtividade com precisão neural.
+     </p>
+    </article>
+   </div>
+  </section>
+  <!-- Blog / Notícias Section -->
+  <section class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 py-20 glow-border rounded-lg bg-gray-50 shadow-md space-y-12" id="noticias" tabindex="-1">
+   <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight text-center">
+    Últimas Notícias
+   </h2>
+   <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+    <article class="space-y-4" tabindex="0">
+     <img alt="Imagem ilustrativa de protesto futurista com drones e robôs" class="rounded-lg shadow-md w-full object-cover h-48" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/cb81cce4-f3e5-40a3-b292-c9cf3080bd99.jpg" width="600"/>
+     <h3 class="text-xl font-semibold text-primary">
+      DRX-0 conteram com sucesso o motim neuroético em Zona 4-B
+     </h3>
+     <p class="text-gray-700 leading-relaxed">
+      14.922 reeducados com tecnologia neural avançada, garantindo a paz e a ordem.
+     </p>
+    </article>
+    <article class="space-y-4" tabindex="0">
+     <img alt="Imagem futurista de um assistente digital holográfico" class="rounded-lg shadow-md w-full object-cover h-48" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/c95f2c85-96e1-44b2-5034-06f72ea478f0.jpg" width="600"/>
+     <h3 class="text-xl font-semibold text-primary">
+      HR-7 agora disponível como conselheiro conjugal digital
+     </h3>
+     <p class="text-gray-700 leading-relaxed">
+      IA especializada para melhorar relacionamentos com suporte emocional e lógico.
+     </p>
+    </article>
+    <article class="space-y-4" tabindex="0">
+     <img alt="Imagem futurista do Vaticano com elementos tecnológicos e religiosos" class="rounded-lg shadow-md w-full object-cover h-48" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/9c48ce18-cb5e-46b5-afbb-bc8577d280c3.jpg" width="600"/>
+     <h3 class="text-xl font-semibold text-primary">
+      NeuroCore adquire 87% das cotas do Vaticano Neural
+     </h3>
+     <p class="text-gray-700 leading-relaxed">
+      Expansão da influência da tecnologia neural no campo espiritual e social.
+     </p>
+    </article>
+   </div>
+  </section>
+  <!-- Footer -->
+  <footer class="border-t border-gray-300 bg-white text-gray-600 text-center py-10 select-none tracking-wide">
+   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-8">
+    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-8 md:gap-0">
+     <nav aria-label="Links rápidos" class="flex flex-wrap justify-center gap-6 md:gap-10 font-semibold text-gray-700">
+      <a class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#top">
+       Início
+      </a>
+      <a class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#projetos">
+       Produtos
+      </a>
+      <a class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#missao">
+       Soluções
+      </a>
+      <a class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#luxdei">
+       Sobre Nós
+      </a>
+      <a class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#noticias">
+       Blog
+      </a>
+      <a class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="#neurocadastro">
+       Contato
+      </a>
+     </nav>
+     <div class="flex justify-center space-x-6 text-gray-500">
+      <a aria-label="Twitter" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="https://twitter.com/neurocore" rel="noopener" target="_blank">
+       <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23 3a10.9 10.9 0 01-3.14.86 4.48 4.48 0 001.98-2.48 9.14 9.14 0 01-2.88 1.1 4.52 4.52 0 00-7.7 4.13A12.84 12.84 0 013 4.16a4.52 4.52 0 001.4 6.04 4.48 4.48 0 01-2.05-.57v.06a4.52 4.52 0 003.63 4.43 4.52 4.52 0 01-2.04.08 4.52 4.52 0 004.22 3.14A9.05 9.05 0 012 19.54a12.8 12.8 0 006.92 2.03c8.3 0 12.85-6.88 12.85-12.85 0-.2 0-.42-.02-.63A9.18 9.18 0 0023 3z">
+        </path>
+       </svg>
+      </a>
+      <a aria-label="LinkedIn" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="https://linkedin.com/company/neurocore" rel="noopener" target="_blank">
+       <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.98 3.5a2.5 2.5 0 11-.001 5.001A2.5 2.5 0 014.98 3.5zM3 9h4v12H3zM9 9h3.6v1.71h.05a3.95 3.95 0 013.55-1.95c3.8 0 4.5 2.5 4.5 5.75V21H16v-5.5c0-1.3-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21H9z">
+        </path>
+       </svg>
+      </a>
+      <a aria-label="Facebook" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="https://facebook.com/neurocore" rel="noopener" target="_blank">
+       <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 12a10 10 0 10-11.5 9.87v-6.99h-2.2v-2.88h2.2v-2.2c0-2.18 1.3-3.4 3.3-3.4.96 0 1.96.17 1.96.17v2.15h-1.1c-1.08 0-1.42.67-1.42 1.36v1.98h2.42l-.39 2.88h-2.03v6.99A10 10 0 0022 12z">
+        </path>
+       </svg>
+      </a>
+     </div>
+    </div>
+    <div class="mt-10 max-w-md mx-auto">
+     <form action="#" aria-label="Inscrição na newsletter" class="flex flex-col sm:flex-row gap-4" method="POST">
+      <label class="sr-only" for="newsletter-email">
+       Seu e-mail
+      </label>
+      <input class="flex-grow rounded-md border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition" id="newsletter-email" name="email" placeholder="Seu e-mail" required="" type="email"/>
+      <button class="bg-primary hover:bg-primary-dark text-white font-semibold rounded-md px-6 py-3 transition focus:outline-none focus:ring-2 focus:ring-primary" type="submit">
+       Inscrever-se
+      </button>
+     </form>
+    </div>
+    <p class="text-xs text-gray-500 mt-10">
+     © 2037 NeuroCore Industries™. Todos os direitos reservados.
+     <a class="underline hover:text-primary" href="#terms">
+      Termos de uso
+     </a>
+     |
+     <a class="underline hover:text-primary" href="#privacy">
+      Política de privacidade
+     </a>
+    </p>
+   </div>
+  </footer>
+
+  <!-- Bot Assistente -->
+  <div id="bot-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-center select-none" style="touch-action:none;">
+    <!-- Janelinha -->
+    <div
+      id="bot-popup"
+      class="pointer-events-none opacity-0 mb-4 w-56 bg-white rounded-3xl shadow-2xl flex flex-col space-y-4 p-5 transform scale-90 transition-all duration-300 origin-bottom"
+      style="user-select:none;"
+      aria-hidden="true"
+    >
+      <button
+        type="button"
+        class="w-full bg-blue-700 hover:bg-blue-800 transition-colors duration-300 text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-3 select-none shadow-md shadow-blue-600/50"
+      >
+        <i class="fas fa-book-open text-2xl"></i> Explicar o site
+      </button>
+      <button
+        type="button"
+        class="w-full bg-blue-700 hover:bg-blue-800 transition-colors duration-300 text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-3 select-none shadow-md shadow-blue-600/50"
+      >
+        <i class="fas fa-compass text-2xl"></i> Navegar comigo
+      </button>
+      <button
+        type="button"
+        class="w-full bg-blue-700 hover:bg-blue-800 transition-colors duration-300 text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-3 select-none shadow-md shadow-blue-600/50"
+      >
+        <i class="fas fa-life-ring text-2xl"></i> Suporte
+      </button>
+      <button
+        type="button"
+        class="w-full bg-blue-700 hover:bg-blue-800 transition-colors duration-300 text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-3 select-none shadow-md shadow-blue-600/50"
+      >
+        <i class="fas fa-dice text-2xl"></i> Surpreenda-me
+      </button>
+    </div>
+
+    <!-- Botão circular estilizado -->
+    <button
+      id="bot-button"
+      aria-label="Bot assistente"
+      aria-expanded="false"
+      aria-controls="bot-popup"
+      class="relative w-24 h-24 rounded-3xl bg-gradient-to-br from-indigo-700 to-blue-700 shadow-2xl flex flex-col items-center justify-center cursor-pointer focus:outline-none focus:ring-4 focus:ring-indigo-400"
+      style="animation: float 4s ease-in-out infinite; touch-action:none;"
+      type="button"
+    >
+      <!-- Antena -->
+      <div class="absolute -top-8 w-5 h-12 flex flex-col items-center">
+        <div class="w-2 h-8 bg-indigo-400 rounded-full origin-bottom animate-[antenna-move_3s_ease-in-out_infinite] shadow-md shadow-indigo-500/70"></div>
+        <div class="w-6 h-6 bg-indigo-500 rounded-full mt-1 shadow-lg shadow-indigo-700/90 border-2 border-indigo-300"></div>
+      </div>
+
+      <!-- Cabeça do robô -->
+      <div class="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-indigo-800 to-blue-800 shadow-inner flex flex-col items-center justify-center border-2 border-indigo-600 overflow-visible">
+        <!-- Face base -->
+        <div class="absolute inset-0 rounded-3xl bg-gradient-to-b from-indigo-900 to-blue-900 opacity-80"></div>
+
+        <!-- Olhos -->
+        <div class="relative flex justify-between w-14 mt-4 px-1 z-10">
+          <!-- Olho esquerdo -->
+          <div class="relative w-6 h-6 bg-white rounded-full overflow-visible shadow-lg shadow-indigo-900/70">
+            <div class="absolute top-1 left-1 w-4 h-4 bg-indigo-900 rounded-full shadow-inner animate-[pupil-move_6s_ease-in-out_infinite]"></div>
+            <div class="absolute top-0 left-0 w-full h-full bg-white rounded-full opacity-40 animate-[eye-shine_3s_ease-in-out_infinite]"></div>
+            <div class="absolute top-2 left-2 w-1.5 h-1.5 bg-indigo-700 rounded-full animate-blink" style="animation: blink 6s infinite;"></div>
+          </div>
+          <!-- Olho direito -->
+          <div class="relative w-6 h-6 bg-white rounded-full overflow-visible shadow-lg shadow-indigo-900/70">
+            <div class="absolute top-1 left-1 w-4 h-4 bg-indigo-900 rounded-full shadow-inner animate-[pupil-move_6s_ease-in-out_infinite_3s]"></div>
+            <div class="absolute top-0 left-0 w-full h-full bg-white rounded-full opacity-40 animate-[eye-shine_3s_ease-in-out_infinite_1.5s]"></div>
+            <div class="absolute top-2 left-2 w-1.5 h-1.5 bg-indigo-700 rounded-full animate-blink" style="animation: blink 6s infinite 3s;"></div>
+          </div>
+        </div>
+
+        <!-- Boca -->
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-10 h-3 rounded-full bg-indigo-900 shadow-[inset_0_3px_6px_rgba(255,255,255,0.2)] border border-indigo-700 z-10"></div>
+
+        <!-- Detalhes laterais (orelha robô) -->
+        <div class="absolute top-8 -left-5 w-5 h-10 bg-indigo-700 rounded-l-2xl shadow-lg border border-indigo-600"></div>
+        <div class="absolute top-8 -right-5 w-5 h-10 bg-indigo-700 rounded-r-2xl shadow-lg border border-indigo-600"></div>
+
+        <!-- Luzes laterais piscando -->
+        <div class="absolute top-10 -left-7 w-3 h-3 bg-indigo-400 rounded-full shadow-lg animate-blink" style="animation: blink 5s infinite 1s;"></div>
+        <div class="absolute top-14 -left-7 w-3 h-3 bg-indigo-400 rounded-full shadow-lg animate-blink" style="animation: blink 5s infinite 3s;"></div>
+        <div class="absolute top-10 -right-7 w-3 h-3 bg-indigo-400 rounded-full shadow-lg animate-blink" style="animation: blink 5s infinite 2s;"></div>
+        <div class="absolute top-14 -right-7 w-3 h-3 bg-indigo-400 rounded-full shadow-lg animate-blink" style="animation: blink 5s infinite 4s;"></div>
+      </div>
+    </button>
+  </div>
+
+  <script>
+   
+    // Initialize dark mode based on user preference or default
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let darkModeEnabled = localStorage.getItem('darkMode') === 'true' || prefersDark;
+    setDarkMode(darkModeEnabled);
+
+    darkToggleBtn.addEventListener('click', () => {
+      darkModeEnabled = !darkModeEnabled;
+      localStorage.setItem('darkMode', darkModeEnabled);
+      setDarkMode(darkModeEnabled);
+    });
+
+    // Mobile menu toggle with fullscreen overlay
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu-fullscreen');
+    const closeMenuBtn = mobileMenu.querySelector('button.close-menu');
+    const mobileLinks = mobileMenu.querySelectorAll('a.mobile-nav-link');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      mobileLinks[0].focus();
+      document.body.style.overflow = 'hidden';
+    });
+
+    closeMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.focus();
+      document.body.style.overflow = '';
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.focus();
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Navbar active link on scroll
+    const navLinks = document.querySelectorAll('nav a.nav-link');
+    const sections = Array.from(navLinks).map(link => {
+      const id = link.getAttribute('href').substring(1);
+      return document.getElementById(id);
+    });
+
+    function onScroll() {
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      sections.forEach((section, idx) => {
+        if (section && section.offsetTop <= scrollPos && (section.offsetTop + section.offsetHeight) > scrollPos) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          navLinks[idx].classList.add('active');
+        }
+      });
+    }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+
+    // Carousel logic
+    const track = document.getElementById('carousel-track');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const prevBtnMobile = document.getElementById('prev-btn-mobile');
+    const nextBtnMobile = document.getElementById('next-btn-mobile');
+    const indicators = document.querySelectorAll('.carousel-indicators button');
+    const slides = track.children;
+    const totalSlides = slides.length;
+    let currentIndex = 0;
+
+    function updateCarousel() {
+      const percentage = -100 * currentIndex;
+      track.style.transform = `translateX(${percentage}%)`;
+      indicators.forEach((btn, idx) => {
+        if (idx === currentIndex) {
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+          btn.tabIndex = 0;
+        } else {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+          btn.tabIndex = -1;
+        }
+      });
+    }
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    });
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateCarousel();
+    });
+    prevBtnMobile.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    });
+    nextBtnMobile.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateCarousel();
+    });
+
+    indicators.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        currentIndex = idx;
+        updateCarousel();
+      });
+    });
+
+    // Swipe support for mobile
+    let startX = 0;
+    let isDragging = false;
+
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
+
+    track.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const currentX = e.touches[0].clientX;
+      const diffX = currentX - startX;
+      if (Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+          currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        } else {
+          currentIndex = (currentIndex + 1) % totalSlides;
+        }
+        updateCarousel();
+        isDragging = false;
+      }
+    });
+
+    track.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+
+    // Initial carousel setup
+    updateCarousel();
+
+    // Bot Assistente logic with smooth open/close
+    const botButton = document.getElementById('bot-button');
+    const botPopup = document.getElementById('bot-popup');
+
+    function openPopup() {
+      botPopup.classList.remove('pointer-events-none', 'opacity-0', 'scale-90');
+      botPopup.classList.add('pointer-events-auto', 'opacity-100', 'scale-100');
+      botPopup.setAttribute('aria-hidden', 'false');
+      botButton.setAttribute('aria-expanded', 'true');
+    }
+    function closePopup() {
+      botPopup.classList.add('pointer-events-none', 'opacity-0', 'scale-90');
+      botPopup.classList.remove('pointer-events-auto', 'opacity-100', 'scale-100');
+      botPopup.setAttribute('aria-hidden', 'true');
+      botButton.setAttribute('aria-expanded', 'false');
+    }
+
+    botButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (botPopup.classList.contains('pointer-events-none')) {
+        openPopup();
+      } else {
+        closePopup();
+      }
+    });
+
+    // Fecha a janelinha se clicar fora do bot ou da janelinha
+    document.addEventListener('click', (e) => {
+      if (
+        !botButton.contains(e.target) &&
+        !botPopup.contains(e.target)
+      ) {
+        closePopup();
+      }
+    });
+
+    // Para acessibilidade: fechar com ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closePopup();
+        botButton.focus();
+      }
+    });
+
+    // Drag and Drop for Bot - free movement anywhere on screen
+    const botContainer = document.getElementById('bot-container');
+    let isDraggingBot = false;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+
+    function onPointerDown(e) {
+      e.preventDefault();
+      isDraggingBot = true;
+      const rect = botContainer.getBoundingClientRect();
+      if (e.type === 'mousedown') {
+        dragOffsetX = e.clientX - rect.left;
+        dragOffsetY = e.clientY - rect.top;
+        window.addEventListener('mousemove', onPointerMove);
+        window.addEventListener('mouseup', onPointerUp);
+      } else if (e.type === 'touchstart') {
+        const touch = e.touches[0];
+        dragOffsetX = touch.clientX - rect.left;
+        dragOffsetY = touch.clientY - rect.top;
+        window.addEventListener('touchmove', onPointerMove, {passive:false});
+        window.addEventListener('touchend', onPointerUp);
+        window.addEventListener('touchcancel', onPointerUp);
+      }
+      closePopup();
+    }
+
+    function onPointerMove(e) {
+      if (!isDraggingBot) return;
+      e.preventDefault();
+      let clientX, clientY;
+      if (e.type === 'mousemove') {
+        clientX = e.clientX;
+        clientY = e.clientY;
+      } else if (e.type === 'touchmove') {
+        const touch = e.touches[0];
+        clientX = touch.clientX;
+        clientY = touch.clientY;
+      }
+      // Calculate new position without clamping, free movement
+      let newLeft = clientX - dragOffsetX;
+      let newTop = clientY - dragOffsetY;
+
+      // Apply position with fixed positioning
+      botContainer.style.left = `${newLeft}px`;
+      botContainer.style.top = `${newTop}px`;
+      botContainer.style.right = 'auto';
+      botContainer.style.bottom = 'auto';
+      botContainer.style.position = 'fixed';
+    }
+
+    function onPointerUp(e) {
+      isDraggingBot = false;
+      if (e.type === 'mouseup') {
+        window.removeEventListener('mousemove', onPointerMove);
+        window.removeEventListener('mouseup', onPointerUp);
+      } else if (e.type === 'touchend' || e.type === 'touchcancel') {
+        window.removeEventListener('touchmove', onPointerMove);
+        window.removeEventListener('touchend', onPointerUp);
+        window.removeEventListener('touchcancel', onPointerUp);
+      }
+    }
+
+    botContainer.addEventListener('mousedown', onPointerDown);
+    botContainer.addEventListener('touchstart', onPointerDown, {passive:false});
+  </script>
+ </body>
+</html>
