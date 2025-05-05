@@ -331,17 +331,8 @@
      </a>
     </nav>
     <div class="hidden lg:flex items-center space-x-4">
-     <button aria-label="Alternar modo claro e escuro" class="p-2 rounded-md border border-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" id="dark-mode-toggle" title="Alternar modo claro/escuro">
-      <svg aria-hidden="true" class="h-6 w-6 block" fill="none" id="icon-light" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-       <path d="M12 3v1m0 16v1m8.485-8.485h-1M4.515 12.515h-1m15.364 4.95l-.707-.707M6.343 6.343l-.707-.707m12.728 12.728l-.707-.707M6.343 17.657l-.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z" stroke-linecap="round" stroke-linejoin="round">
-       </path>
-      </svg>
-      <svg aria-hidden="true" class="h-6 w-6 hidden" fill="none" id="icon-dark" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-       <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" stroke-linecap="round" stroke-linejoin="round">
-       </path>
-      </svg>
-     </button>
-     <a class="bg-primary text-white font-semibold rounded-md px-5 py-2 hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition" href="#neurocadastro">
+  
+     <a class="bg-primary text-black font-semibold rounded-md px-5 py-2 hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition" href="#neurocadastro">
       Solicitar Demonstração
      </a>
     </div>
@@ -758,24 +749,20 @@
   <div class="fixed bottom-6 right-6 z-50 flex flex-col items-center select-none" id="bot-container" style="touch-action:none;">
    <!-- Janelinha -->
    <div aria-hidden="true" class="pointer-events-none opacity-0 mb-4 w-56 bg-white rounded-3xl shadow-2xl flex flex-col space-y-4 p-5 transform scale-90 transition-all duration-300 origin-bottom" id="bot-popup" style="user-select:none;">
-    <button class="w-full bg-blue-700 hover:bg-blue-800 transition-colors duration-300 text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-3 select-none shadow-md shadow-blue-600/50" type="button">
-     <i class="fas fa-book-open text-2xl">
-     </i>
+    <button class="w-full bg-blue-700 hover:bg-blue-800 transition-colors duration-300 text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-3 select-none shadow-md shadow-blue-600/50" type="button" id="btn-explicar">
+     <i class="fas fa-book-open text-2xl"></i>
      Explicar o site
     </button>
-    <button class="w-full bg-blue-700 hover:bg-blue-800 transition-colors duration-300 text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-3 select-none shadow-md shadow-blue-600/50" type="button">
-     <i class="fas fa-compass text-2xl">
-     </i>
+    <button class="w-full bg-blue-700 hover:bg-blue-800 transition-colors duration-300 text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-3 select-none shadow-md shadow-blue-600/50" type="button" id="btn-navegar">
+     <i class="fas fa-compass text-2xl"></i>
      Navegar comigo
     </button>
-    <button class="w-full bg-blue-700 hover:bg-blue-800 transition-colors duration-300 text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-3 select-none shadow-md shadow-blue-600/50" type="button">
-     <i class="fas fa-life-ring text-2xl">
-     </i>
+    <button class="w-full bg-blue-700 hover:bg-blue-800 transition-colors duration-300 text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-3 select-none shadow-md shadow-blue-600/50" type="button" id="btn-suporte">
+     <i class="fas fa-life-ring text-2xl"></i>
      Suporte
     </button>
-    <button class="w-full bg-blue-700 hover:bg-blue-800 transition-colors duration-300 text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-3 select-none shadow-md shadow-blue-600/50" type="button">
-     <i class="fas fa-dice text-2xl">
-     </i>
+    <button class="w-full bg-blue-700 hover:bg-blue-800 transition-colors duration-300 text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-3 select-none shadow-md shadow-blue-600/50" type="button" id="btn-surpreenda">
+     <i class="fas fa-dice text-2xl"></i>
      Surpreenda-me
     </button>
    </div>
@@ -783,99 +770,42 @@
    <button aria-controls="bot-popup" aria-expanded="false" aria-label="Bot assistente" class="relative w-24 h-24 rounded-3xl bg-gradient-to-br from-indigo-700 to-blue-700 shadow-2xl flex flex-col items-center justify-center cursor-pointer focus:outline-none focus:ring-4 focus:ring-indigo-400" id="bot-button" style="animation: float 4s ease-in-out infinite; touch-action:none;" type="button">
     <!-- Antena -->
     <div class="absolute -top-8 w-5 h-12 flex flex-col items-center">
-     <div class="w-2 h-8 bg-indigo-400 rounded-full origin-bottom animate-[antenna-move_3s_ease-in-out_infinite] shadow-md shadow-indigo-500/70">
-     </div>
-     <div class="w-6 h-6 bg-indigo-500 rounded-full mt-1 shadow-lg shadow-indigo-700/90 border-2 border-indigo-300">
-     </div>
+     <div class="w-2 h-8 bg-indigo-400 rounded-full origin-bottom animate-[antenna-move_3s_ease-in-out_infinite] shadow-md shadow-indigo-500/70"></div>
+     <div class="w-6 h-6 bg-indigo-500 rounded-full mt-1 shadow-lg shadow-indigo-700/90 border-2 border-indigo-300"></div>
     </div>
     <!-- Cabeça do robô -->
     <div class="relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-indigo-800 to-blue-800 shadow-inner flex flex-col items-center justify-center border-2 border-indigo-600 overflow-visible">
      <!-- Face base -->
-     <div class="absolute inset-0 rounded-3xl bg-gradient-to-b from-indigo-900 to-blue-900 opacity-80">
-     </div>
+     <div class="absolute inset-0 rounded-3xl bg-gradient-to-b from-indigo-900 to-blue-900 opacity-80"></div>
      <!-- Olhos -->
      <div class="relative flex justify-between w-14 mt-4 px-1 z-10">
       <!-- Olho esquerdo -->
       <div class="relative w-6 h-6 bg-white rounded-full overflow-visible shadow-lg shadow-indigo-900/70">
-       <div class="absolute top-1 left-1 w-4 h-4 bg-indigo-900 rounded-full shadow-inner animate-[pupil-move_6s_ease-in-out_infinite]">
-       </div>
-       <div class="absolute top-0 left-0 w-full h-full bg-white rounded-full opacity-40 animate-[eye-shine_3s_ease-in-out_infinite]">
-       </div>
-       <div class="absolute top-2 left-2 w-1.5 h-1.5 bg-indigo-700 rounded-full animate-blink" style="animation: blink 6s infinite;">
-       </div>
+       <div class="absolute top-1 left-1 w-4 h-4 bg-indigo-900 rounded-full shadow-inner animate-[pupil-move_6s_ease-in-out_infinite]"></div>
+       <div class="absolute top-0 left-0 w-full h-full bg-white rounded-full opacity-40 animate-[eye-shine_3s_ease-in-out_infinite]"></div>
+       <div class="absolute top-2 left-2 w-1.5 h-1.5 bg-indigo-700 rounded-full animate-blink" style="animation: blink 6s infinite;"></div>
       </div>
       <!-- Olho direito -->
       <div class="relative w-6 h-6 bg-white rounded-full overflow-visible shadow-lg shadow-indigo-900/70">
-       <div class="absolute top-1 left-1 w-4 h-4 bg-indigo-900 rounded-full shadow-inner animate-[pupil-move_6s_ease-in-out_infinite_3s]">
-       </div>
-       <div class="absolute top-0 left-0 w-full h-full bg-white rounded-full opacity-40 animate-[eye-shine_3s_ease-in-out_infinite_1.5s]">
-       </div>
-       <div class="absolute top-2 left-2 w-1.5 h-1.5 bg-indigo-700 rounded-full animate-blink" style="animation: blink 6s infinite 3s;">
-       </div>
+       <div class="absolute top-1 left-1 w-4 h-4 bg-indigo-900 rounded-full shadow-inner animate-[pupil-move_6s_ease-in-out_infinite_3s]"></div>
+       <div class="absolute top-0 left-0 w-full h-full bg-white rounded-full opacity-40 animate-[eye-shine_3s_ease-in-out_infinite_1.5s]"></div>
+       <div class="absolute top-2 left-2 w-1.5 h-1.5 bg-indigo-700 rounded-full animate-blink" style="animation: blink 6s infinite 3s;"></div>
       </div>
      </div>
      <!-- Boca -->
-     <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-10 h-3 rounded-full bg-indigo-900 shadow-[inset_0_3px_6px_rgba(255,255,255,0.2)] border border-indigo-700 z-10">
-     </div>
+     <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-10 h-3 rounded-full bg-indigo-900 shadow-[inset_0_3px_6px_rgba(255,255,255,0.2)] border border-indigo-700 z-10"></div>
      <!-- Detalhes laterais (orelha robô) -->
-     <div class="absolute top-8 -left-5 w-5 h-10 bg-indigo-700 rounded-l-2xl shadow-lg border border-indigo-600">
-     </div>
-     <div class="absolute top-8 -right-5 w-5 h-10 bg-indigo-700 rounded-r-2xl shadow-lg border border-indigo-600">
-     </div>
+     <div class="absolute top-8 -left-5 w-5 h-10 bg-indigo-700 rounded-l-2xl shadow-lg border border-indigo-600"></div>
+     <div class="absolute top-8 -right-5 w-5 h-10 bg-indigo-700 rounded-r-2xl shadow-lg border border-indigo-600"></div>
      <!-- Luzes laterais piscando -->
-     <div class="absolute top-10 -left-7 w-3 h-3 bg-indigo-400 rounded-full shadow-lg animate-blink" style="animation: blink 5s infinite 1s;">
-     </div>
-     <div class="absolute top-14 -left-7 w-3 h-3 bg-indigo-400 rounded-full shadow-lg animate-blink" style="animation: blink 5s infinite 3s;">
-     </div>
-     <div class="absolute top-10 -right-7 w-3 h-3 bg-indigo-400 rounded-full shadow-lg animate-blink" style="animation: blink 5s infinite 2s;">
-     </div>
-     <div class="absolute top-14 -right-7 w-3 h-3 bg-indigo-400 rounded-full shadow-lg animate-blink" style="animation: blink 5s infinite 4s;">
-     </div>
+     <div class="absolute top-10 -left-7 w-3 h-3 bg-indigo-400 rounded-full shadow-lg animate-blink" style="animation: blink 5s infinite 1s;"></div>
+     <div class="absolute top-14 -left-7 w-3 h-3 bg-indigo-400 rounded-full shadow-lg animate-blink" style="animation: blink 5s infinite 3s;"></div>
+     <div class="absolute top-10 -right-7 w-3 h-3 bg-indigo-400 rounded-full shadow-lg animate-blink" style="animation: blink 5s infinite 2s;"></div>
+     <div class="absolute top-14 -right-7 w-3 h-3 bg-indigo-400 rounded-full shadow-lg animate-blink" style="animation: blink 5s infinite 4s;"></div>
     </div>
    </button>
   </div>
   <script>
-   // Dark mode toggle
-    const darkToggleBtn = document.getElementById('dark-mode-toggle');
-    const iconLight = document.getElementById('icon-light');
-    const iconDark = document.getElementById('icon-dark');
-    const root = document.documentElement;
-
-    function setDarkMode(enabled) {
-      if (enabled) {
-        document.body.classList.add('dark');
-       
-        root.style.setProperty('--color-bg-dark', '#ffffff');
-        root.style.setProperty('--color-text-primary', '#f9fafb');
-        root.style.setProperty('--color-text-secondary', '#9ca3af');
-       
-        root.style.setProperty('--color-primary-dark', '#1e40af');
-        iconLight.classList.add('hidden');
-        iconDark.classList.remove('hidden');
-      } else {
-        document.body.classList.remove('dark');
-        root.style.setProperty('--color-bg-light', '#ffffff');
-        root.style.setProperty('--color-bg-dark', '#121212');
-        root.style.setProperty('--color-text-primary', '#111827');
-        root.style.setProperty('--color-text-secondary', '#4b5563');
-        root.style.setProperty('--color-primary', '#2563eb');
-        root.style.setProperty('--color-primary-dark', '#1e40af');
-        iconLight.classList.remove('hidden');
-        iconDark.classList.add('hidden');
-      }
-    }
-
-    // Initialize dark mode based on user preference or default
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    let darkModeEnabled = localStorage.getItem('darkMode') === 'true' || prefersDark;
-    setDarkMode(darkModeEnabled);
-
-    darkToggleBtn.addEventListener('click', () => {
-      darkModeEnabled = !darkModeEnabled;
-      localStorage.setItem('darkMode', darkModeEnabled);
-      setDarkMode(darkModeEnabled);
-    });
-
     // Mobile menu toggle with fullscreen overlay
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu-fullscreen');
@@ -1048,6 +978,24 @@
         closePopup();
         botButton.focus();
       }
+    });
+
+    // Bot buttons functionality example
+    document.getElementById('btn-explicar').addEventListener('click', () => {
+      alert('Este site apresenta as tecnologias avançadas da NeuroCore Industries, focadas em integração neural e IA.');
+      closePopup();
+    });
+    document.getElementById('btn-navegar').addEventListener('click', () => {
+      alert('Vamos navegar juntos! Use o menu para explorar nossos produtos e soluções.');
+      closePopup();
+    });
+    document.getElementById('btn-suporte').addEventListener('click', () => {
+      alert('Suporte ativado! Entre em contato conosco para qualquer dúvida ou assistência.');
+      closePopup();
+    });
+    document.getElementById('btn-surpreenda').addEventListener('click', () => {
+      alert('Surpresa! Obrigado por interagir com nosso bot assistente.');
+      closePopup();
     });
 
     // Drag and Drop for Bot - free movement anywhere on screen
