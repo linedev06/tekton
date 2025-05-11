@@ -1,0 +1,314 @@
+<html lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+  <title>
+   Chat Athena AI - Consciência Jurídica Invisível
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #FFFEFA;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* Scrollbar for chat messages */
+    #chat-messages {
+      scrollbar-width: thin;
+      scrollbar-color: #a0aec0 transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+    #chat-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+    #chat-messages::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    #chat-messages::-webkit-scrollbar-thumb {
+      background-color: #a0aec0;
+      border-radius: 4px;
+    }
+    /* Remove textarea resize and prevent scroll */
+    textarea {
+      resize: none;
+      overflow-y: hidden;
+      line-height: 1.4rem;
+      max-height: 4.2rem; /* max 3 lines */
+      transition: box-shadow 0.3s ease;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+    textarea:focus {
+      scroll-margin-bottom: 300px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+    /* Message fade-in and slide-up animation */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .message-animate {
+      animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    /* Scroll to bottom button */
+    #scroll-to-bottom {
+      position: fixed;
+      bottom: 90px;
+      right: 1rem;
+      background-color: #000;
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+    }
+    #scroll-to-bottom.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #scroll-to-bottom:hover {
+      background-color: #333;
+    }
+  </style>
+ </head>
+ <body class="flex flex-col items-center min-h-screen p-4 text-black bg-[#FFFEFA]">
+  <header class="flex flex-col items-center space-y-6 mb-6 w-full max-w-4xl px-2 select-none">
+   <img alt="Black outline drawing of a Spartan helmet facing right with a crest on top" aria-hidden="true" class="w-24 sm:w-36 h-24 sm:h-36" decoding="async" draggable="false" loading="lazy" src="https://storage.googleapis.com/a1aa/image/83399b9e-f54e-4715-2e1c-b5724400b7a8.jpg"/>
+   <div class="flex items-center space-x-2">
+    <span class="text-3xl sm:text-4xl font-thin tracking-wide select-text">
+     ATHENA
+    </span>
+    <span class="text-white text-xl sm:text-2xl font-semibold w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-black select-text">
+     AI
+    </span>
+   </div>
+  </header>
+  <main aria-label="Chat Athena AI" class="w-full max-w-4xl bg-white rounded-3xl shadow-2xl flex flex-col h-[75vh] sm:h-[80vh] md:h-[85vh] overflow-hidden" role="main">
+   <header class="p-5 border-b border-gray-300 text-center font-semibold text-xl sm:text-2xl bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white tracking-wide select-none">
+    Chat Athena AI
+   </header>
+   <section aria-atomic="false" aria-live="polite" aria-relevant="additions" class="flex-1 overflow-y-auto p-6 space-y-5 bg-gradient-to-b from-gray-50 to-gray-100" id="chat-messages" role="log" tabindex="0">
+    <div class="flex justify-start">
+     <img alt="Athena AI avatar, stylized letter A in black circle on white background" aria-hidden="true" class="w-10 h-10 rounded-full mr-3 select-none flex-shrink-0" decoding="async" height="40" loading="lazy" src="https://storage.googleapis.com/a1aa/image/3c352f60-3b50-456d-4842-3a3fe2164c53.jpg" width="40"/>
+     <div class="max-w-[75%] px-5 py-3 rounded-2xl whitespace-pre-wrap break-words shadow bg-gradient-to-r from-gray-200 to-gray-300 text-gray-900 rounded-bl-none message-animate select-text">
+      Olá! Sou Athena AI, sua assistente jurídica preventiva. Como posso ajudar você hoje?
+     </div>
+    </div>
+   </section>
+   <form aria-label="Formulário de envio de mensagem para Athena AI" class="p-4 border-t border-gray-300 flex items-center gap-3 bg-white" id="chat-form" onsubmit="return false">
+    <textarea aria-label="Campo para digitar mensagem" aria-required="true" autocomplete="off" class="flex-1 p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-black transition-shadow text-gray-900 placeholder-gray-400 resize-none" id="user-input" maxlength="250" placeholder="Digite sua dúvida jurídica..." rows="1" spellcheck="false"></textarea>
+    <button aria-label="Enviar mensagem" class="bg-black text-white w-11 h-11 rounded-full flex items-center justify-center hover:bg-gray-900 active:scale-95 transition-transform shadow-md" type="submit">
+     <i class="fas fa-paper-plane text-lg">
+     </i>
+    </button>
+   </form>
+  </main>
+  <button aria-label="Rolar para a última mensagem" id="scroll-to-bottom" title="Rolar para a última mensagem">
+   <i class="fas fa-chevron-down">
+   </i>
+  </button>
+  <footer class="mt-6 text-center text-gray-600 text-sm max-w-4xl px-4 select-none">
+   © 2024 Athena AI - Consciência Jurídica Invisível
+  </footer>
+  <script>
+   const chatMessages = document.getElementById('chat-messages');
+    const chatForm = document.getElementById('chat-form');
+    const userInput = document.getElementById('user-input');
+    const scrollBtn = document.getElementById('scroll-to-bottom');
+
+    // Ajusta altura do textarea para evitar scroll interno e limitar a 3 linhas
+    function autoResizeTextarea() {
+      userInput.style.height = 'auto';
+      const maxHeight = 4.2 * 16; // 4.2rem * 16px base font size = 67.2px max height
+      userInput.style.height = Math.min(userInput.scrollHeight, maxHeight) + 'px';
+    }
+
+    // Cria elemento de mensagem no chat com animação
+    function createMessageElement(text, sender = 'athena') {
+      const messageWrapper = document.createElement('div');
+      messageWrapper.classList.add('flex', sender === 'user' ? 'justify-end' : 'justify-start');
+      messageWrapper.classList.add('items-end');
+
+      if (sender === 'athena') {
+        const avatar = document.createElement('img');
+        avatar.src = 'https://placehold.co/40x40/png?text=A';
+        avatar.alt = 'Athena AI avatar, stylized letter A in black circle on white background';
+        avatar.className = 'w-10 h-10 rounded-full mr-3 select-none flex-shrink-0';
+        avatar.loading = 'lazy';
+        avatar.decoding = 'async';
+        avatar.setAttribute('aria-hidden', 'true');
+        messageWrapper.appendChild(avatar);
+      }
+
+      const messageBubble = document.createElement('div');
+      messageBubble.classList.add(
+        'max-w-[75%]',
+        'px-5',
+        'py-3',
+        'rounded-2xl',
+        'whitespace-pre-wrap',
+        'break-words',
+        'shadow',
+        'message-animate',
+        'select-text'
+      );
+      if (sender === 'user') {
+        messageBubble.classList.add('bg-gradient-to-r', 'from-gray-900', 'to-black', 'text-white', 'rounded-br-none');
+      } else {
+        messageBubble.classList.add('bg-gradient-to-r', 'from-gray-200', 'to-gray-300', 'text-gray-900', 'rounded-bl-none');
+      }
+      messageBubble.textContent = text;
+
+      messageWrapper.appendChild(messageBubble);
+      return messageWrapper;
+    }
+
+    // Respostas simuladas focadas no tema jurídico preventivo
+    function getAthenaResponse(question) {
+      const q = question.toLowerCase();
+
+      if (q.includes('contrato') && q.includes('riscos')) {
+        return (
+          'Detectei possíveis cláusulas abusivas no seu contrato. ' +
+          'Imagine que você assina isso: daqui a 2 anos, seu patrimônio pode estar comprometido. ' +
+          'Recomendo revisar esses pontos com atenção para evitar prejuízos futuros.'
+        );
+      }
+      if (q.includes('decisão') && (q.includes('rápida') || q.includes('velocidade'))) {
+        return (
+          'Você está priorizando velocidade em vez de segurança? ' +
+          'Tomar decisões jurídicas apressadas pode gerar riscos desnecessários. ' +
+          'Vamos analisar juntos as consequências para garantir escolhas estratégicas.'
+        );
+      }
+      if (q.includes('perfil')) {
+        return (
+          'Seu Perfil Legal Cognitivo indica que você tende a ser proativo, ' +
+          'o que é ótimo para antecipar riscos e tomar decisões fundamentadas.'
+        );
+      }
+      if (q.includes('ajuda') || q.includes('suporte')) {
+        return (
+          'Estou aqui para ajudar a identificar riscos jurídicos e orientar suas decisões. ' +
+          'Pergunte sobre contratos, direitos trabalhistas, finanças ou qualquer dúvida legal.'
+        );
+      }
+      if (q.includes('cláusula') || q.includes('contrato')) {
+        return (
+          'Posso ajudar a identificar cláusulas abusivas ou riscos ocultos em seus contratos. ' +
+          'Quer que eu analise algum documento específico?'
+        );
+      }
+      if (q.includes('obrigado') || q.includes('valeu')) {
+        return 'De nada! Estou sempre aqui para ajudar você a tomar decisões jurídicas mais seguras.';
+      }
+      if (q.trim() === '') {
+        return 'Por favor, digite sua dúvida para que eu possa ajudar.';
+      }
+
+      return (
+        'Interessante! Estou aqui para ajudar a antecipar riscos jurídicos e orientar suas decisões. ' +
+        'Pode me perguntar sobre contratos, direitos, finanças ou dúvidas legais.'
+      );
+    }
+
+    // Rola o chat para o fim
+    function scrollToBottom() {
+      chatMessages.scrollTo({
+        top: chatMessages.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+
+    // Verifica se o scroll está no fim para esconder ou mostrar botão
+    function checkScrollPosition() {
+      const threshold = 50;
+      const atBottom = chatMessages.scrollHeight - chatMessages.scrollTop - chatMessages.clientHeight < threshold;
+      if (atBottom) {
+        scrollBtn.classList.remove('visible');
+      } else {
+        scrollBtn.classList.add('visible');
+      }
+    }
+
+    // Envia mensagem e processa resposta com animação suave
+    function sendMessage() {
+      const question = userInput.value.trim();
+      if (!question) return;
+
+      // Adiciona mensagem do usuário
+      const userMessage = createMessageElement(question, 'user');
+      chatMessages.appendChild(userMessage);
+      scrollToBottom();
+
+      // Limpa input e ajusta altura
+      userInput.value = '';
+      autoResizeTextarea();
+
+      // Mostra "Pensando..." com animação
+      const thinkingMessage = createMessageElement('Pensando...', 'athena');
+      chatMessages.appendChild(thinkingMessage);
+      scrollToBottom();
+
+      // Simula resposta com delay e animação
+      setTimeout(() => {
+        chatMessages.removeChild(thinkingMessage);
+        const answer = getAthenaResponse(question);
+        const athenaMessage = createMessageElement(answer, 'athena');
+        chatMessages.appendChild(athenaMessage);
+        scrollToBottom();
+      }, 1200);
+    }
+
+    // Eventos
+    userInput.addEventListener('input', autoResizeTextarea);
+
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      sendMessage();
+    });
+
+    userInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    chatMessages.addEventListener('scroll', checkScrollPosition);
+
+    scrollBtn.addEventListener('click', () => {
+      scrollToBottom();
+      scrollBtn.classList.remove('visible');
+      userInput.focus();
+    });
+
+    chatMessages.addEventListener('DOMNodeInserted', () => {
+      scrollToBottom();
+      checkScrollPosition();
+      chatMessages.focus();
+    });
+
+    // Inicializa altura do textarea e botão scroll
+    autoResizeTextarea();
+    checkScrollPosition();
+  </script>
+ </body>
+</html>
